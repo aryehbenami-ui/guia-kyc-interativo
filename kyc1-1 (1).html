@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guia Técnico KYC — Local</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa7b2;
+      --accent:#7dd3fc;
+      --accent-2:#60a5fa;
+      --glass: rgba(255,255,255,0.03);
+      --highlight: #fffb8f;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      padding:0;
+      background: linear-gradient(180deg,#071023 0%, #0b1220 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:28px auto;
+      display:grid;
+      grid-template-columns: 260px 1fr;
+      gap:20px;
+      padding:20px;
+    }
+
+    /* Sidebar */
+    .sidebar{
+      background:var(--card);
+      padding:16px;
+      border-radius:10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      position:sticky;
+      top:20px;
+      height:calc(100vh - 56px);
+      overflow:auto;
+    }
+    .brand{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-bottom:14px;
+    }
+    .logo{
+      width:42px;height:42px;border-radius:8px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#04212b;font-weight:700;
+      font-size:18px;
+    }
+    .brand h1{font-size:14px;margin:0}
+    .searchBox{
+      margin-bottom:12px;
+    }
+
+    /* Main */
+    .main{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:22px;
+      border-radius:10px;
+      min-height:70vh;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.45);
+      overflow:auto;
+    }
+
+    .topSearch{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    input[type="search"]{
+      flex:1;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.05);
+      background:var(--glass);
+      color:var(--muted);
+      outline:none;
+      font-size:14px;
+      color:var(--accent);
+    }
+    input[type="search"]::placeholder{color:#6b7f8c}
+    .btn{
+      padding:9px 12px;border-radius:8px;border:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#012;cursor:pointer;
+      font-weight:600;
+    }
+    .btn.secondary{
+      background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04);
+    }
+
+    .meta{
+      display:flex;gap:12px;align-items:center;margin-bottom:12px;color:var(--muted);font-size:13px;
+    }
+
+    h2.sectionTitle{
+      font-size:18px;margin:10px 0 8px;display:flex;gap:10px;align-items:center;
+    }
+    p.lead{color:var(--muted);margin-top:0;margin-bottom:12px}
+    section.card{
+      background: rgba(255,255,255,0.02);
+      padding:14px;border-radius:8px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.02);
+    }
+    pre{background:#071427;padding:12px;border-radius:6px;font-size:13px;overflow:auto;color:#bfeafc}
+    table{width:100%;border-collapse:collapse;margin-bottom:12px}
+    table th, table td{padding:8px;text-align:left;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:13px;color:var(--muted)}
+    .hidden{display:none !important}
+    .match-highlight{background:linear-gradient(90deg, rgba(255,255,143,0.12), rgba(255,255,143,0.06));padding:0 3px;border-radius:3px;color:var(--highlight);font-weight:600}
+
+    /* index links */
+    .indexList{list-style:none;padding:0;margin:6px 0 0}
+    .indexList li{margin:6px 0}
+    .indexList a{color:var(--muted);text-decoration:none;font-size:14px}
+    .indexList a:hover{color:var(--accent)}
+
+    /* footer small */
+    .footer{font-size:12px;color:var(--muted);margin-top:10px}
+
+    /* highlight animation when show result */
+    .reveal{animation:fadeIn 240ms ease-out both}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+    /* responsive */
+    @media (max-width:980px){
+      .container{grid-template-columns:1fr; padding:12px}
+      .sidebar{position:relative;height:auto;order:2}
+      .main{order:1}
+    }
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: rgba(255,255,255,0.05);
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #dce9f5;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.faq-question::after {
+  content: "+";
+  float: right;
+  font-weight: bold;
+}
+
+.faq-item.open .faq-question::after {
+  content: "-";
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease;
+  padding-left: 4px;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 800px; /* plenty of room */
+  margin-top: 6px;
+}
+
+.tooltip {
+  position: relative;
+  cursor: help;
+}
+
+.tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+#conceitos {
+  display: none !important;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar" aria-label="Navegação do Guia">
+      <div class="brand">
+        <div class="logo">KYC</div>
+        <div>
+          <h1>Guia Técnico KYC</h1>
+          <div style="font-size:12px;color:var(--muted)">Local — Versão 1.1</div>
+        </div>
+      </div>
+
+      <div class="searchBox">
+        <input id="sideSearch" placeholder="Pesquisar (atalho: /)" aria-label="Pesquisar no guia" />
+      </div>
+
+      <nav>
+        <strong style="color:var(--muted);font-size:13px">Índice</strong>
+        <ul class="indexList" id="indexList">
+          <li><a href="#intro">Introdução</a></li>
+          
+          <li><a href="#fluxo">Fluxo Padrão de Análise</a></li>
+          <li><a href="#casos">Casos Reais e Soluções</a></li>
+          <li><a href="#prompt">Prompt Técnico</a></li>
+          
+          <li><a href="#proximos">Situações</a></li>
+	  <li><a href="#faq"">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer">
+       
+        <div style="margin-top:6px">Uso interno • Salve localmente</div>
+      </div>
+    </aside>
+
+    <main class="main" id="mainContent">
+      <div class="topSearch">
+        <input type="search" id="globalSearch" placeholder="Digite para buscar (ex: 'liveness', 'face match', '500') — pressione Esc para limpar" />
+        <button class="btn" id="clearBtn" title="Limpar busca">Limpar</button>
+        <button class="btn secondary" id="showAllBtn" title="Mostrar tudo">Mostrar tudo</button>
+      </div>
+
+      <div class="meta">
+        <div>Guia colaborativo para análise de casos KYC</div>
+      </div>
+
+      <!-- Content sections -- each section has data-section attribute for searching -->
+      <section id="intro" class="card" data-section>
+        <h2 class="sectionTitle">🧠 Introdução</h2>
+        <p class="lead">Registros de casos reais em processos de verificação de identidade (KYC).</p>
+      </section>
+
+      <section id="conceitos" class="card" data-section>
+        <h2 class="sectionTitle">📘 Dicionário</h2>
+        <table>
+          <thead><tr><th>Termo</th><th>Significado</th></tr></thead>
+          <tbody">
+            <tr><td><strong>KYC</strong></td><td>Verificação da identidade do usuário</td></tr>
+            <tr><td><strong>Onboarding</strong></td><td>Envio de documentos e dados iniciais</td></tr>
+            <tr><td><strong>Liveness</strong></td><td>Prova de vida para confirmar pessoa real</td></tr>
+            <tr><td><strong>Face Match</strong></td><td>Comparação selfie x documento</td></tr>
+            <tr><td><strong>Threshold</strong></td><td>Limite mínimo de score para aprovar</td></tr>
+            <tr><td><strong>OCR</strong></td><td>Leitura automática de texto no documento</td></tr>
+            <tr><td><strong>Spoof</strong></td><td>Detecção de tentativa de fraude visual</td></tr>
+            <tr><td><strong>Session ID</strong></td><td>Identificador único da tentativa</td></tr>
+	    <tr><td><strong>Handshake</strong></td><td>Processo de comunicação entre dois dispositivos em uma rede</td></tr>
+	    <tr><td><strong>Timeout</strong></td><td>Limite de tempo estabelecido para execução da operação</td></tr>
+	    <tr><td><strong>Request</strong></td><td>Mensagem enviada pelo sistema ao servidor</td></tr>
+	    <tr><td><strong>Response</strong></td><td>Resposta retornada pelo servidor</td></tr>
+	    <tr><td><strong>WebRTC</strong></td><td>Tecnologia usada para acessar a câmera e microfone do dispositivo em tempo real</td></tr>
+	    <tr><td><strong>Webhook</strong></td><td>Mensagem automática que o sistema envia quando o evento ocorre</td></tr>
+	    <tr><td><strong>Endpoint </strong></td><td>Endereço de destino</td></tr>
+
+          </tbody>
+        </table>
+      </section>
+
+      <section id="fluxo" class="card" data-section>
+        <h2 class="sectionTitle">⚙️ Fluxo Padrão de Análise</h2>
+        <ol>
+          <li><strong>Identificar o ponto de falha</strong> — documento, selfie, face match, etc.</li>
+          <li><strong>Coletar informações</strong> — status code, mensagem, etc.</li>
+          <li><strong>Verificar o ambiente do usuário</strong> — dispositivo, navegador, permissões e condições.</li>
+          <li><strong>Classificar a falha</strong> — validação, técnica ou segurança.</li>
+          <li><strong>Registrar o caso</strong> — tipo, causa e ação recomendada.</li>
+        </ol>
+      </section>
+
+      <section id="casos" class="card" data-section>
+        <h2 class="sectionTitle">🔍 Casos Reais e Soluções</h2>
+
+        <article data-section>
+          <h3>🧾 Caso 1 — Documento ilegível / <span class="tooltip" data-tooltip="Leitura automática de texto no documento">OCR</span> falhou</h3>
+          <p><strong>Sintoma:</strong> OCR failed / document type unknown.</p>
+          <p><strong>Causa:</strong> Reflexo, corte da imagem, baixa iluminação ou baixa qualidade da imagem.</p>
+          <p><strong>Ação:</strong> Solicitar nova foto com fundo neutro, local bem iluminado, sem sombras ou reflexos e documento centralizado.</p>
+          <pre>Exemplo: Usuário enviou CNH com reflexo do flash; após reenviar em luz natural, <span title="Leitura automática de texto no documento">OCR</span> funcionou.</pre>
+        </article>
+
+        <article data-section>
+          <h3>🤳 Caso 2 — <span class="tooltip" data-tooltip="Prova de vida para confirmar pessoa real">Liveness</span> falhou / rosto não detectado</h3>
+          <p><strong>Sintoma:</strong> Liveness failed / face not detected.</p>
+          <p><strong>Causa:</strong> Rosto fora do enquadramento, boné ou baixa iluminação.</p>
+          <p><strong>Ação:</strong> Instruir a buscar um local melhor iluminado, centralizar o rosto, remover acessórios e refazer o fluxo.</p>
+        </article>
+
+        <article data-section>
+          <h3>🪞 Caso 3 — <span class="tooltip" data-tooltip="Comparação selfie x documento">Face Match</span> abaixo do <span class="tooltip" data-tooltip="Limite mínimo de score para aprovar">threshold</span></h3>
+          <p><strong>Sintoma:</strong> Score 0.69 / Threshold 0.75.</p>
+          <p><strong>Causa:</strong> Foto do documento antiga ou selfie com ângulo diferente.</p>
+          <p><strong>Ação:</strong> Solicitar nova selfie em local melhor iluminado, sem acessórios, sombras ou reflexos. Caso persista, reportar/consultar junto ao provedor.</p>
+        </article>
+
+        <article data-section>
+          <h3>⚙️ Caso 4 — Erro técnico na integração</h3>
+          <p><strong>Sintoma:</strong> 500 Internal Server Error / Timeout.</p>
+          <p><strong>Causa:</strong> Instabilidade do provedor ou endpoint sobrecarregado.</p>
+          <p><strong>Ação:</strong> Limpeza de cache e nova tentativa, verificar logs e, se persistir, verificar necessidade de regsitrar ticket.</p>
+        </article>
+
+        <article data-section>
+          <h3>🕵️ Caso 5 — Tentativa de spoof detectada</h3>
+          <p><strong>Sintoma:</strong> spoof_detected / baixa profundidade detectada.</p>
+          <p><strong>Causa:</strong> Imagem de tela ou máscara.</p>
+          <p><strong>Ação:</strong> Reportar tentativa e encaminhar ao time antifraude. Não comunicar ao usuário como "fraude" diretamente.</p>
+        </article>
+
+        <article data-section>
+          <h3>🧠 Caso 6 — Falha de webhook</h3>
+          <p><strong>Sintoma:</strong> Callback não recebido após aprovação. <pre>Exemplo: Aprovado na base do provedor e processando/expirado ou reprovado no backoffice da brand</pre></p>
+          <p><strong>Causa:</strong> Endpoint interno indisponível (404/500).</p>
+          <p><strong>Ação:</strong> Limpar cache e testar com nova sessão. Caso persista, reportar/verificar junto ao provedor</p>
+        </article>
+
+      </section>
+
+      <section id="prompt" class="card" data-section>
+        <h2 class="sectionTitle">🤖 Prompt Para Avaliar Cenário</h2>
+        <pre>
+# Considerando os casos de KYC que serão relatados abaixo,
+# execute a seguinte lógica de processamento:
+
+# 1. Ao receber um relato de caso de KYC:
+#    - Analise tecnicamente o ponto de falha.
+
+# 2. Gere como saída, obrigatoriamente, três blocos:
+#    (1) MOTIVO_TECNICO_REPROVACAO
+#        - Descrever o erro, inconsistência ou causa raiz
+#          com terminologia técnica e objetiva.
+
+#    (2) EXPLICACAO_SIMPLIFICADA_CLIENTE
+#        - Traduzir o problema técnico para uma linguagem
+#          simples, clara e compreensível para o cliente final.
+
+#    (3) ACOES_RECOMENDADAS
+#        - Orientar quais passos devem ser tomados para
+#          correção, revisão ou reenvio do material.
+
+# 3. Não gerar conclusões antes do recebimento dos relatos.
+# 4. Apenas aguardar: não iniciar análise até novo comando.
+# -----------------------------------------------------------
+
+# STATUS: AGUARDANDO_RELATOS
+        </pre>
+      
+      
+
+      <section id="proximos" class="card" data-section>
+        
+	<h3 class="sectionTitle">Documento emitido quando ainda era menor de idade:</h3>
+        
+          <p>Reprovação no de face match causada por alta discrepância morfológica entre a foto do documento antigo e a selfie atual, impossibilitando o motor biométrico de validar pontos estruturais do rosto (proporções faciais, distância entre olhos, mandíbula, etc.). Documento emitido em período de menor idade tende a gerar baixo índice de similaridade na comparação.</p>
+
+<br><p>Ações Recomendadas para o usuário:</p>
+
+<li>Enviar documento atualizado, preferencialmente com foto recente.</li>
+
+<li>Certificar-se de que a selfie seja feita em boa iluminação, rosto centralizado e sem acessórios que dificultem a comparação.</li>
+
+<li>Repetir a validação após atualizar o documento ou melhorar as condições da captura da selfie.</li>
+	<hr>
+
+	<h3 class="sectionTitle">Posicionamento inadequado/texturas no plano de fundo:</h3>
+	<p>Falha na validação de liveness causada por inadequado enquadramento biométrico, incluindo orientação incorreta do usuário (posição deitado) e ruído visual no background devido a cores/texturas que interferem nos algoritmos de detecção facial.</p>
+
+<br><p>Ações Recomendadas para o usuário:</p>
+<li>Refaça o liveness sentado ou em pé, mantendo o rosto centralizado.</li>
+
+<li>Utilize um ambiente com fundo neutro, sem estampas, objetos ou cores muito fortes.</li>
+
+<li>Garanta boa iluminação e mantenha o rosto totalmente visível.</li>
+
+<li>Siga exatamente as instruções do aplicativo durante a captura.</li>
+	<hr>
+
+	<h3 class="sectionTitle">Registro de reprovação no BKO interno, sem logs de execução junto ao fornecedor:</h3>
+	<p>Provável falha de inicialização da sessão, timeout ou erro de handshake entre o front e a API do fornecedor antes da criação do session ID. Recomendar nova tentativa com cache limpo e rede estável; caso persista, coletar logs de request/response da sessão para análise junto ao provedor.<br>
+	<br><p>Ações Recomendadas para o usuário:</p>
+	<li>Tentar novamente a verificação de identidade, garantindo boa conexão à internet;</li>
+	<li>Fechar e reabrir o aplicativo antes de iniciar uma nova tentativa.</li>
+	<li>Limpar o cache do navegador/app antes de uma nova tentativa.</li>
+	<li>Permitir acesso à câmera e garantir boa iluminação e enquadramento.</li><br>
+
+<pre>Obs: A reprovação local, sem o envio do request ao provedor, <br>pode acontecer em casos de dados divergentes ou na falta de dados no cadastro <br>(se for o caso, verificar a necessidade de atualização de dados).</pre> </p>
+<hr>
+
+
+	<h3 class="sectionTitle">Não foi possível validar sua captura, por favor tente novamente:</h3>
+	<p>Validação da captura falhou por incapacidade de extrair/validar os dados necessários da imagem enviada.</p>
+	<p><b>Causas técnicas prováveis:</b><br>
+		Imagem ilegível (desfoque, baixa resolução ou compressão excessiva) impedindo OCR / leitura de campos.
+		<br>Reflexo ou iluminação que bloqueia caracteres do documento ou rosto.
+		<br>Captura parcial (documento fora do enquadramento, cantos cortados) — dados ausentes.
+		<br>Arquivo em formato, tamanho ou codificação não suportados (payload corrompido).
+		<br>Erro no cliente (permissões de câmera negadas, SDK não iniciado) ou timeout na submissão.</p>
+	
+	<br><p>Ações Recomendadas para o usuário:</p>
+	<li>Refaça a captura mantendo a câmera firme e centralize todo o documento na tela.</li>
+	<li>Garanta boa iluminação sem reflexos, incline levemente o documento se aparecer brilho.</li>
+	<li>Não use filtros ou edições; envie a foto original em alta resolução.</li>
+	<li>Para selfie: olhe para a câmera, mantenha o rosto visível, sem óculos escuros ou máscara; siga qualquer instrução de movimentação se houver (piscar/virar a cabeça).</li>
+	<li>Verifique permissões de câmera no app/navegador e permita o acesso antes de tentar.</li><br>
+
+	<hr>
+
+	<h3 class="sectionTitle">Erro na Câm. no Envio da Selfie:</h3>
+	<p>Indica falha na captura ou transmissão do frame do liveness <span class="tooltip" data-tooltip="Kit de desenvolvimento de software">SDK</span>, possível bloqueio de câmera, permissão negada, interrupção de stream WebRTC ou falha de upload no endpoint do fornecedor.</p>
+	<br><p>Ações Recomendadas para o usuário:</p>
+	<li>Feche o aplicativo/navegador e abra novamente antes de tentar a selfie.</li>
+	<li>Permita o acesso à câmera nas configurações do celular ou do navegador.</li>
+	<li>Feche outros aplicativos que possam estar usando a câmera (WhatsApp, Instagram, câmera nativa).</li>
+	<li>Reinicie o celular, caso a câmera continue travada.</li>
+
+
+          
+        
+      </section>
+
+<section id="faq" class="card" data-section>
+  <h2 class="sectionTitle">💬FAQ</h2>
+ 
+
+  <!-- FAQ Item -->
+  <article class="faq-item" data-section>
+    <button class="faq-question">📷 A câmera não habilita ou não aparece no navegador <span class="faq-toggle">+</span></button>
+    <div class="faq-answer">
+      <p><strong>Causas possíveis:</strong></p>
+      <ul>
+        <li>Permissão de câmera negada pelo navegador.</li>
+        <li>Outro app usando a câmera (Teams, Zoom, WhatsApp Web).</li>
+        <li>Extensões de privacidade bloqueando hardware.</li>
+        <li>Bloqueio de permissão no iOS (Safari).</li>
+      </ul>
+      <p><strong>Soluções:</strong></p>
+      <ul>
+        <li>Fechar apps que usam câmera.</li>
+        <li>Verificar permissão do navegador.</li>
+        <li>No iPhone: Ajustes > Safari > Câmera > Permitir.</li>
+	<li>No Android: Configurações > Apps > Chrome > Permissões do app > Câmera > Permitir.</li>
+        
+      </ul>
+    </div>
+  </article>
+
+  <article class="faq-item" data-section>
+    <button class="faq-question">🤳 O sistema trava ao iniciar o liveness <span class="faq-toggle">+</span></button>
+    <div class="faq-answer">
+      <p><strong>Causas:</strong> rede instável, cache corrompido, Safari antigo.</p>
+      <p><strong>Soluções:</strong> limpar cache, evitar aba anônima, tentar após 2–3 min.</p>
+    </div>
+  </article>
+
+  <article class="faq-item" data-section>
+    <button class="faq-question">🧾 O documento não é reconhecido / aparece como “desconhecido” <span class="faq-toggle">+</span></button>
+    <div class="faq-answer">
+      <p><strong>Causas:</strong> reflexo, documento fora do quadro, HEIC, print/scanner.</p>
+      <p><strong>Soluções:</strong> luz natural, fundo neutro, câmera limpa, pedir JPG/PNG.</p>
+    </div>
+  </article>
+
+  <article class="faq-item" data-section>
+    <button class="faq-question">🧠 A análise fica pendente por muito tempo <span class="faq-toggle">+</span></button>
+    <div class="faq-answer">
+      <p><strong>Causas:</strong> fila do fornecedor, <span title="Mensagem automática que o sistema envia quando o evento ocorre">webhook</span> travado, integração do BKO.</p>
+      <p><strong>Soluções:</strong> checar painel do provedor, confirmar status manual e reportar.</p>
+    </div>
+  </article>
+
+  <article class="faq-item" data-section>
+    <button class="faq-question">💻 A verificação trava na tela de carregamento (loop loading) <span class="faq-toggle">+</span></button>
+    <div class="faq-answer">
+      <p><strong>Causas:</strong> <span title="Limite de tempo estabelecido para execução da operação">timeout</span>, token expirado, rede instável.</p>
+      <p><strong>Soluções:</strong> limpar cache, reiniciar fluxo, testar em outra rede (wi-fi ou dados móveis).</p>
+    </div>
+  </article>
+
+ 
+
+<article class="faq-item" data-section>
+    <button class="faq-question">📷 Falhas no foco ou não consegue capturar o rosto <span class="faq-toggle">+</span></button>
+    <div class="faq-answer">
+      <p><strong>Causas:</strong> Falha de hardware da câmera ou baixa qualidade.</p>
+      <p><strong>Soluções:</strong> Realizar o processo em outro dispositivo com melhor qualidade de imagem, além de garantir boa iluminação no ambiente, evitando luz de fundo ou reflexos diretos no rosto..</p>
+    </div>
+  </article>
+
+<article class="faq-item" data-section>
+  <button class="faq-question">⚙️ Falha no carregamento do módulo de liveness <span class="tooltip" data-tooltip="Kit de desenvolvimento de software">SDK</span> (tela "branca/preta") <span class="faq-toggle">+</span></button>
+  <div class="faq-answer">
+    <p><strong>Causas:</strong> Pode ocorrer por erro de inicialização do componente <span title="Tecnologia usada para acessar a câmera em tempo real">WebRTC</span>, bloqueio de acesso à câmera pelo navegador, <span class="tooltip" data-tooltip="Limite de tempo estabelecido para executar a operação">timeout</span> de recursos ou conflito de cache local.</p>
+    <p><strong>Soluções:</strong> Limpar o cache do navegador, realizar o teste em uma aba anônima, trocar a conexão de rede (para uma conexão wi-fi) e verificar se as permissões de uso da câmera estão habilitadas. Caso persista, reinicie o navegador ou tente em outro dispositivo.</p>
+  </div>
+</article>
+
+
+
+</section>
+
+
+    </main>
+  </div>
+
+  <script>
+    // Utilities
+    const qs = s => document.querySelector(s);
+    const qsa = s => Array.from(document.querySelectorAll(s));
+    const globalSearch = qs('#globalSearch');
+    const sideSearch = qs('#sideSearch');
+    const clearBtn = qs('#clearBtn');
+    const showAllBtn = qs('#showAllBtn');
+    const sections = qsa('[data-section]');
+    const indexList = qs('#indexList');
+
+    // Focus shortcut: press / to focus search
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/') {
+        if (document.activeElement.tagName.toLowerCase() !== 'input' && document.activeElement.tagName.toLowerCase() !== 'textarea') {
+          e.preventDefault();
+          globalSearch.focus();
+        }
+      }
+      if (e.key === 'Escape') {
+        clearSearch();
+      }
+    });
+
+    // Sync side search with top search
+    sideSearch.addEventListener('input', (ev) => {
+      globalSearch.value = ev.target.value;
+      handleSearch(ev.target.value);
+    });
+
+    globalSearch.addEventListener('input', (ev) => {
+      sideSearch.value = ev.target.value;
+      handleSearch(ev.target.value);
+    });
+
+    clearBtn.addEventListener('click', () => { clearSearch(); });
+
+    showAllBtn.addEventListener('click', () => {
+      globalSearch.value = '';
+      sideSearch.value = '';
+      handleSearch('');
+      // scroll to top main area
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    function clearSearch() {
+      globalSearch.value = '';
+      sideSearch.value = '';
+      handleSearch('');
+      globalSearch.focus();
+    }
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function highlightMatches(node, query) {
+      // Remove previous highlights
+      const prev = node.querySelectorAll('.match-highlight');
+      prev.forEach(p => {
+        const parent = p.parentNode;
+        parent.replaceChild(document.createTextNode(p.textContent), p);
+        parent.normalize();
+      });
+
+      if (!query) return;
+
+      const regex = new RegExp('(' + escapeRegExp(query) + ')', 'ig');
+
+      // Walk text nodes and replace matches
+      const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null, false);
+      const textNodes = [];
+      while(walker.nextNode()) textNodes.push(walker.currentNode);
+
+      textNodes.forEach(tn => {
+        if (!tn.nodeValue.trim()) return;
+        if (regex.test(tn.nodeValue)) {
+          const span = document.createElement('span');
+          span.innerHTML = tn.nodeValue.replace(regex, '<span class="match-highlight">$1</span>');
+          tn.parentNode.replaceChild(span, tn);
+        }
+      });
+    }
+
+    function handleSearch(query) {
+      const q = (query||'').trim().toLowerCase();
+
+      // If empty - show all
+      if (!q) {
+        sections.forEach(s => {
+          s.classList.remove('hidden');
+          s.classList.add('reveal');
+          // remove highlights
+          const prev = s.querySelectorAll('.match-highlight');
+          prev.forEach(p => {
+            const parent = p.parentNode;
+            parent.replaceChild(document.createTextNode(p.textContent), p);
+            parent.normalize();
+          });
+        });
+        updateIndexVisibility('');
+        return;
+      }
+
+      // For each section, check if includes query in textContent or id/title
+      sections.forEach(s => {
+        const text = (s.textContent || s.innerText || '').toLowerCase();
+        const id = s.id || '';
+        const title = (s.querySelector('h2, h3') ? (s.querySelector('h2, h3').innerText || '') : '').toLowerCase();
+        const match = text.includes(q) || id.includes(q) || title.includes(q);
+
+        if (match) {
+          s.classList.remove('hidden');
+          s.classList.add('reveal');
+          // highlight inside visible section
+          highlightMatches(s, q);
+          // scroll first matched section into view
+        } else {
+          s.classList.add('hidden');
+          // remove previous highlights (if any)
+          const prev = s.querySelectorAll('.match-highlight');
+          prev.forEach(p => {
+            const parent = p.parentNode;
+            parent.replaceChild(document.createTextNode(p.textContent), p);
+            parent.normalize();
+          });
+        }
+      });
+
+      updateIndexVisibility(q);
+
+      // scroll to first visible section
+      const first = document.querySelector('[data-section]:not(.hidden)');
+      if (first) first.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    function updateIndexVisibility(q) {
+      // hide index entries that don't match
+      const links = Array.from(indexList.querySelectorAll('a'));
+      links.forEach(a => {
+        const targetId = a.getAttribute('href').slice(1);
+        const section = document.getElementById(targetId);
+        if (!section) return;
+        const text = (section.textContent || '').toLowerCase();
+        if (!q) {
+          a.parentElement.style.display = '';
+        } else {
+          a.parentElement.style.display = text.includes(q) ? '' : 'none';
+        }
+      });
+    }
+
+    // Initialize: attach click to index to smooth scroll and focus highlight removal
+    indexList.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+          // briefly flash
+          el.classList.add('reveal');
+          setTimeout(()=>el.classList.remove('reveal'), 700);
+        }
+      });
+    });
+
+    // Accessibility: focus search on load
+    // globalSearch.focus();
+
+// FAQ accordion toggle
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const parent = btn.parentElement;
+    parent.classList.toggle("open");
+  });
+});
+
+  </script>
+
+<script>
+/* ============================
+   Tooltips automáticos (case-insensitive)
+   ============================ */
+
+// 1. Ler dicionário
+const dict = {};
+document.querySelectorAll("#conceitos table tbody tr").forEach(row => {
+  const term = row.children[0].innerText.trim();
+  const meaning = row.children[1].innerText.trim();
+  dict[term] = meaning;
+});
+
+// Cria um array de termos ordenados por tamanho (evita conflito entre termos)
+const terms = Object.keys(dict).sort((a, b) => b.length - a.length);
+
+// 2. Função para processar um texto e envolver termos
+function processTextNode(node) {
+  let text = node.nodeValue;
+  let replaced = false;
+
+  terms.forEach(term => {
+    const meaning = dict[term];
+
+    // regex case-insensitive, word-boundaries
+    const regex = new RegExp(`\\b(${term})\\b`, "gi");
+
+    if (regex.test(text)) {
+      text = text.replace(regex, match => {
+        // match = forma original (maiúsculas/minúsculas)
+        return `<span class="tooltip" data-tooltip="${meaning}">${match}</span>`;
+      });
+      replaced = true;
+    }
+  });
+
+  if (replaced) {
+    const span = document.createElement("span");
+    span.innerHTML = text;
+    node.replaceWith(span);
+  }
+}
+
+// 3. Evita processar o próprio dicionário
+function applyTooltips() {
+  const contentNodes = document.querySelectorAll("main *:not(#conceitos *)");
+
+  contentNodes.forEach(el => {
+    // processa apenas nós de texto
+    el.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        processTextNode(node);
+      }
+    });
+  });
+}
+
+// 4. Aplicar tooltips após carregamento
+applyTooltips();
+
+</script>
+
+
+</body>
+</html>
