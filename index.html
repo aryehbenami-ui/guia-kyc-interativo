@@ -202,6 +202,20 @@
 		  paddind: 0;
 		  margin: 0;
 	  }
+	  .lista-limpa li::before {
+		  font-family: "bootstrap-icons"; 
+    content: "\F114"; /* bi-arrow-bar-right */
+    font-size: 1rem;
+    margin-right: 8px;
+
+    display: inline-block;
+    width: 1.2em;
+    vertical-align: middle;
+
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+	  }
   </style>
 </head>
 <body>
@@ -379,11 +393,11 @@
 
 <br><p>Ações Recomendadas para o usuário:</p>
 <ul class="lista-limpa">
-<li><i class="bi bi-arrow-bar-right"></i> Enviar documento atualizado, preferencialmente com foto recente.</li>
+<li>Enviar documento atualizado, preferencialmente com foto recente.</li>
 
-<li><i class="bi bi-arrow-bar-right"></i> Certificar-se de que a selfie seja feita em boa iluminação, rosto centralizado e sem acessórios que dificultem a comparação.</li>
+<li>Certificar-se de que a selfie seja feita em boa iluminação, rosto centralizado e sem acessórios que dificultem a comparação.</li>
 
-<li><i class="bi bi-arrow-bar-right"></i> Repetir a validação após atualizar o documento ou melhorar as condições da captura da selfie.</li></ul>
+<li>Repetir a validação após atualizar o documento ou melhorar as condições da captura da selfie.</li></ul>
 	
 	  </section>
 		<section id="proximos" class="card" data-section>
@@ -392,13 +406,13 @@
 
 <br><p>Ações Recomendadas para o usuário:</p>
 			<ul class="lista-limpa">
-<li><i class="bi bi-arrow-bar-right"></i> Refaça o liveness sentado ou em pé, mantendo o rosto centralizado.</li>
+<li>Refaça o liveness sentado ou em pé, mantendo o rosto centralizado.</li>
 
-<li><i class="bi bi-arrow-bar-right"></i> Utilize um ambiente com fundo neutro, sem estampas, objetos ou cores muito fortes.</li>
+<li>Utilize um ambiente com fundo neutro, sem estampas, objetos ou cores muito fortes.</li>
 
-<li><i class="bi bi-arrow-bar-right"></i> Garanta boa iluminação e mantenha o rosto totalmente visível.</li>
+<li>Garanta boa iluminação e mantenha o rosto totalmente visível.</li>
 
-<li><i class="bi bi-arrow-bar-right"></i> Siga exatamente as instruções do aplicativo durante a captura.</li></ul>
+<li>Siga exatamente as instruções do aplicativo durante a captura.</li></ul>
 	
 		</section>
 		<section id="proximos" class="card" data-section>
@@ -406,10 +420,10 @@
 	<p>Provável falha de inicialização da sessão, timeout ou erro de handshake entre o front e a API do fornecedor antes da criação do session ID. Recomendar nova tentativa com cache limpo e rede estável; caso persista, coletar logs de request/response da sessão para análise junto ao provedor.<br>
 	<br><p>Ações Recomendadas para o usuário:</p>
 			<ul class="lista-limpa">
-	<li><i class="bi bi-arrow-bar-right"></i> Tentar novamente a verificação de identidade, garantindo boa conexão à internet;</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Fechar e reabrir o aplicativo antes de iniciar uma nova tentativa.</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Limpar o cache do navegador/app antes de uma nova tentativa.</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Permitir acesso à câmera e garantir boa iluminação e enquadramento.</li></ul><br>
+	<li>Tentar novamente a verificação de identidade, garantindo boa conexão à internet;</li>
+	<li>Fechar e reabrir o aplicativo antes de iniciar uma nova tentativa.</li>
+	<li>Limpar o cache do navegador/app antes de uma nova tentativa.</li>
+	<li>Permitir acesso à câmera e garantir boa iluminação e enquadramento.</li></ul><br>
 
 <pre>Obs: A reprovação local, sem o envio do request ao provedor, <br>pode acontecer em casos de dados divergentes ou na falta de dados no cadastro <br>(se for o caso, verificar a necessidade de atualização de dados).</pre> </p>
 
@@ -426,11 +440,11 @@
 	
 	<br><p>Ações Recomendadas para o usuário:</p>
 		<ul class="lista-limpa">
-	<li><i class="bi bi-arrow-bar-right"></i> Refaça a captura mantendo a câmera firme e centralize todo o documento na tela.</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Garanta boa iluminação sem reflexos, incline levemente o documento se aparecer brilho.</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Não use filtros ou edições; envie a foto original em alta resolução.</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Para selfie: olhe para a câmera, mantenha o rosto visível, sem óculos escuros ou máscara; siga qualquer instrução de movimentação se houver (piscar/virar a cabeça).</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Verifique permissões de câmera no app/navegador e permita o acesso antes de tentar.</li></ul>
+	<li>Refaça a captura mantendo a câmera firme e centralize todo o documento na tela.</li>
+	<li>Garanta boa iluminação sem reflexos, incline levemente o documento se aparecer brilho.</li>
+	<li>Não use filtros ou edições; envie a foto original em alta resolução.</li>
+	<li>Para selfie: olhe para a câmera, mantenha o rosto visível, sem óculos escuros ou máscara; siga qualquer instrução de movimentação se houver (piscar/virar a cabeça).</li>
+	<li>Verifique permissões de câmera no app/navegador e permita o acesso antes de tentar.</li></ul>
 
 	
 	</section>
@@ -439,10 +453,10 @@
 	<p>Indica falha na captura ou transmissão do frame do liveness <span class="tooltip" data-tooltip="Kit de desenvolvimento de software">SDK</span>, possível bloqueio de câmera, permissão negada, interrupção de stream WebRTC ou falha de upload no endpoint do fornecedor.</p>
 	<br><p>Ações Recomendadas para o usuário:</p>
 			<ul class="lista-limpa">
-	<li><i class="bi bi-arrow-bar-right"></i> Feche o aplicativo/navegador e abra novamente antes de tentar a selfie.</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Permita o acesso à câmera nas configurações do celular ou do navegador.</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Feche outros aplicativos que possam estar usando a câmera (WhatsApp, Instagram, câmera nativa).</li>
-	<li><i class="bi bi-arrow-bar-right"></i> Reinicie o celular, caso a câmera continue travada.</li></ul>
+	<li>Feche o aplicativo/navegador e abra novamente antes de tentar a selfie.</li>
+	<li>Permita o acesso à câmera nas configurações do celular ou do navegador.</li>
+	<li>Feche outros aplicativos que possam estar usando a câmera (WhatsApp, Instagram, câmera nativa).</li>
+	<li>Reinicie o celular, caso a câmera continue travada.</li></ul>
 
 
           
@@ -778,6 +792,7 @@ applyTooltips();
 
 </body>
 </html>
+
 
 
 
