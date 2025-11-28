@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Guia Técnico KYC — Local</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
   <style>
     :root{
       --bg:#0f1724;
@@ -195,6 +197,11 @@
 #conceitos {
   display: none !important;
 }
+	  .lista-limpa {
+		  list-style: none;
+		  paddind: 0;
+		  margin: 0;
+	  }
   </style>
 </head>
 <body>
@@ -371,12 +378,12 @@
           <p>Reprovação no de face match causada por alta discrepância morfológica entre a foto do documento antigo e a selfie atual, impossibilitando o motor biométrico de validar pontos estruturais do rosto (proporções faciais, distância entre olhos, mandíbula, etc.). Documento emitido em período de menor idade tende a gerar baixo índice de similaridade na comparação.</p>
 
 <br><p>Ações Recomendadas para o usuário:</p>
-
+<ul class="lista-limpa">
 <li>Enviar documento atualizado, preferencialmente com foto recente.</li>
 
 <li>Certificar-se de que a selfie seja feita em boa iluminação, rosto centralizado e sem acessórios que dificultem a comparação.</li>
 
-<li>Repetir a validação após atualizar o documento ou melhorar as condições da captura da selfie.</li>
+<li>Repetir a validação após atualizar o documento ou melhorar as condições da captura da selfie.</li></ul>
 	
 	  </section>
 		<section id="proximos" class="card" data-section>
@@ -384,23 +391,25 @@
 	<p>Falha na validação de liveness causada por inadequado enquadramento biométrico, incluindo orientação incorreta do usuário (posição deitado) e ruído visual no background devido a cores/texturas que interferem nos algoritmos de detecção facial.</p>
 
 <br><p>Ações Recomendadas para o usuário:</p>
+			<ul class="lista-limpa">
 <li>Refaça o liveness sentado ou em pé, mantendo o rosto centralizado.</li>
 
 <li>Utilize um ambiente com fundo neutro, sem estampas, objetos ou cores muito fortes.</li>
 
 <li>Garanta boa iluminação e mantenha o rosto totalmente visível.</li>
 
-<li>Siga exatamente as instruções do aplicativo durante a captura.</li>
+<li>Siga exatamente as instruções do aplicativo durante a captura.</li></ul>
 	
 		</section>
 		<section id="proximos" class="card" data-section>
 	<h3 class="sectionTitle">Registro de reprovação no BKO interno, sem logs de execução junto ao fornecedor:</h3>
 	<p>Provável falha de inicialização da sessão, timeout ou erro de handshake entre o front e a API do fornecedor antes da criação do session ID. Recomendar nova tentativa com cache limpo e rede estável; caso persista, coletar logs de request/response da sessão para análise junto ao provedor.<br>
 	<br><p>Ações Recomendadas para o usuário:</p>
+			<ul class="lista-limpa">
 	<li>Tentar novamente a verificação de identidade, garantindo boa conexão à internet;</li>
 	<li>Fechar e reabrir o aplicativo antes de iniciar uma nova tentativa.</li>
 	<li>Limpar o cache do navegador/app antes de uma nova tentativa.</li>
-	<li>Permitir acesso à câmera e garantir boa iluminação e enquadramento.</li><br>
+	<li>Permitir acesso à câmera e garantir boa iluminação e enquadramento.</li></ul><br>
 
 <pre>Obs: A reprovação local, sem o envio do request ao provedor, <br>pode acontecer em casos de dados divergentes ou na falta de dados no cadastro <br>(se for o caso, verificar a necessidade de atualização de dados).</pre> </p>
 
@@ -416,11 +425,12 @@
 		<br>Erro no cliente (permissões de câmera negadas, SDK não iniciado) ou timeout na submissão.</p>
 	
 	<br><p>Ações Recomendadas para o usuário:</p>
+		<ul class="lista-limpa">
 	<li>Refaça a captura mantendo a câmera firme e centralize todo o documento na tela.</li>
 	<li>Garanta boa iluminação sem reflexos, incline levemente o documento se aparecer brilho.</li>
 	<li>Não use filtros ou edições; envie a foto original em alta resolução.</li>
 	<li>Para selfie: olhe para a câmera, mantenha o rosto visível, sem óculos escuros ou máscara; siga qualquer instrução de movimentação se houver (piscar/virar a cabeça).</li>
-	<li>Verifique permissões de câmera no app/navegador e permita o acesso antes de tentar.</li><br>
+	<li>Verifique permissões de câmera no app/navegador e permita o acesso antes de tentar.</li></ul>
 
 	
 	</section>
@@ -428,10 +438,11 @@
 	<h3 class="sectionTitle">Erro na Câm. no Envio da Selfie:</h3>
 	<p>Indica falha na captura ou transmissão do frame do liveness <span class="tooltip" data-tooltip="Kit de desenvolvimento de software">SDK</span>, possível bloqueio de câmera, permissão negada, interrupção de stream WebRTC ou falha de upload no endpoint do fornecedor.</p>
 	<br><p>Ações Recomendadas para o usuário:</p>
+			<ul class="lista-limpa">
 	<li>Feche o aplicativo/navegador e abra novamente antes de tentar a selfie.</li>
 	<li>Permita o acesso à câmera nas configurações do celular ou do navegador.</li>
 	<li>Feche outros aplicativos que possam estar usando a câmera (WhatsApp, Instagram, câmera nativa).</li>
-	<li>Reinicie o celular, caso a câmera continue travada.</li>
+	<li>Reinicie o celular, caso a câmera continue travada.</li></ul>
 
 
           
@@ -767,6 +778,7 @@ applyTooltips();
 
 </body>
 </html>
+
 
 
 
