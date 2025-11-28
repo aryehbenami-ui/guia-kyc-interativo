@@ -377,8 +377,9 @@
 <li>Certificar-se de que a selfie seja feita em boa iluminação, rosto centralizado e sem acessórios que dificultem a comparação.</li>
 
 <li>Repetir a validação após atualizar o documento ou melhorar as condições da captura da selfie.</li>
-	<hr>
-
+	
+	  </section>
+		<section id="proximos" class="card" data-section>
 	<h3 class="sectionTitle">Posicionamento inadequado/texturas no plano de fundo:</h3>
 	<p>Falha na validação de liveness causada por inadequado enquadramento biométrico, incluindo orientação incorreta do usuário (posição deitado) e ruído visual no background devido a cores/texturas que interferem nos algoritmos de detecção facial.</p>
 
@@ -390,8 +391,9 @@
 <li>Garanta boa iluminação e mantenha o rosto totalmente visível.</li>
 
 <li>Siga exatamente as instruções do aplicativo durante a captura.</li>
-	<hr>
-
+	
+		</section>
+		<section id="proximos" class="card" data-section>
 	<h3 class="sectionTitle">Registro de reprovação no BKO interno, sem logs de execução junto ao fornecedor:</h3>
 	<p>Provável falha de inicialização da sessão, timeout ou erro de handshake entre o front e a API do fornecedor antes da criação do session ID. Recomendar nova tentativa com cache limpo e rede estável; caso persista, coletar logs de request/response da sessão para análise junto ao provedor.<br>
 	<br><p>Ações Recomendadas para o usuário:</p>
@@ -401,9 +403,9 @@
 	<li>Permitir acesso à câmera e garantir boa iluminação e enquadramento.</li><br>
 
 <pre>Obs: A reprovação local, sem o envio do request ao provedor, <br>pode acontecer em casos de dados divergentes ou na falta de dados no cadastro <br>(se for o caso, verificar a necessidade de atualização de dados).</pre> </p>
-<hr>
 
-
+		</section>
+	<section id="proximos" class="card" data-section>
 	<h3 class="sectionTitle">Não foi possível validar sua captura, por favor tente novamente:</h3>
 	<p>Validação da captura falhou por incapacidade de extrair/validar os dados necessários da imagem enviada.</p>
 	<p><b>Causas técnicas prováveis:</b><br>
@@ -420,8 +422,9 @@
 	<li>Para selfie: olhe para a câmera, mantenha o rosto visível, sem óculos escuros ou máscara; siga qualquer instrução de movimentação se houver (piscar/virar a cabeça).</li>
 	<li>Verifique permissões de câmera no app/navegador e permita o acesso antes de tentar.</li><br>
 
-	<hr>
-
+	
+	</section>
+		<section id="proximos" class="card" data-section>
 	<h3 class="sectionTitle">Erro na Câm. no Envio da Selfie:</h3>
 	<p>Indica falha na captura ou transmissão do frame do liveness <span class="tooltip" data-tooltip="Kit de desenvolvimento de software">SDK</span>, possível bloqueio de câmera, permissão negada, interrupção de stream WebRTC ou falha de upload no endpoint do fornecedor.</p>
 	<br><p>Ações Recomendadas para o usuário:</p>
@@ -764,5 +767,6 @@ applyTooltips();
 
 </body>
 </html>
+
 
 
