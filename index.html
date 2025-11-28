@@ -454,12 +454,25 @@
 	<li>Feche o aplicativo/navegador e abra novamente antes de tentar a selfie.</li>
 	<li>Permita o acesso à câmera nas configurações do celular ou do navegador.</li>
 	<li>Feche outros aplicativos que possam estar usando a câmera (WhatsApp, Instagram, câmera nativa).</li>
-	<li>Reinicie o celular, caso a câmera continue travada.</li></ul>
-
-
-          
+	<li>Reinicie o celular, caso a câmera continue travada.</li></ul>    
         
       </section>
+		<section id="proximos" class="card" data-section>
+
+<h3 class="sectionTitle">Falha na permissão da câmera pelo app:</h3>
+
+<p>A captura falha porque, quando o fluxo roda dentro do APK/TWA, o navegador embutido (WebView / WKWebView / TWA host) frequentemente não dispara ou não propaga corretamente o prompt de getUserMedia, resultando em PermissionDenied.</p>
+
+<br><p>Ações Recomendadas para o usuário:</p>
+
+<ul class="lista-limpa">
+	<li>Abrir o link de validação diretamente no navegador (Chrome, Edge ou Safari) e realizar a selfie por lá.</li>
+	<li>Se insistir no app: verifique em Configurações do dispositivo → Privacidade / Câmera /Gestão de Permissões se o app aparece e tem permissão; caso não apareça, tente usar o navegador.</li>
+	<li>Fechar outros apps que usem a câmera e reiniciar o aparelho antes de tentar novamente no app (ajuda em casos onde a câmera fica presa a outro processo).</li>
+
+</ul>
+
+</section>
 
 <section id="faq" class="card" data-section>
   <h2 class="sectionTitle">💬FAQ</h2>
@@ -790,6 +803,7 @@ applyTooltips();
 
 </body>
 </html>
+
 
 
 
