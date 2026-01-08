@@ -1,0 +1,44 @@
+.android-button {
+  position: fixed;
+  top: 18px;
+  left: 80px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7dd3fc;
+  text-decoration: none;
+  z-index: 1000;
+  transition: 
+    background .2s ease,
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+
+@media (max-width: 600px) {
+  .android-button {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+  }
+
+  .android-button i {
+    font-size: 20px;
+   
+  }
+}
+
+
+.android-button:hover {
+  background: rgba(125,211,252,0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.4);
+}
+
+.android-button i {
+  font-size: 18px;
+}

@@ -1,0 +1,63 @@
+.device-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.device-card {
+  width: 180px;
+  height: 360px;
+  background: linear-gradient(180deg, #111, #000);
+  border-radius: 28px;
+  box-shadow:
+    inset 0 0 0 4px #222,
+    0 25px 40px rgba(0,0,0,.6);
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 20px;
+  color: #e6eef6;
+  font-weight: 600;
+  text-decoration: none;
+  transition-duration: 400ms;
+  
+  
+}
+
+.device-card span {
+  opacity: 0.5;
+}
+
+.device-card:hover {
+  transform: scale(1.3);
+  transition-duration: 400ms;
+  box-shadow: 0 35px 60px rgba(0,0,0,.8);
+}
+
+/* iPhone notch */
+.device-card.iphone .notch {
+  width: 90px;
+  height: 22px;
+  background: #000;
+  border-radius: 0 0 14px 14px;
+  position: absolute;
+  top: 0;
+}
+
+/* Android camera */
+.device-card.android .camera {
+  width: 14px;
+  height: 14px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+

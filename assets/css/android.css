@@ -1,0 +1,129 @@
+/* ===============================
+   ANDROID – MATERIAL STYLE
+================================ */
+
+.topic-body {
+  color: #f1f5f9; 
+}
+
+
+.content {
+  padding-top: 70px;
+}
+
+/* ---------- Topic Body ---------- */
+.topic-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+
+  background: #111827; /* superfície sólida */
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 0 16px;
+
+  transition:
+    max-height .25s ease-out,
+    opacity .2s ease-out;
+}
+
+.topic-card.open .topic-body {
+  max-height: 1000px; /* suficiente para qualquer conteúdo */
+  opacity: 1;
+  margin-top: 12px;
+  padding: 16px;
+}
+
+/* ---------- Topic Toggle ---------- */
+.topic-toggle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e6eef6;
+  padding: 14px 16px;
+  margin: 0;
+  border-radius: 8px;
+
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  transition:
+    background .2s ease,
+    color .2s ease;
+}
+
+.topic-toggle:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.topic-card.open .topic-toggle {
+  background: rgba(74,222,128,0.15);
+  color: #4ade80;
+}
+
+/* ---------- Heading & Arrow ---------- */
+.topic-card h2 {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topic-card h2::after {
+  content: "▾";
+  font-size: 1rem;
+  opacity: .7;
+  transition: transform .25s ease;
+}
+
+.topic-card.open h2::after {
+  transform: rotate(180deg);
+}
+
+/* ---------- Home Button (Android-like FAB) ---------- */
+.home-button {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  background: #22c55e;
+  color: #052e16;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+  box-shadow: 0 10px 22px rgba(0,0,0,.45);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.home-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 14px 28px rgba(0,0,0,.5);
+}
+
+.home-button i {
+  font-size: 18px;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  .home-button {
+    width: 46px;
+    height: 46px;
+  }
+
+  .home-button i {
+    font-size: 20px;
+  }
+}
