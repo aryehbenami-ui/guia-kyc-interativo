@@ -19,7 +19,7 @@
     <main class="content">
         
   <section class="topic-card" data-section>
-<h2 class="topic-toggle">📷 Permissão da Câmera</h2>
+<h2 class="topic-toggle"><span><i class="bi bi-camera-fill"></i> Permissão da Câmera</span></h2>
 <div class="topic-body">
     <p class="intro">Problemas relacionados ao acesso à câmera no Android.</p>
      <h3>🔎 Como identificar</h3>
@@ -43,7 +43,7 @@
 
   </section>
   <section class="topic-card" data-section>
-    <h2 class="topic-toggle">📍 Compartilhamento de Localização</h2>
+    <h2 class="topic-toggle"><span><i class="bi bi-geo-alt-fill"></i> Compartilhamento de Localização</span></h2>
     <div class="topic-body">
       <p class="intro">Problemas relacionados ao acesso à localização no Android.</p>
       <h3>🔎 Como identificar</h3>
@@ -131,7 +131,7 @@
 
     <h3>🧭 Orientação ao usuário — Android</h3>
     <p>
-      Feche o navegador (Chrome ou WebView) e abra novamente antes de refazer a selfie.
+      Feche o navegador (Chrome ou app) e abra novamente antes de refazer a selfie.
       Depois, vá em
       <strong>Configurações &gt; Apps &gt; Navegador &gt; Permissões</strong>
       e permita o acesso à <em>Câmera</em>.
@@ -237,6 +237,90 @@
       o caso deve ser encaminhado para análise junto ao fornecedor
       de validação de liveness.
     </p>
+  </div>
+</section>
+
+  <section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-arrow-repeat"></i> Loading em Loop ao Iniciar o Liveness</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      A tela de validação facial fica carregando continuamente e o liveness não inicia.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Tela de liveness fica apenas carregando (loading infinito)</li>
+      <li>Câmera não é aberta</li>
+      <li>Usuário não consegue avançar no processo</li>
+      <li>O problema ocorre ao clicar em “Iniciar validação”</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário — Android</h3>
+    <p>
+      Solicite que o usuário feche o navegador (Chrome ou app)
+      e abra novamente. Depois, acesse
+      <strong>Configurações &gt; Apps &gt; Navegador &gt; Permissões</strong>
+      e confirme que a permissão de <em>Câmera</em> está habilitada.
+    </p>
+    <p>
+      Peça para verificar a conexão com a internet
+      e evitar o uso de VPN ou economia de dados durante o processo.
+    </p>
+
+    <h3>Por que acontece</h3>
+    <p>
+      O loading em loop pode ocorrer por falha na inicialização do SDK de liveness,
+      bloqueio de câmera, permissões não concedidas,
+      instabilidade de rede ou interrupção na comunicação
+      com o serviço de validação facial.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Se o problema continuar após seguir todas as orientações,
+      o caso deve ser reportado para análise junto ao fornecedor
+      de liveness ou equipe técnica responsável.
+    </p>
+  </div>
+</section>
+
+      <section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-phone-fill"></i> Tela Preta sem Renderização</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      A tela fica totalmente preta e nenhum componente do processo de validação é exibido.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Tela preta ao iniciar o fluxo de validação</li>
+      <li>Nenhum botão, câmera ou mensagem aparece</li>
+      <li>Página parece carregada, mas sem conteúdo visível</li>
+      <li>Usuário não consegue interagir com a tela</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário — Android</h3>
+    <p>
+      Peça para o usuário limpar o cache do navegador (Chrome),
+      acessar o fluxo em uma aba anônima e tentar novamente.
+    </p>
+    <p>
+      Oriente a trocar para uma conexão Wi-Fi,
+      verificar as permissões de câmera em
+      <strong>Configurações &gt; Apps &gt; Navegador &gt; Permissões</strong>
+      e, se o problema continuar, reiniciar o navegador ou testar em outro dispositivo.
+    </p>
+
+    <h3>Por que acontece</h3>
+    <p>
+      Esse comportamento pode ocorrer por falha na inicialização do WebRTC,
+      bloqueio de acesso à câmera pelo navegador,
+      timeout no carregamento de recursos
+      ou conflito com dados armazenados em cache.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>Caso nenhuma das ações resolva, deve-se verificar com o fornecedor de validação.</p>
   </div>
 </section>
 
