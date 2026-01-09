@@ -250,6 +250,95 @@
   </div>
 </section>
 
+        <section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-arrow-counterclockwise"></i> Loading em Loop ao Iniciar o Liveness</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      A tela de validação facial fica carregando continuamente e o liveness não inicia.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Tela de liveness fica apenas carregando (loading infinito)</li>
+      <li>Câmera não é aberta</li>
+      <li>Usuário não consegue avançar no processo</li>
+      <li>O problema ocorre ao clicar em “Iniciar validação”</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário — iOS</h3>
+    <p>
+      Peça para o usuário fechar completamente o navegador ou aplicativo
+      e abrir novamente. Em seguida, verifique em
+      <strong>Ajustes &gt; Safari &gt; Câmera</strong> se o acesso está
+      como <em>Permitir</em>.
+    </p>
+    <p>
+      Oriente a garantir uma conexão de internet estável
+      (preferencialmente Wi-Fi) e evitar alternar entre aplicativos
+      durante o processo.
+    </p>
+
+    <h3>Por que acontece</h3>
+    <p>
+      O loading em loop pode ocorrer por falha na inicialização do SDK de liveness,
+      bloqueio de câmera, permissões não concedidas,
+      instabilidade de rede ou interrupção na comunicação
+      com o serviço de validação facial.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Se o problema continuar após seguir todas as orientações,
+      o caso deve ser reportado para análise junto ao fornecedor
+      de liveness ou equipe técnica responsável.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-phone"></i> Tela Preta sem Renderização</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      A tela fica totalmente preta e nenhum componente do processo de validação é exibido.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Tela preta ao iniciar o fluxo de validação</li>
+      <li>Nenhum botão, câmera ou mensagem aparece</li>
+      <li>Página parece carregada, mas sem conteúdo visível</li>
+      <li>Usuário não consegue interagir com a tela</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário — iOS</h3>
+    <p>
+      Oriente o usuário a limpar o cache do navegador Safari e tentar novamente.
+      Caso não funcione, peça para abrir o link em uma aba anônima.
+    </p>
+    <p>
+      Solicite que o teste seja feito utilizando uma conexão Wi-Fi estável
+      e verifique em <strong>Ajustes &gt; Safari &gt; Câmera</strong>
+      se a permissão está como <em>Permitir</em>.
+      Se necessário, reinicie o navegador ou o próprio dispositivo.
+    </p>
+
+
+    <h3>Por que acontece</h3>
+    <p>
+      Esse comportamento pode ocorrer por falha na inicialização do WebRTC,
+      bloqueio de acesso à câmera pelo navegador,
+      timeout no carregamento de recursos
+      ou conflito com dados armazenados em cache.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso nenhuma das ações resolva, deve-se verificar com o fornecedor de validação.
+    </p>
+  </div>
+</section>
+
+
 
 </main>
 
