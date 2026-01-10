@@ -1,28 +1,489 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Guia KYC</title>
-  <link rel="stylesheet" href="assets/css/home.css">
-  <link rel="stylesheet" href="assets/css/base.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia KYC</title>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/android.css">
+    <link rel="stylesheet" href="assets/css/button.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 </head>
 <body>
+    
+    <main class="content">
+        
+  <section class="topic-card" data-section>
+ 
+    <h2 class="topic-toggle"><span><i class="bi bi-camera"></i> Permissão da Câmera</span></h2>
+<div class="topic-body">
+    <p class="intro">Problemas relacionados ao acesso à câmera.</p>
+     <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Tela fica preta ou não carrega</li>
+      <li>Mensagem de câmera indisponível</li>
+      <li>Usuário relata que “não aparece nada”</li>
+    </ul>
+    <div class="platform-tabs">
 
-<main class="device-selector">
+  <div class="tabs-header">
+    <button class="tab-btn active" data-tab="android">
+      <i class="bi bi-android2"></i> Android
+    </button>
+    <button class="tab-btn" data-tab="ios">
+      <i class="bi bi-apple"></i> iOS
+    </button>
+  </div>
 
-  <a href="ios.html" class="device-card iphone">
-    <div class="notch"></div>
-    <span>iPhone</span>
-  </a>
+  <div class="tabs-content">
 
-  <a href="android.html" class="device-card android">
-    <div class="camera"></div>
-    <span>Android</span>
-  </a>
+    <div class="tab-panel active" data-content="android" data-copy>
+      <ul>
+        <li>Acesse <strong>Configurações > Apps > Chrome > Permissões > Câmera</strong> e selecione Permitir.</li>
+        <li>Feche o navegador e abra novamente.</li>
+        <li>Feche todos os aplicativos em execução para liberar a câmera.</li>
+        <li>Se houver muitas abas abertas, feche-as para liberar recursos.</li>
+        <li>Tente refazer o processo de validação.</li>
+      </ul>
+    </div>
+
+    <div class="tab-panel" data-content="ios" data-copy>
+      <ul>
+        <li>Acesse <strong>> Safari > Câmera</strong> e selecione Permitir.</li>
+        <li>Feche o navegador e abra novamente.</li>
+        <li>Feche todos os aplicativos em execução para liberar a câmera.</li>
+        <li>Se houver muitas abas abertas, feche-as para liberar recursos.</li>
+        <li>Tente refazer o processo de validação.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    <h3>⚠️ Observação</h3>
+    <p>
+      No iOS, todos os navegadores utilizam o WebKit. Mesmo usando Chrome,
+      as permissões seguem as regras do Safari.
+    </p>
+    </div>
+  </section>
+
+  <section class="topic-card" data-section>
+    <h2 class="topic-toggle"><span><i class="bi bi-geo-alt"></i> Compartilhamento de Localização</span></h2>
+    <div class="topic-body">
+    <p class="intro">Solicitação e bloqueio de acesso à localização.</p>
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Usuário não consegue compartilhar localização</li>
+      <li>Mensagem de permissão negada</li>
+      <li>Usuário relata que não avança na tela onde pede a localização</li>
+    </ul>
+    <div class="platform-tabs">
+
+  <div class="tabs-header">
+    <button class="tab-btn active" data-tab="android">
+      <i class="bi bi-android2"></i> Android
+    </button>
+    <button class="tab-btn" data-tab="ios">
+      <i class="bi bi-apple"></i> iOS
+    </button>
+  </div>
+
+  <div class="tabs-content">
+
+    <div class="tab-panel active" data-content="android" data-copy>
+      <ul>
+        <li>Acesse <strong>Configurações > Apps > Chrome > Permissões > Localização</strong> e selecione Permitir.</li>
+        <li>Feche o navegador e abra novamente.</li>
+        <li>Se houver muitas abas abertas, feche-as para liberar recursos.</li>
+        <li>Tente refazer o processo de validação.</li>
+        <li>Se persistir, reinicie o celular</li>
+      </ul>
+    </div>
+
+    <div class="tab-panel" data-content="ios" data-copy>
+      <ul>
+        <li>Acesse <strong>Ajustes > Safari > Localização</strong> e selecione Permitir.</li>
+        <li>Feche o navegador e abra novamente.</li>
+        <li>Se houver muitas abas abertas, feche-as para liberar recursos.</li>
+        <li>Tente refazer o processo de validação.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+    
+    <h3>Por que é solicitado</h3>
+    <p>
+      A localização auxilia na análise antifraude e na validação do ambiente
+      de acesso.
+    </div>
+  </section>
+
+  <section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-file-earmark-person"></i> Face Match com baixa similaridade</span></h2>
+  <div class="topic-body">
+    <p class="intro">Falha na comparação facial entre a selfie e o documento.</p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Score de Face Match abaixo do mínimo exigido</li>
+      <li>Exemplo: Score 0.69 / Threshold 0.75</li>
+      <li>Validação facial reprovada automaticamente</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário</h3>
+    <div class="platform-tabs">
+
+  <div class="tabs-content">
+
+    <div class="tab-panel active" data-content="android" data-copy>
+      <ul>
+        <li>Tire a selfie em um local bem iluminado, com a luz de frente para o rosto.</li>
+        <li>Posicione-se de forma que não haja sombras nem reflexos no rosto.</li>
+        <li>Mantenha o rosto centralizado e totalmente visível na câmera.</li>
+        <li>Não utilize óculos escuros, boné, touca ou qualquer acessório.</li>
+        <li>Segure o celular na altura do rosto e evite inclinar a cabeça.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+    <h3>Por que acontece</h3>
+    <p>
+      A reprovação pode ocorrer quando a foto do documento é muito antiga
+      ou quando a selfie é tirada em ângulo diferente, com pouca iluminação
+      ou interferências visuais, dificultando a comparação facial.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso o problema persista mesmo após uma nova tentativa,
+      o caso deve ser reportado ou consultado junto ao fornecedor
+      de validação para análise.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-camera-video-off"></i> Erro na Câmera no Envio da Selfie</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      Falha na captura ou no envio da selfie durante o processo de validação facial.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Tela da selfie não abre ou fica preta</li>
+      <li>Mensagem de erro ao tentar capturar a selfie</li>
+      <li>Selfie não carrega ou não é enviada para validação</li>
+      <li>Processo trava na etapa de liveness</li>
+      <li>No painel do fornecedor "P" constará a informação "Erro na câm."</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário</h3>
+    <div class="platform-tabs">
+
+  <div class="tabs-header">
+    <button class="tab-btn active" data-tab="android">
+      <i class="bi bi-android2"></i> Android
+    </button>
+    <button class="tab-btn" data-tab="ios">
+      <i class="bi bi-apple"></i> iOS
+    </button>
+  </div>
+
+  <div class="tabs-content">
+
+    <div class="tab-panel active" data-content="android" data-copy>
+      <ul>
+        <li>Feche o navegador Chrome e abra novamente.</li>
+        <li>Nas configurações do celular, vá em <strong>Configurações > Apps > Chrome > Permissões</strong> <em>e permita o acesso à Câmera.</em></li>
+        <li>Feche todos os aplicativos em execução para liberar a câmera.</li>
+        <li>Tente novamente utilizando uma boa conexão de internet (alternando entre dados móveis e Wi-Fi)</li>
+        <li>Reinicie o celular caso a câmera continue travada</li>
+      </ul>
+    </div>
+
+    <div class="tab-panel" data-content="ios" data-copy>
+      <ul>
+        <li>Feche o navegador ou aplicativo e abra novamente</li>
+        <li>Nas configurações do celular, vá em <strong>Ajustes > Safari > Câmera</strong> <em>e permita o acesso à Câmera.</em></li>
+        <li>Feche todos os aplicativos em execução para liberar a câmera.</li>
+        <li>Tente novamente utilizando uma boa conexão de internet (alternando entre dados móveis e Wi-Fi)</li>
+        <li>Reinicie o celular caso a câmera continue travada</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+    <h3>Por que acontece</h3>
+    <p>
+      Esse erro pode ocorrer quando o acesso à câmera está bloqueado,
+      a permissão foi negada, outro aplicativo está usando a câmera,
+      ou há uma interrupção na transmissão da imagem (stream) durante
+      o envio da selfie para o sistema de validação.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso o erro persista após seguir todas as orientações,
+      deve-se reportar o caso para análise junto
+      ao fornecedor de validação facial.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-file-excel"></i> Documento Ilegível / Falha no OCR</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      O sistema não conseguiu identificar ou ler corretamente as informações do documento.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem de erro: <em>OCR failed</em></li>
+      <li>Mensagem de erro: <em>document type unknown</em></li>
+      <li>Documento não reconhecido automaticamente</li>
+      <li>Processo não avança após o envio da foto do documento</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário</h3>
+    <div class="platform-tabs">
+
+  <div class="tabs-content">
+
+    <div class="tab-panel active" data-content="android" data-copy>
+      <ul>
+        <li>Tire o documento do plástico de proteção (se houver).</li>
+        <li>Coloque o documento sobre uma superfície plana, como uma mesa.</li>
+        <li>Tire a foto do documento em um local bem iluminado, evitando sombras e reflexos.</li>
+        <li>Centralize o documento na câmera, garantindo que todas as bordas estejam visíveis.</li>
+        <li>Evite usar zoom ou cortar partes do documento na foto.</li>
+        
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    <h3>Por que acontece</h3>
+    <p>
+      A falha no OCR ocorre quando o sistema não consegue ler os dados do documento,
+      geralmente por reflexos, baixa iluminação, imagem cortada
+      ou qualidade insuficiente da foto enviada.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso o erro continue mesmo após o envio de uma nova foto conforme orientado,
+      o caso deve ser encaminhado para análise junto ao fornecedor
+      de validação de documentos.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-person-x"></i> Liveness Falhou / Rosto Não Detectado</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      O sistema não conseguiu identificar corretamente o rosto durante a validação de liveness.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem de erro: <em>Liveness failed</em></li>
+      <li>Mensagem de erro: <em>face not detected</em></li>
+      <li>Processo trava ou reprova na etapa de liveness</li>
+      <li>Câmera ativa, mas o rosto não é reconhecido</li>
+      <li>Usuário não consegue avançar na etapa de aproximar e afastar o rosto</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário</h3>
+    <div class="platform-tabs">
+
+  <div class="tabs-content">
+
+    <div class="tab-panel active" data-content="android" data-copy>
+      <ul>
+        <li>Vá para um local bem iluminado, com luz natural de frente para o rosto</li>
+        <li>Mantenha o rosto centralizado na tela</li>
+        <li>Remova boné, chapéu, óculos escuros ou máscara</li>
+        <li>Segure o celular na altura do rosto</li>
+        <li>Se necessário, limpe a câmera do dispositivo, de preferência com um pano macio (como o de microfibra utilizado para limpar óculos)</li>
+        <li>Refaça o processo desde o início</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    <h3>Por que acontece</h3>
+    <p>
+      Esse erro ocorre quando o rosto fica fora do enquadramento,
+      está parcialmente coberto por acessórios
+      ou quando a iluminação é insuficiente para a detecção facial.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso o erro continue mesmo após seguir todas as orientações,
+      o caso deve ser encaminhado para análise junto ao fornecedor
+      de validação de liveness.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-arrow-counterclockwise"></i> Loading em Loop ao Iniciar o Liveness</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      A tela de validação facial fica carregando continuamente e o liveness não inicia.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Tela de liveness fica apenas carregando (loading infinito)</li>
+      <li>Câmera não é aberta</li>
+      <li>Usuário não consegue avançar no processo</li>
+      <li>O problema ocorre ao clicar em “Iniciar validação”</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário</h3>
+    <div class="platform-tabs">
+
+  <div class="tabs-header">
+    <button class="tab-btn active" data-tab="android">
+      <i class="bi bi-android2"></i> Android
+    </button>
+    <button class="tab-btn" data-tab="ios">
+      <i class="bi bi-apple"></i> iOS
+    </button>
+  </div>
+
+  <div class="tabs-content">
+
+    <div class="tab-panel active" data-content="android" data-copy>
+      <ul>
+        <li>Feche o navegador e abra novamente.</li>
+        <li>Nas configurações do celular, acesse <strong>Configurações > Apps > Chrome > Permissões</strong> e confirme que a permissão de Câmera está habilitada.</li>
+        <li>Limpe o cache do navegador (Configurações > Apps > Chrome > Limpar dados > <em>Limpar cache.</em>)</li>
+        <li>Use uma conexão Wi-Fi estável (troque a conexão entre dados móveis e Wi-Fi).</li>
+        <li>Evite usar VPN ou modo economia de dados.</li>
+        <li>Se persistir, faça o teste por uma aba anônima.</li>
+        <li>Caso necessário, reinicie o dispositivo.</li>
+
+
+      </ul>
+    </div>
+
+    <div class="tab-panel" data-content="ios" data-copy>
+      <ul>
+        <li>Feche o navegador e abra novamente.</li>
+        <li>Nas configurações do celular, acesse <strong>Ajustes > Safari > Câmera</strong> e confirme que a permissão de Câmera está habilitada.</li>
+        <li>Limpe o cache do navegador (Ajustes > Safari > Avançado > Dados dos Sites e toque em Remover Todos os Dados.)</li>
+        <li>Use uma conexão Wi-Fi estável (troque a conexão entre dados móveis e Wi-Fi).</li>
+        <li>Evite usar VPN ou modo economia de dados.</li>
+        <li>Se persistir, faça o teste por uma aba anônima.</li>
+        <li>Caso necessário, reinicie o dispositivo.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+    <h3>Por que acontece</h3>
+    <p>
+      O loading em loop pode ocorrer por falha na inicialização do SDK de liveness,
+      bloqueio de câmera, permissões não concedidas,
+      instabilidade de rede ou interrupção na comunicação
+      com o serviço de validação facial.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Se o problema continuar após seguir todas as orientações,
+      o caso deve ser reportado para análise junto ao fornecedor
+      de liveness ou equipe técnica responsável.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-phone"></i> Tela Preta sem Renderização</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      A tela fica totalmente preta e nenhum componente do processo de validação é exibido.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Tela preta ao iniciar o fluxo de validação</li>
+      <li>Nenhum botão, câmera ou mensagem aparece</li>
+      <li>Página parece carregada, mas sem conteúdo visível</li>
+      <li>Usuário não consegue interagir com a tela</li>
+    </ul>
+
+    <h3>🧭 Orientação ao usuário</h3>
+    <div class="platform-tabs">
+
+  <div class="tabs-header">
+    <button class="tab-btn active" data-tab="android">
+      <i class="bi bi-android2"></i> Android
+    </button>
+    <button class="tab-btn" data-tab="ios">
+      <i class="bi bi-apple"></i> iOS
+    </button>
+  </div>
+
+  <div class="tabs-content">
+
+    <div class="tab-panel active" data-content="android" data-copy>
+      <ul>
+        <li>Limpe o cache do navegador (nas configurações do celular, acesse <strong>Configurações > Apps > Chrome > Limpar dados > <em>Limpar cache.</em></strong>)</li>
+        <li>Feche o navegador e abra novamente.</li>
+        <li>Se possível, use uma conexão Wi-Fi estável (alternando a conexão entre dados móveis e Wi-Fi).</li>
+        <li>Se persistir, faça o teste por uma aba anônima.</li>
+        <li>Orientamos testar em outros navegadores (como Microsoft Edge ou Mozilla Firefox), se necessário.</li>
+        <li>Caso preciso, reinicie o navegador ou tente em outro dispositivo</li>
+      </ul>
+    </div>
+
+    <div class="tab-panel" data-content="ios" data-copy>
+      <ul>
+        <li>Limpe o cache do navegador ( nas configurações do celular, acesse <strong>Ajustes > Safari > Avançado ></strong> Dados dos Sites e toque em Remover Todos os Dados.)</li>
+        <li>Feche o navegador e abra novamente.</li>
+        <li>Se possível, use uma conexão Wi-Fi estável (alternando a conexão entre dados móveis e Wi-Fi).</li>
+        <li>Se persistir, faça o teste por uma aba anônima.</li>
+        <li>Orientamos testar em outros navegadores (como Google Chrome, Microsoft Edge ou Mozilla Firefox), se necessário.</li>
+        <li>Caso preciso, reinicie o navegador ou tente em outro dispositivo</li>
+      </ul>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    <h3>Por que acontece</h3>
+    <p>
+      Esse comportamento pode ocorrer por falha na inicialização do WebRTC,
+      bloqueio de acesso à câmera pelo navegador,
+      timeout no carregamento de recursos
+      ou conflito com dados armazenados em cache.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso nenhuma das ações resolva, deve-se verificar com o fornecedor de validação.
+    </p>
+  </div>
+</section>
 
 </main>
 
-
-</body> 
-<script src="assets/js/script.js"></script>
+</body>
+<script src="assets/js/ios.js"></script>
 </html>
