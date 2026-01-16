@@ -15,7 +15,8 @@
   <header class="header-kyc">
     <h1 class="header-title">KYC</h1></header>
     </div>
-    <main class="content">
+    <!---<input type="search" id="nav-toggle" class="nav-toggle" />
+    <main class="content"> --->
       
 
       <div class="space-bord">
@@ -56,11 +57,8 @@
 
     <div class="tab-panel" data-content="ios" data-copy>
       <ul>
-<<<<<<< HEAD
         <li>Nas configurações do dispositivo, acesse <strong>Ajustes > Safari > Câmera</strong> e selecione Permitir.</li>
-=======
         <li>Acesse <strong> Ajustes > Safari > Câmera</strong> e selecione Permitir.</li>
->>>>>>> 222effa5078248fb29cd06bac2370c707daa34ce
         <li>Feche o navegador e abra novamente.</li>
         <li>Feche todos os aplicativos em execução para liberar a câmera.</li>
         <li>Se houver muitas abas abertas, feche-as para liberar recursos.</li>
@@ -582,10 +580,10 @@
 
     <h3>🔎 Como identificar</h3>
     <ul>
-      <li>KYC aparece como reprovado ou bloqueado internamente</li>
+      <li>KYC aparece como reprovado</li>
       <li>Não há tentativa registrada no painel do fornecedor</li>
       <li>Usuário relata que não conseguiu concluir a validação</li>
-      <li>Fluxo é interrompido antes do envio para o provedor</li>
+      <li>Fluxo é interrompido antes do envio para o fornecedor</li>
     </ul>
 
     <h3>🧭 Orientação geral ao usuário</h3>
@@ -626,6 +624,74 @@
     </p>
   </div>
 </section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-check2-circle"></i> Validação aprovada, mas sem ação seguinte na jornada</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+     O usuário conclui a validação de identidade (liveness/KYC) com status <em>aprovado</em>, tanto internamente quanto no painel do fornecedor “L”, porém a jornada não avança para a próxima etapa esperada (exemplo: o saque não é processado após a aprovação).
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>O procedimento de validação foi realizado por meio do aplicativo externo do fornecedor “L”.</li>
+      <li>Liveness para saque aprovado, mas sem registro de saque após aprovação.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      Orientar a realizar todo o processo pelo navegador, sem utilizar o app externo do fornecedor.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-header">
+        <button class="tab-btn active" data-tab="android">
+          <i class="bi bi-android2"></i> Android
+        </button>
+        <button class="tab-btn" data-tab="ios">
+          <i class="bi bi-apple"></i> iOS
+        </button>
+      </div>
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ul>
+        <li>Abra o processo de validação diretamente pelo navegador <strong>Google Chrome</strong>.</li>
+        <li>Nas configurações do celular, acesse <strong>Configurações &gt; Apps &gt; Chrome &gt; Permissões</strong> e permita o acesso à <strong>Câmera</strong> e <strong>Localização</strong>.</li>
+        <li>Feche completamente o Chrome e abra novamente antes de iniciar o fluxo.</li>
+        <li>Certifique-se de que nenhum outro aplicativo esteja utilizando a câmera.</li>
+        <li>Refaça o processo de validação seguindo todo o fluxo pelo navegador.</li>
+      </ul>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ul>
+        <li>Abra o processo de validação diretamente pelo navegador <strong>Safari</strong>.</li>
+        <li>Nas configurações do iPhone, acesse <strong>Ajustes &gt; Safari &gt; Câmera</strong> e selecione <strong>Permitir</strong>.</li>
+        <li>Acesse <strong>Ajustes &gt; Safari &gt; Localização</strong> e selecione <strong>Durante o uso</strong>.</li>
+        <li>Feche o Safari pelo gerenciador de aplicativos e abra novamente.</li>
+        <li>Refaça o processo de validação seguindo todo o fluxo pelo navegador.</li>
+      </ul>
+        </div>
+
+      </div>
+    </div>
+
+   <h3>Por que isso acontece</h3>
+<p>
+    Esse comportamento ocorre, provavelmente, porque, ao realizar a validação pelo aplicativo externo do fornecedor, o fluxo de retorno da aprovação nem sempre é corretamente sincronizado com o sistema interno. 
+    Isso impede que o gatilho responsável por avançar a jornada (como a liberação do saque) seja acionado, mesmo com o status de aprovação do liveness.
+  </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso o erro persista mesmo após orientações, reportar a situação para análise (preferencialmente com gravação de tela do usuário mostrando a situação).
+    </p>
+  </div>
+</section>
+
 
 
 </div>
