@@ -26,7 +26,7 @@ document.querySelectorAll('.topic-card .topic-toggle')
 
  document.querySelectorAll('.tab-panel[data-copy]').forEach(panel => {
     panel.addEventListener('click', () => {
-      const text = panel.innerText.trim();
+      const text = buildCopyText(panel);
 
       navigator.clipboard.writeText(text).then(() => {
         panel.classList.add('copied');
@@ -37,3 +37,22 @@ document.querySelectorAll('.topic-card .topic-toggle')
       });
     });
   });
+
+  function buildCopyText(panel) {
+    const lines = [];
+    panel.childNodes.forEach(node => {
+      if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() === 'ol') {
+        Array.from(node.querySelectorAll('li')).forEach((li, index) => {
+          const text = li.innerText.trim().replace(/\s+/g, ' ');
+          lines.push(`${index + 1} - ${text}`);
+        });
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const text = node.innerText.trim();
+        if (text) lines.push(text);
+      } else if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent.trim();
+        if (text) lines.push(text);
+      }
+    });
+    return lines.join('\n');
+  }

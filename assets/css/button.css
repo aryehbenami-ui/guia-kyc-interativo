@@ -111,14 +111,14 @@
 }
 
 /* Texto interno */
-.tab-panel ul {
+.tab-panel ol {
   padding-left: 18px;
   margin: 0;
 }
 
 .tab-panel li {
-  margin-bottom: 8px;
-  line-height: 1.5;
+  margin-bottom: 10px;
+  line-height: 1.75;
 }
 
 .tab-panel li:last-child {
