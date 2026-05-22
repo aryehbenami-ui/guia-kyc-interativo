@@ -31,4 +31,3 @@
 
 # Plugins (opcional)
 # [[plugins]]
-#   package = "@netlify/plugin-lighthouse"

@@ -80,7 +80,7 @@ Enquanto isso, utilize o modo offline do assistente que já está funcionando no
     }
 
     // Verificar se API key está configurada
-    const apiKey = process.env.DEESEEK_API_KEY;
+    const apiKey = process.env.DEEPSEEK_API_KEY;
     if (!apiKey) {
       return {
         statusCode: 500,
@@ -208,7 +208,7 @@ exports.health = async (event, context) => {
     body: JSON.stringify({
       status: 'ok',
       enabled: ENABLE_DEEPSEEK,
-      hasApiKey: !!process.env.DEESEEK_API_KEY,
+      hasApiKey: !!process.env.DEEPSEEK_API_KEY,
       timestamp: new Date().toISOString()
     })
   };

@@ -1,17 +1,6 @@
-/**
- * AI Assistant para Guia KYC
- * 
- * ESTRUTURA PRONTA PARA INTEGRAÇÃO FUTURA COM DEEPSEEK API
- * 
- * Para ativar a integração com a API:
- * 1. Criar conta na DeepSeek e obter API key
- * 2. Configurar Netlify Functions (ver netlify/functions/ai-assistant.js)
- * 3. Definir ENABLE_DEEPSEEK_INTEGRATION = true abaixo
- */
-
 // CONFIGURAÇÃO - Ativar integração quando estiver pronto
 const AI_CONFIG = {
-  ENABLE_DEEPSEEK_INTEGRATION: false, // Mudar para true após configurar API
+  ENABLE_DEEPSEEK_INTEGRATION: true, // Mudar para true após configurar API
   API_ENDPOINT: '/.netlify/functions/ai-assistant',
   TIMEOUT_MS: 30000,
   MAX_RETRIES: 2
