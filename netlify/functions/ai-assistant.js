@@ -14,7 +14,7 @@ exports.handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Content-Type': 'application/json'
   };
 
@@ -23,8 +23,8 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
-  // Apenas POST é permitido
-  if (event.httpMethod !== 'POST') {
+  // GET para health check, POST para chat
+  if (event.httpMethod !== 'POST' && event.httpMethod !== 'GET') {
     return {
       statusCode: 405,
       headers,
@@ -33,6 +33,20 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // Health check via GET
+    if (event.httpMethod === 'GET') {
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          status: 'ok',
+          enabled: ENABLE_DEEPSEEK,
+          hasApiKey: !!process.env.DEEPSEEK_API_KEY,
+          timestamp: new Date().toISOString()
+        })
+      };
+    }
+
     // Parse do body
     const { query, systemPrompt, context: articlesContext } = JSON.parse(event.body);
 
@@ -181,21 +195,3 @@ TOM DE VOZ:
 - Focado em solução prática`;
 }
 
-/**
- * Health check endpoint
- */
-exports.health = async (event, context) => {
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      status: 'ok',
-      enabled: ENABLE_DEEPSEEK,
-      hasApiKey: !!process.env.DEEPSEEK_API_KEY,
-      timestamp: new Date().toISOString()
-    })
-  };
-};
