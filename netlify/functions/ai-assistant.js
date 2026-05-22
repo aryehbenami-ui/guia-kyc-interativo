@@ -1,18 +1,4 @@
-/**
- * Netlify Function - AI Assistant para Guia KYC
- * 
- * ESTA FUNÇÃO ESTÁ PRONTA PARA INTEGRAÇÃO COM DEEPSEEK API
- * 
- * Passos para ativar:
- * 1. Criar conta na DeepSeek: https://platform.deepseek.com/
- * 2. Obter API Key
- * 3. Adicionar variável de ambiente no Netlify: DEEPSEEK_API_KEY
- * 4. Mudar ENABLE_DEEPSEEK para true abaixo
- * 
- * Para configurar a variável de ambiente no Netlify:
- * - Acesse Netlify Dashboard > Site > Configuration > Environment variables
- * - Adicione: DEEPSEEK_API_KEY = "sua-chave-aqui"
- */
+
 
 // Configuração - Mudar para true após configurar API key
 const ENABLE_DEEPSEEK = true;
