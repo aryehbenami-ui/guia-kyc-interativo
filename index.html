@@ -426,7 +426,7 @@
   <h2 class="topic-toggle"><span><i class="bi bi-phone"></i> Tela Preta sem Renderização</span></h2>
   <div class="topic-body">
     <p class="intro">
-      A tela fica totalmente preta e nenhum componente do processo de validação é exibido.
+      A tela fica totalmente preta (ou cor de background do site) e nenhum componente do processo de validação é exibido.
     </p>
 
     <h3>🔎 Como identificar</h3>
@@ -456,6 +456,7 @@
         <li>Limpe o cache do navegador (nas configurações do celular, acesse <strong>Configurações > Apps > Chrome > Limpar dados > <em>Limpar cache.</em></strong>)</li>
         <li>Feche o navegador e abra novamente.</li>
         <li>Se possível, use uma conexão Wi-Fi estável (alternando a conexão entre dados móveis e Wi-Fi).</li>
+        <li>Reinicie a conexão com a internet, aguardando 20 segundos antes de reativar a conexão.</li>
         <li>Se persistir, faça o teste por uma aba anônima.</li>
         <li>Orientamos testar em outros navegadores (como Microsoft Edge ou Mozilla Firefox), se necessário.</li>
         <li>Caso preciso, reinicie o navegador ou tente em outro dispositivo.</li>
@@ -467,6 +468,7 @@
         <li>Limpe o cache do navegador ( nas configurações do celular, acesse <strong>Ajustes > Safari > Avançado ></strong> Dados dos Sites e toque em Remover Todos os Dados).</li>
         <li>Feche o navegador e abra novamente.</li>
         <li>Se possível, use uma conexão Wi-Fi estável (alternando a conexão entre dados móveis e Wi-Fi).</li>
+        <li>Reinicie a conexão com a internet, aguardando 20 segundos antes de reativar a conexão.</li>
         <li>Se persistir, faça o teste por uma aba anônima.</li>
         <li>Orientamos testar em outros navegadores (como Google Chrome, Microsoft Edge ou Mozilla Firefox), se necessário.</li>
         <li>Caso preciso, reinicie o navegador ou tente em outro dispositivo.</li>
@@ -573,7 +575,7 @@
 </section>
 
 <section class="topic-card" data-section>
-  <h2 class="topic-toggle"><span><i class="bi bi-shield-x"></i> Reprovação Interna na Jornada KYC</span></h2>
+  <h2 class="topic-toggle"><span><i class="bi bi-shield-x"></i> Reprovação apenas no BackOffice, sem refletir no painel do fornecedor</span></h2>
   <div class="topic-body">
     <p class="intro">
       A jornada de KYC é reprovada internamente, sem exibir registros ou eventos
@@ -628,7 +630,7 @@
 </section>
 
 <section class="topic-card" data-section>
-  <h2 class="topic-toggle"><span><i class="bi bi-check2-circle"></i> Validação aprovada, mas sem ação seguinte na jornada</span></h2>
+  <h2 class="topic-toggle"><span><i class="bi bi-check2-circle"></i> Validação aprovada, mas sem registro de saque</span></h2>
   <div class="topic-body">
     <p class="intro">
      O usuário conclui a validação de identidade (liveness/KYC) com status <em>aprovado</em>, tanto internamente quanto no painel do fornecedor “L”, porém a jornada não avança para a próxima etapa esperada (exemplo: o saque não é processado após a aprovação).
@@ -694,6 +696,80 @@
   </div>
 </section>
 
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-shield-exclamation"></i> Uso de VPN ou Proxy durante a validação</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      O usuário realiza o processo de validação de identidade (liveness/KYC), porém a utilização de <em>VPN</em>, <em>Proxy</em> ou serviços que mascaram a localização pode interferir na validação de segurança e impedir o correto compartilhamento da localização necessária para análise.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+<ul>
+  <li>A tela de validação fica carregando continuamente e não inicia o processo.</li>
+  <li>O fluxo não avança após a etapa de compartilhamento de localização.</li>
+  <li>Mensagem genérica de erro ao tentar iniciar a validação.</li>
+  <li>Erro relacionado à localização, segurança ou inconsistência de acesso.</li>
+  <li>Solicitação de localização não aparece ou não conclui corretamente.</li>
+  <li>O processo funciona em outra rede/dispositivo, mas falha no aparelho atual.</li>
+</ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      Orientar o usuário a desativar qualquer VPN, Proxy ou recurso de mascaramento de localização antes de iniciar novamente o processo de validação.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-header">
+        <button class="tab-btn active" data-tab="android">
+          <i class="bi bi-android2"></i> Android
+        </button>
+        <button class="tab-btn" data-tab="ios">
+          <i class="bi bi-apple"></i> iPhone
+        </button>
+      </div>
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Acesse <strong>Configurações &gt; Rede e Internet &gt; VPN</strong>.</li>
+            <li>Verifique se existe alguma VPN ativa e selecione <strong>Desconectar</strong>.</li>
+            <li>Se houver aplicativos de VPN instalados (como ProtonVPN, NordVPN, Turbo VPN, entre outros), feche ou desative o aplicativo.</li>
+            <li>Acesse <strong>Configurações &gt; Rede e Internet &gt; Proxy</strong> (ou configurações da rede Wi‑Fi utilizada) e confirme que não há Proxy configurado.</li>
+            <li>Em alguns aparelhos, também é recomendado desativar o <strong>DNS Privado</strong> em <strong>Configurações &gt; Rede e Internet &gt; DNS Privado</strong>, deixando como <strong>Automático</strong> ou <strong>Desativado</strong>.</li>
+            <li>Feche completamente o navegador utilizado e abra novamente.</li>
+            <li>Refaça o processo de validação utilizando uma conexão comum de internet, preferencialmente sem aplicativos de terceiros ativos.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Acesse <strong>Ajustes &gt; Geral &gt; VPN e Gerenciamento de Dispositivo</strong>.</li>
+            <li>Se houver uma VPN ativa, selecione <strong>Desconectar</strong>.</li>
+            <li>Também verifique em <strong>Ajustes &gt; VPN</strong> se existe alguma conexão habilitada.</li>
+            <li>Se utilizar aplicativos de VPN, feche ou desative os aplicativos instalados.</li>
+            <li>Acesse <strong>Ajustes &gt; Wi‑Fi &gt; [rede conectada] &gt; Configurar Proxy</strong> e deixe a opção como <strong>Desativado</strong>.</li>
+            <li>Feche completamente o navegador Safari e abra novamente.</li>
+            <li>Refaça o processo de validação utilizando a conexão normal da internet.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      VPNs, Proxys e serviços de mascaramento de conexão podem alterar ou ocultar informações importantes de localização e segurança utilizadas durante o processo de validação de identidade.
+      Isso pode gerar divergências na análise antifraude, impedir o correto compartilhamento da localização do dispositivo ou causar bloqueios automáticos de segurança.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso o erro persista mesmo após a desativação da VPN/Proxy e nova tentativa de validação, encaminhar o caso para análise detalhada, preferencialmente com evidências em vídeo ou gravação de tela demonstrando o comportamento apresentado.
+    </p>
+  </div>
+</section>
 
 
 </div>

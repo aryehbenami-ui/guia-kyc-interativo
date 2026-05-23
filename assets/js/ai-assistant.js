@@ -307,7 +307,47 @@ const KYC_KNOWLEDGE_BASE = {
         notes: 'Esse comportamento ocorre porque, ao usar o app externo, o fluxo de retorno nem sempre é sincronizado corretamente.',
         escalation: 'Caso persista, reportar com gravação de tela mostrando a situação.'
       }
-    }
+    },
+    {
+  id: 'vpn-proxy-location',
+  title: 'VPN ou Proxy impedindo validação',
+  keywords: [
+    'vpn',
+    'proxy',
+    'dns privado',
+    'localização',
+    'carregando',
+    'não inicia',
+    'erro genérico',
+    'não avança',
+    'compartilhar localização'
+  ],
+  content: {
+    intro: 'O usuário não consegue iniciar corretamente o fluxo de validação de identidade, geralmente devido ao uso de VPN, Proxy ou serviços que mascaram a localização do dispositivo.',
+
+    identification: [
+      'A tela de validação fica carregando continuamente.',
+      'O fluxo não passa da etapa de compartilhamento de localização.',
+      'Mensagem genérica de erro ao iniciar a validação.',
+      'Erro relacionado à localização, segurança ou inconsistência de acesso.',
+      'Uso de aplicativos de VPN ativos no aparelho.',
+      'Navegador ou aparelho configurado com Proxy ou DNS privado.'
+    ],
+
+    steps: [
+      'Desative qualquer VPN ativa no aparelho.',
+      'Feche aplicativos de VPN instalados no dispositivo.',
+      'Verifique se não há Proxy configurado na rede utilizada.',
+      'Desative o DNS Privado, caso esteja habilitado.',
+      'Feche completamente o navegador e abra novamente.',
+      'Refaça o processo utilizando uma conexão comum de internet.'
+    ],
+
+    notes: 'VPNs, Proxys e serviços de mascaramento de conexão podem ocultar ou alterar informações importantes de localização e segurança necessárias para o processo de validação.',
+
+    escalation: 'Caso o erro persista mesmo após a desativação da VPN/Proxy, encaminhar para análise com gravação de tela demonstrando o comportamento apresentado.'
+  }
+}
   ]
 };
 
