@@ -370,6 +370,19 @@
   background: #e0e8f4;
 }
 
+/* Fonte da resposta (guia vs conhecimento técnico) */
+.ai-message-source {
+  font-size: 11px;
+  color: #666;
+  background: #f8f9fa;
+  padding: 4px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-top: 8px;
+  font-style: italic;
+  border: 1px solid #e9ecef;
+}
+
 /* Feedback buttons */
 .ai-feedback {
   display: flex;

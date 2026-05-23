@@ -552,6 +552,14 @@ ${context}`;
       }
 
       const data = await response.json();
+      
+      // Armazenar metadados da resposta para exibição
+      this.lastResponseMetadata = {
+        usedGuide: data.usedGuide || false,
+        usedTechnicalKnowledge: data.usedTechnicalKnowledge || false,
+        model: data.model || 'deepseek-chat'
+      };
+      
       return data.response || 'Desculpe, não consegui processar sua solicitação.';
     } catch (error) {
       if (error.name === 'AbortError') {
@@ -660,6 +668,29 @@ Recomendo:
     contentDiv.innerHTML = this.formatMessage(content);
     
     div.appendChild(contentDiv);
+
+    // Adicionar indicador de fonte da resposta (guia vs conhecimento técnico)
+    if (type === 'assistant' && this.lastResponseMetadata) {
+      const sourceDiv = document.createElement('div');
+      sourceDiv.className = 'ai-message-source';
+      
+      let sourceText = '';
+      if (this.lastResponseMetadata.usedGuide && this.lastResponseMetadata.usedTechnicalKnowledge) {
+        sourceText = '📚 Guia KYC + Conhecimento Técnico';
+      } else if (this.lastResponseMetadata.usedGuide) {
+        sourceText = '📖 Baseado no Guia KYC';
+      } else if (this.lastResponseMetadata.usedTechnicalKnowledge) {
+        sourceText = '🧠 Conhecimento Técnico KYC';
+      }
+      
+      if (sourceText) {
+        sourceDiv.textContent = sourceText;
+        div.appendChild(sourceDiv);
+      }
+      
+      // Limpar metadados após uso
+      this.lastResponseMetadata = null;
+    }
 
     // Adicionar botões de feedback para mensagens do assistente
     if (type === 'assistant') {
