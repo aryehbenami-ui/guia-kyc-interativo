@@ -131,8 +131,15 @@ Enquanto isso, utilize o modo offline do assistente que já está funcionando no
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      const errorText = await response.text();
+      let errorData = {};
+      try {
+        errorData = JSON.parse(errorText);
+      } catch (e) {
+        // Response is not JSON
+      }
       console.error('DeepSeek API Error:', response.status, errorData);
+      console.error('DeepSeek API Error Raw:', errorText);
       
       return {
         statusCode: response.status === 401 ? 401 : 500,
@@ -141,7 +148,9 @@ Enquanto isso, utilize o modo offline do assistente que já está funcionando no
           error: 'Failed to get response from AI',
           message: response.status === 401 
             ? 'Invalid API key' 
-            : `API error: ${response.status}`
+            : `API error: ${response.status}`,
+          details: errorData,
+          rawError: errorText.substring(0, 500)
         })
       };
     }
