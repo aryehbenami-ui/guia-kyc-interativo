@@ -87,10 +87,18 @@ Enquanto isso, utilize o modo offline do assistente que já está funcionando no
         headers,
         body: JSON.stringify({
           error: 'DeepSeek API key not configured',
-          message: 'Configure a variável de ambiente DEEPSEEK_API_KEY no Netlify'
+          message: 'Configure a variável de ambiente DEEPSEEK_API_KEY no Netlify',
+          debug: {
+            hasEnvVar: !!process.env.DEEPSEEK_API_KEY,
+            envVarLength: process.env.DEEPSEEK_API_KEY ? process.env.DEEPSEEK_API_KEY.length : 0
+          }
         })
       };
     }
+    
+    // Debug: log da API key (apenas os últimos 5 caracteres)
+    console.log('API Key configurada:', apiKey ? `***${apiKey.slice(-5)}` : 'não configurada');
+    console.log('API Key length:', apiKey ? apiKey.length : 0);
 
     // Construir prompt com contexto KYC
     const messages = [
