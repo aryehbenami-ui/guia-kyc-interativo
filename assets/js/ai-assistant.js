@@ -456,15 +456,8 @@ class KYCAIAssistant {
   }
 
   addWelcomeMessage() {
-    const welcomeMsg = `Olá! Sou o assistente de IA do Guia KYC. 🤖
-
-Posso ajudar com dúvidas sobre:
-• Permissão de câmera e localização
-• Problemas com liveness e face match
-• Erros de OCR e documentos
-• Falhas de conexão
-• E outros troubleshooting KYC
-
+    const welcomeMsg = `Olá! Sou o assistente de IA do Guia KYC.
+    
 **Como posso ajudar hoje?**`;
     
     this.addMessage('assistant', welcomeMsg);
@@ -501,7 +494,7 @@ Posso ajudar com dúvidas sobre:
     } catch (error) {
       console.error('Erro no assistente IA:', error);
       this.removeMessage(loadingId);
-      this.addMessage('assistant', '⚠️ Desculpe, ocorreu um erro ao processar sua solicitação. Por favor, tente novamente.');
+      this.addMessage('assistant', '⚠️ Desculpe, ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
     }
   }
 
