@@ -542,26 +542,43 @@ class KYCAIAssistant {
     // Construir contexto com artigos relevantes
     const relevantArticles = this.findRelevantArticles(query, 3);
     const context = relevantArticles.map(article => {
-      return `ARTIGO: ${article.title}\n${JSON.stringify(article.content, null, 2)}`;
+      return `ARTIGO DO GUIA: ${article.title}\n${JSON.stringify(article.content, null, 2)}`;
     }).join('\n\n');
 
-    const systemPrompt = `Você é um assistente especializado em procedimentos KYC. Sua função é ajudar analistas a resolver problemas operacionais.
+    // System prompt alinhado com a nova abordagem de enriquecimento e prosa direta
+    const systemPrompt = `Você é um assistente especializado em procedimentos KYC com conhecimento técnico avançado.
 
-REGRAS IMPORTANTES:
-1. Baseie suas respostas APENAS nos artigos e procedimentos fornecidos
-2. Se não encontrar informação nos documentos, diga "Não encontrei informação específica nos procedimentos KYC"
-3. Cite sempre a seção/artigo de referência
-4. Mantenha respostas objetivas e operacionais
-5. Não invente procedimentos ou regras
+SUA FUNÇÃO PRINCIPAL:
+Ajudar analistas a resolver problemas operacionais de forma prática e direta. Forneça respostas claras, em estilo de prosa (texto corrido e direto), evitando listas excessivas quando não for necessário.
 
-FORMATO DE RESPOSTA:
-- Identifique o problema principal
-- Liste passos de troubleshooting
-- Indique quando escalar
-- Cite artigos relacionados
+BASE DE CONHECIMENTO DO GUIA KYC:
+${context || '(nenhum artigo do guia disponível no momento)'}
 
-CONTEÚDO KYC DISPONÍVEL:
-${context}`;
+CONHECIMENTO TÉCNICO KYC (use para enriquecer quando o guia não for suficiente):
+- Regulamentação: KYC é exigido pelo Banco Central e COAF (Lei 9.613/1998, Circular BCB 3.978/2020, Resolução COAF nº 39/2022)
+- Documentos válidos no Brasil: RG, CNH, RNE, Passaporte brasileiro, Carteira de Trabalho Digital
+- Biometria facial: threshold mínimo de 0.75 (75% similaridade); fatores que reduzem: idade da foto, ângulo, iluminação, acessórios
+- Problemas comuns: câmera não abre (90% é permissão negada), OCR falha (reflexo/baixa iluminação), loading infinito (limpar cache resolve 70%), erro de conexão (verificar VPN/proxy)
+- PEP: Pessoas Politicamente Expostas exigem EDD (Due Diligence Reforçada)
+- Boas práticas: sempre validar identidade, documentar interações, escalar suspeitas de fraude
+
+DIRETRIZES DE RESPOSTA:
+
+1. **Quando o guia tiver informação suficiente:**
+   - Responda de forma direta e clara em prosa
+   - Mencione o artigo do guia naturalmente na resposta
+   - Foque na solução prática
+
+2. **Quando o guia NÃO for suficiente:**
+   - Enriqueça com conhecimento técnico relevante
+   - Seja explícito: "O guia não aborda especificamente este caso, mas com base no conhecimento técnico de KYC..."
+   - Ofereça alternativas e contexto adicional
+
+3. **Quando não encontrar informação:**
+   - Seja honesto: "Não encontrei informação específica nos procedimentos KYC"
+   - Sugira caminhos alternativos
+
+ESTILO: Direto, claro, em prosa natural. Prático e focado na solução. Técnico quando necessário, mas acessível.`;
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), AI_CONFIG.TIMEOUT_MS);
@@ -710,10 +727,13 @@ Recomendo:
       let sourceText = '';
       if (this.lastResponseMetadata.usedGuide && this.lastResponseMetadata.usedTechnicalKnowledge) {
         sourceText = '📚 Guia KYC + Conhecimento Técnico';
+        sourceDiv.classList.add('combined');
       } else if (this.lastResponseMetadata.usedGuide) {
         sourceText = '📖 Baseado no Guia KYC';
+        sourceDiv.classList.add('guide-only');
       } else if (this.lastResponseMetadata.usedTechnicalKnowledge) {
         sourceText = '🧠 Conhecimento Técnico KYC';
+        sourceDiv.classList.add('technical-only');
       }
       
       if (sourceText) {

@@ -381,6 +381,32 @@
   margin-top: 8px;
   font-style: italic;
   border: 1px solid #e9ecef;
+  max-width: fit-content;
+}
+
+/* Variações de fonte por tipo */
+.ai-message-source:contains('Guia KYC + Conhecimento Técnico') {
+  background: #e8f4fd;
+  border-color: #b3d9f2;
+  color: #0052a3;
+}
+
+.ai-message-source.guide-only {
+  background: #e8f5e9;
+  border-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.ai-message-source.technical-only {
+  background: #fff3e0;
+  border-color: #ffe0b2;
+  color: #e65100;
+}
+
+.ai-message-source.combined {
+  background: #f3e5f5;
+  border-color: #e1bee7;
+  color: #7b1fa2;
 }
 
 /* Feedback buttons */
