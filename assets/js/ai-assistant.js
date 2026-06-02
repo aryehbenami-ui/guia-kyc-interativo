@@ -6,13 +6,151 @@ const AI_CONFIG = {
   MAX_RETRIES: 2
 };
 
-// Base de conhecimento KYC (usada quando API não está disponível)
+// ============================================================================
+// CATEGORIAS DE TROUBLESHOOTING (Reutilizáveis entre artigos)
+// ============================================================================
+const TROUBLESHOOTING_CATEGORIES = {
+  connectivity: {
+    id: 'connectivity',
+    title: 'Conectividade',
+    icon: 'bi-wifi',
+    description: 'Verificações relacionadas à conexão com a internet.',
+    steps: {
+      android: [
+        'Verifique se o celular está conectado à internet (desative e reative).',
+        'Dê preferência para uma conexão Wi-Fi estável.',
+        'Troque entre Wi-Fi e dados móveis para testar.',
+        'Desative VPN, proxy ou aplicativos de rede segura.',
+        'Evite alternar entre Wi-Fi e dados móveis durante o processo.',
+        'Reinicie o roteador se possível.',
+        'Se necessário, reinicie o dispositivo.'
+      ],
+      ios: [
+        'Confirme se o iPhone está conectado à internet.',
+        'Prefira utilizar uma rede Wi-Fi estável.',
+        'Troque entre Wi-Fi e dados móveis para testar.',
+        'Desative VPN ou apps que alterem a conexão.',
+        'Evite trocar de rede durante a validação.',
+        'Reinicie o roteador se possível.',
+        'Se necessário, reinicie o dispositivo.'
+      ]
+    },
+    checks: [
+      'Internet está funcionando em outros apps?',
+      'Sinal de Wi-Fi/dados está estável?',
+      'VPN ou Proxy estão desativados?'
+    ]
+  },
+  browser: {
+    id: 'browser',
+    title: 'Navegador',
+    icon: 'bi-browser-chrome',
+    description: 'Verificações e ações relacionadas ao navegador.',
+    steps: {
+      android: [
+        'Feche o navegador Chrome e abra novamente.',
+        'Limpe o cache do navegador (Configurações > Apps > Chrome > Limpar dados > Limpar cache).',
+        'Limpe os cookies (Configurações > Apps > Chrome > Limpar dados > Cookies).',
+        'Atualize o Chrome para a versão mais recente na Play Store.',
+        'Teste abrir em uma aba anônima.',
+        'Teste em outros navegadores (Edge, Firefox).',
+        'Desative extensões ou modos de economia de dados.'
+      ],
+      ios: [
+        'Feche o Safari e abra novamente.',
+        'Limpe o cache (Ajustes > Safari > Avançado > Dados dos Sites > Remover Todos os Dados).',
+        'Atualize o Safari/iOS para a versão mais recente.',
+        'Teste abrir em uma aba anônima (Privada).',
+        'Teste em outros navegadores (Chrome, Edge, Firefox).',
+        'Desative o modo de economia de dados.'
+      ]
+    },
+    checks: [
+      'Navegador está atualizado?',
+      'Cache e cookies foram limpos?',
+      'Testou em aba anônima?'
+    ]
+  },
+  permissions: {
+    id: 'permissions',
+    title: 'Permissões',
+    icon: 'bi-shield-check',
+    description: 'Verificação de permissões necessárias no dispositivo.',
+    steps: {
+      android: [
+        'Nas configurações do dispositivo, acesse Configurações > Apps > Chrome > Permissões.',
+        'Verifique se a permissão de Câmera está definida como "Permitir".',
+        'Verifique se a permissão de Localização está definida como "Permitir".',
+        'Verifique se a permissão de Microfone está definida como "Permitir" (se aplicável).',
+        'Após ajustar permissões, feche e reabra o navegador.'
+      ],
+      ios: [
+        'Nas configurações do dispositivo, acesse Ajustes > Safari.',
+        'Verifique se a permissão de Câmera está definida como "Permitir".',
+        'Verifique se a permissão de Localização está definida como "Durante o uso".',
+        'Verifique se a permissão de Microfone está definida como "Permitir" (se aplicável).',
+        'Após ajustar permissões, feche e reabra o navegador.'
+      ]
+    },
+    checks: [
+      'Câmera habilitada?',
+      'Localização habilitada?',
+      'Microfone habilitado (se aplicável)?'
+    ],
+    notes: 'No iOS, todos os navegadores utilizam o WebKit. Mesmo usando Chrome, as permissões seguem as regras do Safari.'
+  },
+  device: {
+    id: 'device',
+    title: 'Dispositivo',
+    icon: 'bi-phone',
+    description: 'Verificações e ações relacionadas ao dispositivo.',
+    steps: {
+      generic: [
+        'Reinicie o aparelho.',
+        'Feche todos os aplicativos em execução para liberar recursos.',
+        'Feche abas extras do navegador.',
+        'Verifique se há armazenamento disponível (mínimo recomendado: 500MB).',
+        'Verifique se o sistema operacional está atualizado.',
+        'Limpe a câmera do dispositivo com um pano macio (microfibra).',
+        'Evite usar o dispositivo enquanto carrega.'
+      ]
+    },
+    checks: [
+      'Dispositivo foi reiniciado recentemente?',
+      'Apps em segundo plano foram fechados?',
+      'Há armazenamento suficiente disponível?',
+      'Sistema operacional está atualizado?'
+    ]
+  },
+  evidence: {
+    id: 'evidence',
+    title: 'Coleta de Evidências',
+    icon: 'bi-camera',
+    description: 'Informações importantes para coleta ao reportar problemas.',
+    checklist: [
+      'Print da tela de erro',
+      'Gravação de tela do problema',
+      'Modelo do dispositivo (ex: Samsung Galaxy A54, iPhone 13)',
+      'Versão do sistema operacional (ex: Android 13, iOS 16.5)',
+      'Navegador utilizado e versão (ex: Chrome 120, Safari 16)',
+      'Data e horário da tentativa',
+      'Tipo de conexão (Wi-Fi, 4G, 5G)',
+      'Mensagem de erro exata (se houver)'
+    ]
+  }
+};
+
+// ============================================================================
+// BASE DE CONHECIMENTO KYC
+// ============================================================================
 const KYC_KNOWLEDGE_BASE = {
   articles: [
     {
       id: 'camera-permission',
       title: 'Permissão da Câmera',
       keywords: ['câmera', 'camera', 'permissão', 'acesso', 'preta', 'não carrega'],
+      // Categorias de troubleshooting aplicáveis
+      troubleshooting: ['permissions', 'browser', 'device'],
       content: {
         intro: 'Problemas relacionados ao acesso à câmera.',
         identification: [
@@ -20,19 +158,9 @@ const KYC_KNOWLEDGE_BASE = {
           'Mensagem de câmera indisponível',
           'Usuário relata que "não aparece nada"'
         ],
-        android: [
-          'Nas configurações do dispositivo, acesse Configurações > Apps > Chrome > Permissões > Câmera e selecione Permitir.',
-          'Feche o navegador e abra novamente.',
-          'Feche todos os aplicativos em execução para liberar a câmera.',
-          'Se houver muitas abas abertas, feche-as para liberar recursos.',
-          'Tente refazer o processo de validação.'
-        ],
-        ios: [
-          'Nas configurações do dispositivo, acesse Ajustes > Safari > Câmera e selecione Permitir.',
-          'Feche o navegador e abra novamente.',
-          'Feche todos os aplicativos em execução para liberar a câmera.',
-          'Se houver muitas abas abertas, feche-as para liberar recursos.',
-          'Tente refazer o processo de validação.'
+        // Passos específicos do problema (além das categorias)
+        specificSteps: [
+          'Após ajustar permissões, teste refazer o processo de validação.'
         ],
         notes: 'No iOS, todos os navegadores utilizam o WebKit. Mesmo usando Chrome, as permissões seguem as regras do Safari.',
         escalation: 'Caso o erro persista após seguir todas as orientações, reportar para análise junto ao fornecedor de validação.'
@@ -42,6 +170,7 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'location-sharing',
       title: 'Compartilhamento de Localização',
       keywords: ['localização', 'localizacao', 'gps', 'local', 'geolocalização'],
+      troubleshooting: ['permissions', 'device'],
       content: {
         intro: 'Solicitação e bloqueio de acesso à localização.',
         identification: [
@@ -49,18 +178,8 @@ const KYC_KNOWLEDGE_BASE = {
           'Mensagem de permissão negada',
           'Usuário relata que não avança na tela onde pede a localização'
         ],
-        android: [
-          'Nas configurações do dispositivo, acesse Configurações > Apps > Chrome > Permissões > Localização e selecione Permitir.',
-          'Feche o navegador e abra novamente.',
-          'Se houver muitas abas abertas, feche-as para liberar recursos.',
-          'Tente refazer o processo de validação.',
-          'Se persistir, reinicie o celular.'
-        ],
-        ios: [
-          'Nas configurações do dispositivo, acesse Ajustes > Safari > Localização e selecione Permitir.',
-          'Feche o navegador e abra novamente.',
-          'Se houver muitas abas abertas, feche-as para liberar recursos.',
-          'Tente refazer o processo de validação.'
+        specificSteps: [
+          'Após ajustar permissões, teste refazer o processo de validação.'
         ],
         notes: 'A localização auxilia na análise antifraude e na validação do ambiente de acesso.',
         escalation: 'Caso persista, verificar se o GPS do dispositivo está funcionando corretamente.'
@@ -70,6 +189,7 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'face-match-low',
       title: 'Face Match com baixa similaridade',
       keywords: ['face match', 'similaridade', 'selfie', 'documento', 'score', '0.69', '0.75'],
+      troubleshooting: ['device'],
       content: {
         intro: 'Falha na comparação facial entre a selfie e o documento.',
         identification: [
@@ -92,6 +212,7 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'selfie-camera-error',
       title: 'Erro na Câmera no Envio da Selfie',
       keywords: ['selfie', 'câmera', 'erro', 'trava', 'liveness', 'não envia'],
+      troubleshooting: ['permissions', 'browser', 'connectivity', 'device'],
       content: {
         intro: 'Falha na captura ou no envio da selfie durante o processo de validação facial.',
         identification: [
@@ -101,20 +222,6 @@ const KYC_KNOWLEDGE_BASE = {
           'Processo trava na etapa de liveness.',
           'No painel do fornecedor constará "Erro na câm."'
         ],
-        android: [
-          'Feche o navegador Chrome e abra novamente.',
-          'Nas configurações do celular, vá em Configurações > Apps > Chrome > Permissões e permita o acesso à Câmera.',
-          'Feche todos os aplicativos em execução para liberar a câmera.',
-          'Tente novamente utilizando uma boa conexão de internet.',
-          'Reinicie o celular caso a câmera continue travada.'
-        ],
-        ios: [
-          'Feche o navegador ou aplicativo e abra novamente.',
-          'Nas configurações do celular, vá em Ajustes > Safari > Câmera e permita o acesso à Câmera.',
-          'Feche todos os aplicativos em execução para liberar a câmera.',
-          'Tente novamente utilizando uma boa conexão de internet.',
-          'Reinicie o celular caso a câmera continue travada.'
-        ],
         escalation: 'Caso o erro persista, reportar o caso para análise junto ao fornecedor de validação facial.'
       }
     },
@@ -122,6 +229,7 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'document-ocr-failed',
       title: 'Documento Ilegível / Falha no OCR',
       keywords: ['documento', 'ocr', 'ilegível', 'não reconhece', 'foto', 'imagem'],
+      troubleshooting: ['device'],
       content: {
         intro: 'O sistema não conseguiu identificar ou ler corretamente as informações do documento.',
         identification: [
@@ -145,6 +253,7 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'liveness-failed',
       title: 'Liveness Falhou / Rosto Não Detectado',
       keywords: ['liveness', 'rosto', 'face', 'detectado', 'aproximar', 'afastar'],
+      troubleshooting: ['device', 'permissions'],
       content: {
         intro: 'O sistema não conseguiu identificar corretamente o rosto durante a validação de liveness.',
         identification: [
@@ -170,6 +279,7 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'loading-loop',
       title: 'Loading em Loop ao Iniciar o Liveness',
       keywords: ['loading', 'loop', 'carregando', 'infinito', 'iniciar', 'não inicia'],
+      troubleshooting: ['browser', 'permissions', 'connectivity', 'device'],
       content: {
         intro: 'A tela de validação facial fica carregando continuamente e o liveness não inicia.',
         identification: [
@@ -178,24 +288,6 @@ const KYC_KNOWLEDGE_BASE = {
           'Usuário não consegue avançar no processo',
           'O problema ocorre ao clicar em "Iniciar validação"'
         ],
-        android: [
-          'Feche o navegador e abra novamente.',
-          'Nas configurações do celular, acesse Configurações > Apps > Chrome > Permissões e confirme que a permissão de Câmera está habilitada.',
-          'Limpe o cache do navegador (Configurações > Apps > Chrome > Limpar dados > Limpar cache).',
-          'Use uma conexão Wi-Fi estável.',
-          'Evite usar VPN ou modo economia de dados.',
-          'Se persistir, faça o teste por uma aba anônima.',
-          'Caso necessário, reinicie o dispositivo.'
-        ],
-        ios: [
-          'Feche o navegador e abra novamente.',
-          'Nas configurações do celular, acesse Ajustes > Safari > Câmera e confirme que a permissão de Câmera está habilitada.',
-          'Limpe o cache do navegador (Ajustes > Safari > Avançado > Dados dos Sites).',
-          'Use uma conexão Wi-Fi estável.',
-          'Evite usar VPN ou modo economia de dados.',
-          'Se persistir, faça o teste por uma aba anônima.',
-          'Caso necessário, reinicie o dispositivo.'
-        ],
         escalation: 'Se o problema continuar, reportar para análise junto ao fornecedor de liveness.'
       }
     },
@@ -203,6 +295,7 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'black-screen',
       title: 'Tela Preta sem Renderização',
       keywords: ['tela preta', 'preta', 'não renderiza', 'nada aparece', 'vazio'],
+      troubleshooting: ['browser', 'connectivity', 'device'],
       content: {
         intro: 'A tela fica totalmente preta e nenhum componente do processo de validação é exibido.',
         identification: [
@@ -211,22 +304,6 @@ const KYC_KNOWLEDGE_BASE = {
           'Página parece carregada, mas sem conteúdo visível',
           'Usuário não consegue interagir com a tela'
         ],
-        android: [
-          'Limpe o cache do navegador (Configurações > Apps > Chrome > Limpar dados > Limpar cache).',
-          'Feche o navegador e abra novamente.',
-          'Se possível, use uma conexão Wi-Fi estável.',
-          'Se persistir, faça o teste por uma aba anônima.',
-          'Teste em outros navegadores (Edge, Firefox).',
-          'Reinicie o navegador ou tente em outro dispositivo.'
-        ],
-        ios: [
-          'Limpe o cache do navegador (Ajustes > Safari > Avançado > Dados dos Sites).',
-          'Feche o navegador e abra novamente.',
-          'Se possível, use uma conexão Wi-Fi estável.',
-          'Se persistir, faça o teste por uma aba anônima.',
-          'Teste em outros navegadores (Chrome, Edge, Firefox).',
-          'Reinicie o navegador ou tente em outro dispositivo.'
-        ],
         escalation: 'Caso nenhuma ação resolva, verificar com o fornecedor de validação.'
       }
     },
@@ -234,6 +311,7 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'connection-failed',
       title: 'Falha de Conexão ao Iniciar a Validação',
       keywords: ['conexão', 'internet', 'rede', 'wi-fi', 'dados', 'instabilidade'],
+      troubleshooting: ['connectivity', 'browser', 'device'],
       content: {
         intro: 'O usuário recebe uma mensagem de erro informando falha de conexão ao tentar iniciar o processo de validação KYC.',
         identification: [
@@ -242,24 +320,6 @@ const KYC_KNOWLEDGE_BASE = {
           'Tela exibe aviso de instabilidade ou conexão indisponível',
           'Usuário relata que a internet funciona em outros aplicativos'
         ],
-        android: [
-          'Verifique se o celular está conectado à internet (desative e reative).',
-          'Dê preferência para uma conexão Wi-Fi estável.',
-          'Desative VPN, proxy ou aplicativos de rede segura.',
-          'Evite alternar entre Wi-Fi e dados móveis durante o processo.',
-          'Feche o navegador e abra novamente.',
-          'Se necessário, reinicie o dispositivo.',
-          'Tente iniciar a validação novamente.'
-        ],
-        ios: [
-          'Confirme se o iPhone está conectado à internet.',
-          'Prefira utilizar uma rede Wi-Fi estável.',
-          'Desative VPN ou apps que alterem a conexão.',
-          'Evite trocar de rede durante a validação.',
-          'Feche o Safari e abra novamente.',
-          'Se necessário, reinicie o dispositivo.',
-          'Tente iniciar a validação novamente.'
-        ],
         escalation: 'Caso o erro persista mesmo em rede estável, oriente tentar novamente mais tarde ou em outro dispositivo.'
       }
     },
@@ -267,6 +327,7 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'internal-rejection',
       title: 'Reprovação Interna na Jornada KYC',
       keywords: ['reprovado', 'reprovação', 'interna', 'dados', 'cadastro', 'perfil'],
+      troubleshooting: ['evidence'],
       content: {
         intro: 'A jornada de KYC é reprovada internamente, sem exibir registros ou eventos no painel do fornecedor de validação.',
         identification: [
@@ -291,162 +352,128 @@ const KYC_KNOWLEDGE_BASE = {
       id: 'approved-no-action',
       title: 'Validação aprovada, mas sem ação seguinte',
       keywords: ['aprovado', 'saque', 'liberado', 'não avança', 'próxima etapa'],
+      troubleshooting: ['browser', 'permissions', 'device'],
       content: {
         intro: 'O usuário conclui a validação com status aprovado, mas a jornada não avança para a próxima etapa esperada.',
         identification: [
           'O procedimento foi realizado pelo aplicativo externo do fornecedor.',
           'Liveness para saque aprovado, mas sem registro de saque após aprovação.'
         ],
-        steps: [
-          'Abra o processo de validação diretamente pelo navegador (Chrome no Android, Safari no iOS).',
-          'Nas configurações, permita acesso à Câmera e Localização.',
-          'Feche completamente o navegador e abra novamente.',
-          'Certifique-se de que nenhum outro app esteja usando a câmera.',
-          'Refaça todo o processo de validação pelo navegador.'
-        ],
         notes: 'Esse comportamento ocorre porque, ao usar o app externo, o fluxo de retorno nem sempre é sincronizado corretamente.',
         escalation: 'Caso persista, reportar com gravação de tela mostrando a situação.'
       }
     },
     {
-  id: 'vpn-proxy-location',
-  title: 'VPN ou Proxy impedindo validação',
-  keywords: [
-    'vpn',
-    'proxy',
-    'dns privado',
-    'localização',
-    'carregando',
-    'não inicia',
-    'erro genérico',
-    'não avança',
-    'compartilhar localização'
-  ],
-  content: {
-    intro: 'O usuário não consegue iniciar corretamente o fluxo de validação de identidade, geralmente devido ao uso de VPN, Proxy ou serviços que mascaram a localização do dispositivo.',
-
-    identification: [
-      'A tela de validação fica carregando continuamente.',
-      'O fluxo não passa da etapa de compartilhamento de localização.',
-      'Mensagem genérica de erro ao iniciar a validação.',
-      'Erro relacionado à localização, segurança ou inconsistência de acesso.',
-      'Uso de aplicativos de VPN ativos no aparelho.',
-      'Navegador ou aparelho configurado com Proxy ou DNS privado.'
-    ],
-
-    steps: [
-      'Desative qualquer VPN ativa no aparelho.',
-      'Feche aplicativos de VPN instalados no dispositivo.',
-      'Verifique se não há Proxy configurado na rede utilizada.',
-      'Desative o DNS Privado, caso esteja habilitado.',
-      'Feche completamente o navegador e abra novamente.',
-      'Refaça o processo utilizando uma conexão comum de internet.'
-    ],
-
-    notes: 'VPNs, Proxys e serviços de mascaramento de conexão podem ocultar ou alterar informações importantes de localização e segurança necessárias para o processo de validação.',
-
-    escalation: 'Caso o erro persista mesmo após a desativação da VPN/Proxy, encaminhar para análise com gravação de tela demonstrando o comportamento apresentado.'
-  }
-},
-{
-  id: 'error-500',
-  title: 'Erro 500 durante a validação',
-  keywords: [
-    'erro 500',
-    '500',
-    'erro interno',
-    'internal server error',
-    'falha servidor'
-  ],
-  content: {
-    intro: 'O usuário encontra o erro 500 ao tentar iniciar ou concluir o processo de validação.',
-
-    identification: [
-      'Mensagem "Erro 500" exibida na tela.',
-      'Tela em branco após iniciar a validação.',
-      'Falha repentina durante o carregamento da jornada.',
-      'O erro ocorre mesmo após atualizar a página.'
-    ],
-
-    steps: [
-      'Feche completamente o navegador.',
-      'Limpe cache e cookies do navegador.',
-      'Abra novamente o link de validação.',
-      'Teste utilizando uma rede diferente (Wi-Fi ou dados móveis).',
-      'Caso possível, tente em outro navegador compatível.'
-    ],
-
-    notes: 'O erro 500 normalmente indica uma falha interna do servidor responsável pela validação ou por algum serviço integrado ao fluxo.',
-
-    escalation: 'Caso o erro persista, coletar evidências (print ou gravação de tela) e encaminhar para análise.'
-  }
-},
-{
-  id: 'error-404',
-  title: 'Erro 404 durante a validação',
-  keywords: [
-    'erro 404',
-    '404',
-    'página não encontrada',
-    'link inválido',
-    'not found'
-  ],
-  content: {
-    intro: 'O usuário encontra o erro 404 ao acessar o fluxo de validação.',
-
-    identification: [
-      'Mensagem "404 - Página não encontrada".',
-      'O link de validação não abre corretamente.',
-      'A página é exibida como indisponível ou inexistente.',
-      'O erro ocorre imediatamente ao acessar o link.'
-    ],
-
-    steps: [
-      'Solicite ao usuário que gere um novo acesso ao fluxo de validação.',
-      'Oriente a abrir o link diretamente pelo navegador.',
-      'Verifique se o link foi copiado ou compartilhado corretamente.',
-      'Peça para evitar links antigos salvos em favoritos ou histórico.',
-      'Realize uma nova tentativa utilizando o link atualizado.'
-    ],
-
-    notes: 'O erro 404 geralmente ocorre quando o endereço acessado não existe mais, expirou ou foi gerado incorretamente.',
-
-    escalation: 'Caso um novo link apresente o mesmo comportamento, encaminhar para análise com evidências.'
-  }
-},
-{
-  id: 'error-116',
-  title: 'Erro 116 durante a validação',
-  keywords: [
-    'erro 116',
-    '116',
-    'erro de conexão',
-    'instabilidade',
-    'rede'
-  ],
-  content: {
-    intro: 'O usuário encontra o erro 116 durante o carregamento ou execução da validação de identidade.',
-
-    identification: [
-      'Mensagem contendo "Erro 116".',
-      'Carregamento interrompido durante a validação.',
-      'Falha de comunicação com os serviços de validação.',
-      'O problema ocorre principalmente em determinadas redes.'
-    ],
-
-    steps: [
-      'Verifique a estabilidade da conexão de internet.',
-      'Alterne entre Wi-Fi e dados móveis.',
-      'Desative VPN, Proxy ou DNS Privado caso estejam ativos.',
-      'Feche completamente o navegador e tente novamente.',
-      'Realize uma nova tentativa após alguns minutos.'
-    ],
-
-    notes: 'O erro 116 normalmente está associado a falhas de comunicação, instabilidade de rede ou bloqueios que impedem a conexão com os serviços necessários para a validação.',
-
-    escalation: 'Caso persista após as validações de conectividade, encaminhar para análise com gravação de tela e informação da rede utilizada.'
-  }
-}
+      id: 'vpn-proxy-location',
+      title: 'VPN ou Proxy impedindo validação',
+      keywords: [
+        'vpn',
+        'proxy',
+        'dns privado',
+        'localização',
+        'carregando',
+        'não inicia',
+        'erro genérico',
+        'não avança',
+        'compartilhar localização'
+      ],
+      troubleshooting: ['connectivity'],
+      content: {
+        intro: 'O usuário não consegue iniciar corretamente o fluxo de validação de identidade, geralmente devido ao uso de VPN, Proxy ou serviços que mascaram a localização do dispositivo.',
+        identification: [
+          'A tela de validação fica carregando continuamente.',
+          'O fluxo não passa da etapa de compartilhamento de localização.',
+          'Mensagem genérica de erro ao iniciar a validação.',
+          'Erro relacionado à localização, segurança ou inconsistência de acesso.',
+          'Uso de aplicativos de VPN ativos no aparelho.',
+          'Navegador ou aparelho configurado com Proxy ou DNS privado.'
+        ],
+        specificSteps: [
+          'Desative qualquer VPN ativa no aparelho.',
+          'Feche aplicativos de VPN instalados no dispositivo.',
+          'Verifique se não há Proxy configurado na rede utilizada.',
+          'Desative o DNS Privado, caso esteja habilitado.',
+          'Feche completamente o navegador e abra novamente.',
+          'Refaça o processo utilizando uma conexão comum de internet.'
+        ],
+        notes: 'VPNs, Proxys e serviços de mascaramento de conexão podem ocultar ou alterar informações importantes de localização e segurança necessárias para o processo de validação.',
+        escalation: 'Caso o erro persista mesmo após a desativação da VPN/Proxy, encaminhar para análise com gravação de tela demonstrando o comportamento apresentado.'
+      }
+    },
+    {
+      id: 'error-500',
+      title: 'Erro 500 durante a validação',
+      keywords: [
+        'erro 500',
+        '500',
+        'erro interno',
+        'internal server error',
+        'falha servidor'
+      ],
+      troubleshooting: ['browser', 'connectivity', 'evidence'],
+      content: {
+        intro: 'O usuário encontra o erro 500 ao tentar iniciar ou concluir o processo de validação.',
+        identification: [
+          'Mensagem "Erro 500" exibida na tela.',
+          'Tela em branco após iniciar a validação.',
+          'Falha repentina durante o carregamento da jornada.',
+          'O erro ocorre mesmo após atualizar a página.'
+        ],
+        escalation: 'Caso o erro persista, coletar evidências (print ou gravação de tela) e encaminhar para análise.'
+      }
+    },
+    {
+      id: 'error-404',
+      title: 'Erro 404 durante a validação',
+      keywords: [
+        'erro 404',
+        '404',
+        'página não encontrada',
+        'link inválido',
+        'not found'
+      ],
+      troubleshooting: ['evidence'],
+      content: {
+        intro: 'O usuário encontra o erro 404 ao acessar o fluxo de validação.',
+        identification: [
+          'Mensagem "404 - Página não encontrada".',
+          'O link de validação não abre corretamente.',
+          'A página é exibida como indisponível ou inexistente.',
+          'O erro ocorre imediatamente ao acessar o link.'
+        ],
+        specificSteps: [
+          'Solicite ao usuário que gere um novo acesso ao fluxo de validação.',
+          'Oriente a abrir o link diretamente pelo navegador.',
+          'Verifique se o link foi copiado ou compartilhado corretamente.',
+          'Peça para evitar links antigos salvos em favoritos ou histórico.',
+          'Realize uma nova tentativa utilizando o link atualizado.'
+        ],
+        notes: 'O erro 404 geralmente ocorre quando o endereço acessado não existe mais, expirou ou foi gerado incorretamente.',
+        escalation: 'Caso um novo link apresente o mesmo comportamento, encaminhar para análise com evidências.'
+      }
+    },
+    {
+      id: 'error-116',
+      title: 'Erro 116 durante a validação',
+      keywords: [
+        'erro 116',
+        '116',
+        'erro de conexão',
+        'instabilidade',
+        'rede'
+      ],
+      troubleshooting: ['connectivity', 'browser', 'evidence'],
+      content: {
+        intro: 'O usuário encontra o erro 116 durante o carregamento ou execução da validação de identidade.',
+        identification: [
+          'Mensagem contendo "Erro 116".',
+          'Carregamento interrompido durante a validação.',
+          'Falha de comunicação com os serviços de validação.',
+          'O problema ocorre principalmente em determinadas redes.'
+        ],
+        escalation: 'Caso persista após as validações de conectividade, encaminhar para análise com gravação de tela e informação da rede utilizada.'
+      }
+    }
   ]
 };
 
@@ -638,20 +665,38 @@ class KYCAIAssistant {
   }
 
   async callDeepSeekAPI(query) {
-    // Construir contexto com artigos relevantes
+    // Construir contexto com artigos relevantes e categorias de troubleshooting
     const relevantArticles = this.findRelevantArticles(query, 3);
+    
+    // Construir contexto completo com artigos e suas categorias
     const context = relevantArticles.map(article => {
-      return `ARTIGO DO GUIA: ${article.title}\n${JSON.stringify(article.content, null, 2)}`;
+      let articleContext = `ARTIGO: ${article.title}\n`;
+      articleContext += `ID: ${article.id}\n`;
+      
+      if (article.troubleshooting && article.troubleshooting.length > 0) {
+        articleContext += `CATEGORIAS DE TROUBLESHOOTING: ${article.troubleshooting.join(', ')}\n`;
+      }
+      
+      articleContext += `CONTEÚDO:\n${JSON.stringify(article.content, null, 2)}`;
+      return articleContext;
     }).join('\n\n');
 
-    // System prompt alinhado com a nova abordagem de enriquecimento e prosa direta
+    // Construir contexto das categorias de troubleshooting
+    const categoriesContext = Object.entries(TROUBLESHOOTING_CATEGORIES).map(([key, cat]) => {
+      return `${key.toUpperCase()}: ${cat.title}\n${cat.description}\n${JSON.stringify(cat, null, 2)}`;
+    }).join('\n\n');
+
+    // System prompt alinhado com a nova abordagem de categorias de troubleshooting
     const systemPrompt = `Você é um assistente especializado em procedimentos KYC com conhecimento técnico avançado.
 
 SUA FUNÇÃO PRINCIPAL:
-Ajudar analistas a resolver problemas operacionais de forma prática e direta. Forneça respostas claras, em estilo de prosa (texto corrido e direto), evitando listas excessivas quando não for necessário.
+Ajudar analistas a resolver problemas operacionais de forma prática e organizada, utilizando categorias de troubleshooting estruturadas.
 
 BASE DE CONHECIMENTO DO GUIA KYC:
 ${context || '(nenhum artigo do guia disponível no momento)'}
+
+CATEGORIAS DE TROUBLESHOOTING DISPONÍVEIS:
+${categoriesContext}
 
 CONHECIMENTO TÉCNICO KYC (use para enriquecer quando o guia não for suficiente):
 - Regulamentação: KYC é exigido pelo Banco Central e COAF (Lei 9.613/1998, Circular BCB 3.978/2020, Resolução COAF nº 39/2022)
@@ -663,21 +708,27 @@ CONHECIMENTO TÉCNICO KYC (use para enriquecer quando o guia não for suficiente
 
 DIRETRIZES DE RESPOSTA:
 
-1. **Quando o guia tiver informação suficiente:**
-   - Responda de forma direta e clara em prosa
-   - Mencione o artigo do guia naturalmente na resposta
-   - Foque na solução prática
+1. **ESTRUTURA ORGANIZADA POR CATEGORIAS:**
+   - Identifique o problema principal
+   - Organize a solução pelas categorias relevantes (Conectividade, Navegador, Permissões, Dispositivo)
+   - Inclua checklist de verificação rápida para cada categoria
+   - Forneça passos específicos para Android e iOS quando aplicável
 
-2. **Quando o guia NÃO for suficiente:**
+2. **QUANDO O GUIA TIVER INFORMAÇÃO SUFICIENTE:**
+   - Use as categorias de troubleshooting do artigo
+   - Responda de forma estruturada e clara
+   - Mencione o artigo do guia naturalmente na resposta
+
+3. **QUANDO O GUIA NÃO FOR SUFICIENTE:**
    - Enriqueça com conhecimento técnico relevante
    - Seja explícito: "O guia não aborda especificamente este caso, mas com base no conhecimento técnico de KYC..."
    - Ofereça alternativas e contexto adicional
 
-3. **Quando não encontrar informação:**
+4. **QUANDO NÃO ENCONTRAR INFORMAÇÃO:**
    - Seja honesto: "Não encontrei informação específica nos procedimentos KYC"
    - Sugira caminhos alternativos
 
-ESTILO: Direto, claro, em prosa natural. Prático e focado na solução. Técnico quando necessário, mas acessível.`;
+ESTILO: Direto, claro, organizado. Prático e focado na solução. Técnico quando necessário, mas acessível. Use formatação markdown para melhor legibilidade.`;
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), AI_CONFIG.TIMEOUT_MS);
@@ -718,6 +769,9 @@ ESTILO: Direto, claro, em prosa natural. Prático e focado na solução. Técnic
     }
   }
 
+  /**
+   * Gera resposta organizada por categorias de troubleshooting
+   */
   findRelevantAnswer(query) {
     const relevantArticles = this.findRelevantArticles(query, 2);
     
@@ -732,32 +786,120 @@ Recomendo:
 
     const article = relevantArticles[0];
     let response = `📋 **Problema identificado:** ${article.title}\n\n`;
-    response += `**Como identificar:**\n`;
-    response += article.content.identification.map(item => `• ${item}`).join('\n');
     
+    // Seção: Como identificar
+    if (article.content.identification) {
+      response += `**🔍 Como identificar:**\n`;
+      response += article.content.identification.map(item => `• ${item}`).join('\n');
+    }
+    
+    // Seção: Troubleshooting por categorias
+    if (article.troubleshooting && article.troubleshooting.length > 0) {
+      response += `\n\n**🛠️ Troubleshooting organizado:**\n`;
+      
+      article.troubleshooting.forEach((categoryId, index) => {
+        const category = TROUBLESHOOTING_CATEGORIES[categoryId];
+        if (category) {
+          const icon = category.icon ? `<i class="bi ${category.icon}"></i>` : '🔧';
+          response += `\n**${index + 1}. ${icon} ${category.title}**\n`;
+          
+          if (category.description) {
+            response += `_${category.description}_\n`;
+          }
+          
+          // Checklist de verificação rápida
+          if (category.checks && category.checks.length > 0) {
+            response += `\n**Verificações rápidas:**\n`;
+            category.checks.forEach(check => {
+              response += `☐ ${check}\n`;
+            });
+          }
+          
+          // Passos de ação (Android/iOS ou genérico)
+          if (category.steps) {
+            if (category.steps.android || category.steps.ios) {
+              // Passos específicos por plataforma
+              if (category.steps.android) {
+                response += `\n**Android:**\n`;
+                category.steps.android.forEach((step, i) => {
+                  response += `${i + 1}. ${step}\n`;
+                });
+              }
+              if (category.steps.ios) {
+                response += `\n**iOS:**\n`;
+                category.steps.ios.forEach((step, i) => {
+                  response += `${i + 1}. ${step}\n`;
+                });
+              }
+            } else if (category.steps.generic) {
+              // Passos genéricos (aplicáveis a ambos)
+              response += `\n**Passos:**\n`;
+              category.steps.generic.forEach((step, i) => {
+                response += `${i + 1}. ${step}\n`;
+              });
+            }
+          }
+        }
+      });
+    }
+    
+    // Passos específicos do artigo (além das categorias)
     if (article.content.steps) {
-      response += `\n\n**Orientação ao usuário:**\n`;
-      response += article.content.steps.map((step, i) => `${i + 1}. ${step}`).join('\n');
-    } else if (article.content.android) {
-      response += `\n\n**Orientação (Android):**\n`;
-      response += article.content.android.map((step, i) => `${i + 1}. ${step}`).join('\n');
-      if (article.content.ios) {
-        response += `\n\n**Orientação (iOS):**\n`;
-        response += article.content.ios.map((step, i) => `${i + 1}. ${step}`).join('\n');
+      response += `\n\n**📝 Orientações específicas:**\n`;
+      article.content.steps.forEach((step, i) => {
+        response += `${i + 1}. ${step}\n`;
+      });
+    }
+    
+    // Passos específicos adicionais
+    if (article.content.specificSteps) {
+      response += `\n\n**📝 Passos adicionais:**\n`;
+      article.content.specificSteps.forEach((step, i) => {
+        response += `${i + 1}. ${step}\n`;
+      });
+    }
+
+    // Observações
+    if (article.content.notes) {
+      response += `\n\n**⚠️ Observação:** ${article.content.notes}`;
+    }
+    
+    // Notas das categorias (ex: nota sobre WebKit no iOS)
+    const categoryNotes = [];
+    if (article.troubleshooting) {
+      article.troubleshooting.forEach(categoryId => {
+        const category = TROUBLESHOOTING_CATEGORIES[categoryId];
+        if (category && category.notes && !categoryNotes.includes(category.notes)) {
+          categoryNotes.push(category.notes);
+        }
+      });
+    }
+    if (categoryNotes.length > 0) {
+      response += `\n\n**📌 Notas importantes:**\n`;
+      categoryNotes.forEach(note => {
+        response += `• ${note}\n`;
+      });
+    }
+
+    // Quando escalar
+    if (article.content.escalation) {
+      response += `\n\n**🚨 Quando escalar:** ${article.content.escalation}`;
+    }
+    
+    // Coleta de evidências (se aplicável)
+    if (article.troubleshooting && article.troubleshooting.includes('evidence')) {
+      const evidenceCategory = TROUBLESHOOTING_CATEGORIES.evidence;
+      if (evidenceCategory && evidenceCategory.checklist) {
+        response += `\n\n**📸 Coleta de evidências para escalation:**\n`;
+        evidenceCategory.checklist.forEach(item => {
+          response += `• ${item}\n`;
+        });
       }
     }
 
-    if (article.content.notes) {
-      response += `\n\n**Observação:** ${article.content.notes}`;
-    }
-
-    if (article.content.escalation) {
-      response += `\n\n**Quando escalar:** ${article.content.escalation}`;
-    }
-
-    // Se houver mais artigos relevantes
+    // Artigos relacionados
     if (relevantArticles.length > 1) {
-      response += `\n\n**Artigos relacionados:**\n`;
+      response += `\n\n**📚 Artigos relacionados:**\n`;
       relevantArticles.slice(1).forEach(a => {
         response += `• ${a.title}\n`;
       });
