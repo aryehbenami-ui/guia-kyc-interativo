@@ -347,6 +347,105 @@ const KYC_KNOWLEDGE_BASE = {
 
     escalation: 'Caso o erro persista mesmo após a desativação da VPN/Proxy, encaminhar para análise com gravação de tela demonstrando o comportamento apresentado.'
   }
+},
+{
+  id: 'error-500',
+  title: 'Erro 500 durante a validação',
+  keywords: [
+    'erro 500',
+    '500',
+    'erro interno',
+    'internal server error',
+    'falha servidor'
+  ],
+  content: {
+    intro: 'O usuário encontra o erro 500 ao tentar iniciar ou concluir o processo de validação.',
+
+    identification: [
+      'Mensagem "Erro 500" exibida na tela.',
+      'Tela em branco após iniciar a validação.',
+      'Falha repentina durante o carregamento da jornada.',
+      'O erro ocorre mesmo após atualizar a página.'
+    ],
+
+    steps: [
+      'Feche completamente o navegador.',
+      'Limpe cache e cookies do navegador.',
+      'Abra novamente o link de validação.',
+      'Teste utilizando uma rede diferente (Wi-Fi ou dados móveis).',
+      'Caso possível, tente em outro navegador compatível.'
+    ],
+
+    notes: 'O erro 500 normalmente indica uma falha interna do servidor responsável pela validação ou por algum serviço integrado ao fluxo.',
+
+    escalation: 'Caso o erro persista, coletar evidências (print ou gravação de tela) e encaminhar para análise.'
+  }
+},
+{
+  id: 'error-404',
+  title: 'Erro 404 durante a validação',
+  keywords: [
+    'erro 404',
+    '404',
+    'página não encontrada',
+    'link inválido',
+    'not found'
+  ],
+  content: {
+    intro: 'O usuário encontra o erro 404 ao acessar o fluxo de validação.',
+
+    identification: [
+      'Mensagem "404 - Página não encontrada".',
+      'O link de validação não abre corretamente.',
+      'A página é exibida como indisponível ou inexistente.',
+      'O erro ocorre imediatamente ao acessar o link.'
+    ],
+
+    steps: [
+      'Solicite ao usuário que gere um novo acesso ao fluxo de validação.',
+      'Oriente a abrir o link diretamente pelo navegador.',
+      'Verifique se o link foi copiado ou compartilhado corretamente.',
+      'Peça para evitar links antigos salvos em favoritos ou histórico.',
+      'Realize uma nova tentativa utilizando o link atualizado.'
+    ],
+
+    notes: 'O erro 404 geralmente ocorre quando o endereço acessado não existe mais, expirou ou foi gerado incorretamente.',
+
+    escalation: 'Caso um novo link apresente o mesmo comportamento, encaminhar para análise com evidências.'
+  }
+},
+{
+  id: 'error-116',
+  title: 'Erro 116 durante a validação',
+  keywords: [
+    'erro 116',
+    '116',
+    'erro de conexão',
+    'instabilidade',
+    'rede'
+  ],
+  content: {
+    intro: 'O usuário encontra o erro 116 durante o carregamento ou execução da validação de identidade.',
+
+    identification: [
+      'Mensagem contendo "Erro 116".',
+      'Carregamento interrompido durante a validação.',
+      'Falha de comunicação com os serviços de validação.',
+      'O problema ocorre principalmente em determinadas redes.'
+    ],
+
+    steps: [
+      'Verifique a estabilidade da conexão de internet.',
+      'Alterne entre Wi-Fi e dados móveis.',
+      'Desative VPN, Proxy ou DNS Privado caso estejam ativos.',
+      'Feche completamente o navegador e tente novamente.',
+      'Realize uma nova tentativa após alguns minutos.'
+    ],
+
+    notes: 'O erro 116 normalmente está associado a falhas de comunicação, instabilidade de rede ou bloqueios que impedem a conexão com os serviços necessários para a validação.',
+
+    escalation: 'Caso persista após as validações de conectividade, encaminhar para análise com gravação de tela e informação da rede utilizada.'
+  }
 }
   ]
 };
