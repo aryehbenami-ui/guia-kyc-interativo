@@ -3,9 +3,9 @@
 /* Botão flutuante */
 .ai-assistant-btn {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+  bottom: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
   border: none;
   border-radius: 50px;
@@ -13,9 +13,9 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -24,8 +24,8 @@
 
 .ai-assistant-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0, 102, 204, 0.4);
-  background: linear-gradient(135deg, #0052a3 0%, #003d80 100%);
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
 }
 
 .ai-assistant-btn:active {
@@ -65,12 +65,13 @@
 .ai-chat-modal {
   position: fixed;
   bottom: 90px;
-  right: 20px;
-  width: 380px;
-  height: 520px;
+  right: 24px;
+  width: 400px;
+  height: 560px;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
   z-index: 1001;
@@ -90,9 +91,9 @@
 
 /* Header do Chat */
 .ai-chat-header {
-  background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
-  padding: 16px 20px;
+  padding: 18px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -251,21 +252,21 @@
 }
 
 .ai-suggestion-chip {
-  background: #f0f4f8;
-  border: 1px solid #d0dce8;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
   border-radius: 20px;
-  padding: 6px 12px;
+  padding: 6px 14px;
   font-size: 12px;
-  color: #0066cc;
+  color: #2563eb;
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
 }
 
 .ai-suggestion-chip:hover {
-  background: #0066cc;
+  background: #3b82f6;
   color: white;
-  border-color: #0066cc;
+  border-color: #3b82f6;
 }
 
 /* Input de texto */
@@ -288,8 +289,8 @@
 
 .ai-chat-input:focus {
   outline: none;
-  border-color: #0066cc;
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .ai-chat-input::placeholder {
@@ -297,7 +298,7 @@
 }
 
 .ai-send-btn {
-  background: #0066cc;
+  background: #3b82f6;
   color: white;
   border: none;
   border-radius: 50%;
@@ -313,7 +314,7 @@
 }
 
 .ai-send-btn:hover {
-  background: #0052a3;
+  background: #2563eb;
   transform: scale(1.05);
 }
 
@@ -357,17 +358,18 @@
 .ai-article-link {
   display: inline-block;
   margin-top: 8px;
-  padding: 6px 12px;
-  background: #f0f4f8;
-  border-radius: 6px;
-  color: #0066cc;
+  padding: 6px 14px;
+  background: #eff6ff;
+  border-radius: 8px;
+  color: #2563eb;
   text-decoration: none;
   font-size: 12px;
   transition: background 0.2s;
+  border: 1px solid #bfdbfe;
 }
 
 .ai-article-link:hover {
-  background: #e0e8f4;
+  background: #dbeafe;
 }
 
 /* Fonte da resposta (guia vs conhecimento técnico) */

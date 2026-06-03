@@ -1,148 +1,298 @@
-.android-button {
-  position: fixed;
-  top: 18px;
-  left: 80px;
-  width: 42px;
-  height: 42px;
+/* ===============================
+   PLATFORM TABS - Clean Design
+================================ */
+
+.platform-tabs {
+  margin-top: 16px;
+}
+
+/* Tabs Header */
+.tabs-header {
+  display: flex;
+  background: #f3f4f6;
   border-radius: 12px;
-  background: rgba(255,255,255,0.06);
+  padding: 4px;
+  gap: 4px;
+}
+
+/* Tab Buttons */
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #7dd3fc;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.tab-btn i {
+  font-size: 15px;
+}
+
+.tab-btn:hover {
+  color: #374151;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Active Tab */
+.tab-btn.active {
+  background: #ffffff;
+  color: #1a1a1a;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Tabs Content */
+.tabs-content {
+  margin-top: 12px;
+}
+
+/* Tab Panels */
+.tab-panel {
+  display: none;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.tab-panel ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.tab-panel li {
+  margin-bottom: 10px;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.tab-panel li:last-child {
+  margin-bottom: 0;
+}
+
+.tab-panel strong {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.tab-panel em {
+  font-style: italic;
+  color: #6b7280;
+}
+
+/* Copyable Panel */
+.tab-panel[data-copy] {
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.tab-panel[data-copy]:hover {
+  border-color: #d1d5db;
+}
+
+/* Copied Feedback */
+.tab-panel.copied::after {
+  content: "Copiado ✓";
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 12px;
+  color: #10b981;
+  font-weight: 600;
+  background: #f0fdf4;
+  padding: 4px 10px;
+  border-radius: 8px;
+  animation: fadeInOut 2s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-4px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ===============================
+   HOME BUTTON
+================================ */
+
+.home-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
   text-decoration: none;
   z-index: 1000;
-  transition: 
-    background .2s ease,
-    transform .2s ease,
-    box-shadow .2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
 }
 
-
-@media (max-width: 600px) {
-  .android-button {
-    width: 46px;
-    height: 46px;
-    border-radius: 14px;
-  }
-
-  .android-button i {
-    font-size: 20px;
-   
-  }
+.home-button:hover {
+  background: #f9fafb;
+  color: #374151;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+.home-button i {
+  font-size: 18px;
+}
+
+/* Android Button variant */
+.android-button {
+  position: fixed;
+  top: 20px;
+  left: 72px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  text-decoration: none;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
 
 .android-button:hover {
-  background: rgba(125,211,252,0.18);
+  background: #f9fafb;
+  color: #374151;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .android-button i {
   font-size: 18px;
 }
 
-/* ===== Subabas por plataforma ===== */
+/* ===============================
+   DARK MODE - Tabs
+================================ */
 
-.platform-tabs {
-  margin-top: 16px;
-  color: #ffffff;
+[data-theme="dark"] .tabs-header {
+  background: #2a2a2a;
 }
 
-/* Cabeçalho das abas */
-.tabs-header {
-  display: flex;
-  background: rgba(255,255,255,0.04);
-  border-radius: 10px;
-  padding: 4px;
-  gap: 4px;
+[data-theme="dark"] .tab-btn {
+  color: var(--text-secondary);
 }
 
-/* Botões das abas */
-.tab-btn {
-  flex: 1;
-  background: transparent;
-  border: none;
-  padding: 10px 12px;
-  border-radius: 8px;
-  color: #9ca3af;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: 
-    background .2s ease,
-    color .2s ease;
+[data-theme="dark"] .tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.tab-btn i {
-  font-size: 16px;
+[data-theme="dark"] .tab-btn.active {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Aba ativa */
-.tab-btn.active {
-  background: rgba(125,211,252,0.18);
-  color: #ffffff;
+[data-theme="dark"] .tab-panel {
+  background: #252525;
+  border-color: var(--border-color);
 }
 
-/* Conteúdo das abas */
-.tabs-content {
-  margin-top: 12px;
+[data-theme="dark"] .tab-panel li {
+  color: var(--text-secondary);
 }
 
-/* Painéis */
-.tab-panel {
-  display: none;
-  position: relative;
-  background: #111827a0;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
-  padding: 14px 16px;
+[data-theme="dark"] .tab-panel strong {
+  color: var(--text-primary);
 }
 
-
-/* Painel ativo */
-.tab-panel.active {
-  display: block;
+[data-theme="dark"] .tab-panel em {
+  color: var(--text-muted);
 }
 
-/* Texto interno */
-.tab-panel ol {
-  padding-left: 18px;
-  margin: 0;
+[data-theme="dark"] .tab-panel[data-copy]:hover {
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-.tab-panel li {
-  margin-bottom: 10px;
-  line-height: 1.75;
+[data-theme="dark"] .tab-panel.copied::after {
+  color: #4ade80;
+  background: #14532d;
 }
 
-.tab-panel li:last-child {
-  margin-bottom: 0;
-}
-/* Painel copiável */
-.tab-panel[data-copy] {
-  cursor: pointer;
-  position: relative;
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+  .top-title {
+    padding: 32px 16px 24px;
+  }
+
+  .search-input {
+    padding: 16px 48px 16px 48px;
+    font-size: 16px;
+  }
+
+  .content {
+    width: min(100%, calc(100% - 32px));
+    margin: 0 auto 48px;
+  }
+
+  .topic-toggle {
+    padding: 16px 20px;
+    font-size: 15px;
+  }
+
+  .topic-body {
+    padding: 0 20px;
+  }
+
+  .topic-card.open .topic-body {
+    padding: 0 20px 20px;
+  }
+
+  .tab-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .tab-panel {
+    padding: 14px 16px;
+  }
 }
 
-/* Hover leve */
-.tab-panel[data-copy]:hover {
-  border-color: rgba(125,211,252,0.35);
-}
+@media (max-width: 480px) {
+  .home-button,
+  .android-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
 
-/* Feedback "Copiado" */
-.tab-panel.copied::after {
-  content: "Copiado ✓";
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  font-size: 12px;
-  color: #7dd3fc;
-  opacity: .9;
+  .android-button {
+    left: 60px;
+  }
 }
-

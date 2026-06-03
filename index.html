@@ -12,13 +12,26 @@
 </head>
 <body>
 <div class="top-title">
-  <header class="header-kyc">
-    <div class="header-copy">
-      <span class="pill">Guia KYC</span>
-      <h1 class="header-title">Resolução de problemas KYC</h1>
-      <p class="header-subtitle"></p>
+  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+    <i class="bi bi-moon" id="themeIcon"></i>
+  </button>
+  <div class="search-container">
+    <div class="search-wrapper">
+      <i class="bi bi-search search-icon"></i>
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="Pesquisar no Guia KYC..."
+        autocomplete="off"
+        aria-label="Pesquisar no Guia KYC"
+      >
+      <button id="clearSearch" class="clear-search" aria-label="Limpar pesquisa">
+        <i class="bi bi-x-lg"></i>
+      </button>
     </div>
-  </header>
+    <div class="search-info">19 tópicos</div>
+  </div>
 </div>
 <main class="content">
   <div class="space-bord">
@@ -715,7 +728,7 @@
 
     <h3>🧭 Orientação geral ao usuário</h3>
     <p>
-      Orientar o usuário a desativar qualquer VPN, Proxy ou recurso de mascaramento de localização antes de iniciar novamente o processo de validação.
+      Orientar o usuário a desativar any VPN, Proxy ou recurso de mascaramento de localização antes de iniciar novamente o processo de validação.
     </p>
 
     <div class="platform-tabs">
@@ -733,11 +746,11 @@
 
         <div class="tab-panel active" data-content="android" data-copy>
           <ol>
-            <li>Acesse <strong>Configurações &gt; Rede e Internet &gt; VPN</strong>.</li>
+            <li>Acesse <strong>Configurações > Rede e Internet > VPN</strong>.</li>
             <li>Verifique se existe alguma VPN ativa e selecione <strong>Desconectar</strong>.</li>
             <li>Se houver aplicativos de VPN instalados (como ProtonVPN, NordVPN, Turbo VPN, entre outros), feche ou desative o aplicativo.</li>
-            <li>Acesse <strong>Configurações &gt; Rede e Internet &gt; Proxy</strong> (ou configurações da rede Wi‑Fi utilizada) e confirme que não há Proxy configurado.</li>
-            <li>Em alguns aparelhos, também é recomendado desativar o <strong>DNS Privado</strong> em <strong>Configurações &gt; Rede e Internet &gt; DNS Privado</strong>, deixando como <strong>Automático</strong> ou <strong>Desativado</strong>.</li>
+            <li>Acesse <strong>Configurações > Rede e Internet > Proxy</strong> (ou configurações da rede Wi‑Fi utilizada) e confirme que não há Proxy configurado.</li>
+            <li>Em alguns aparelhos, também é recomendado desativar o <strong>DNS Privado</strong> em <strong>Configurações > Rede e Internet > DNS Privado</strong>, deixando como <strong>Automático</strong> ou <strong>Desativado</strong>.</li>
             <li>Feche completamente o navegador utilizado e abra novamente.</li>
             <li>Refaça o processo de validação utilizando uma conexão comum de internet, preferencialmente sem aplicativos de terceiros ativos.</li>
           </ol>
@@ -745,11 +758,11 @@
 
         <div class="tab-panel" data-content="ios" data-copy>
           <ol>
-            <li>Acesse <strong>Ajustes &gt; Geral &gt; VPN e Gerenciamento de Dispositivo</strong>.</li>
+            <li>Acesse <strong>Ajustes > Geral > VPN e Gerenciamento de Dispositivo</strong>.</li>
             <li>Se houver uma VPN ativa, selecione <strong>Desconectar</strong>.</li>
-            <li>Também verifique em <strong>Ajustes &gt; VPN</strong> se existe alguma conexão habilitada.</li>
+            <li>Também verifique em <strong>Ajustes > VPN</strong> se existe alguma conexão habilitada.</li>
             <li>Se utilizar aplicativos de VPN, feche ou desative os aplicativos instalados.</li>
-            <li>Acesse <strong>Ajustes &gt; Wi‑Fi &gt; [rede conectada] &gt; Configurar Proxy</strong> e deixe a opção como <strong>Desativado</strong>.</li>
+            <li>Acesse <strong>Ajustes > Wi‑Fi > [rede conectada] > Configurar Proxy</strong> e deixe a opção como <strong>Desativado</strong>.</li>
             <li>Feche completamente o navegador Safari e abra novamente.</li>
             <li>Refaça o processo de validação utilizando a conexão normal da internet.</li>
           </ol>
@@ -771,10 +784,625 @@
   </div>
 </section>
 
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-exclamation-triangle"></i> Erro 500 durante a validação</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      O usuário encontra um erro interno do servidor (Erro 500) ao tentar iniciar ou concluir o processo de validação KYC.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem "Erro 500" ou "Internal Server Error" exibida na tela.</li>
+      <li>Tela em branco após iniciar a validação.</li>
+      <li>Falha repentina durante o carregamento da jornada.</li>
+      <li>O erro ocorre mesmo após atualizar a página.</li>
+      <li>Pode aparecer em qualquer etapa do fluxo.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      Orientar o usuário a tentar ações básicas de troubleshooting antes de escalar o caso.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-header">
+        <button class="tab-btn active" data-tab="android">
+          <i class="bi bi-android2"></i> Android
+        </button>
+        <button class="tab-btn" data-tab="ios">
+          <i class="bi bi-apple"></i> iOS
+        </button>
+      </div>
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Atualize a página pressionando F5 ou puxando a tela para baixo (no mobile).</li>
+            <li>Limpe o cache do navegador (Configurações > Apps > Chrome > Limpar dados > Limpar cache).</li>
+            <li>Feche e abra o navegador novamente.</li>
+            <li>Verifique se há atualizações do navegador disponíveis.</li>
+            <li>Tente usar uma conexão de internet diferente (Wi-Fi/dados móveis).</li>
+            <li>Se persistir, aguarde alguns minutos e tente novamente.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Atualize a página puxando a tela para baixo.</li>
+            <li>Limpe o cache (Ajustes > Safari > Avançado > Dados dos Sites > Remover Todos os Dados).</li>
+            <li>Feche e abra o Safari novamente.</li>
+            <li>Verifique se há atualizações do iOS disponíveis.</li>
+            <li>Tente usar uma conexão de internet diferente.</li>
+            <li>Se persistir, aguarde alguns minutos e tente novamente.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      Erros 500 geralmente indicam problemas temporários no servidor ou na comunicação com serviços de terceiros.
+      Podem ser causados por sobrecarga do sistema, manutenção ou problemas de integração.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso o erro persista após as tentativas, coletar evidências (print ou gravação de tela) e encaminhar para análise da equipe técnica, informando horário exato e condições do erro.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-file-earmark-x"></i> Erro 404 durante a validação</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      O usuário encontra um erro 404 (Página não encontrada) ao acessar o fluxo de validação KYC.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem "404 - Página não encontrada" ou "Not Found".</li>
+      <li>O link de validação não abre corretamente.</li>
+      <li>A página é exibida como indisponível ou inexistente.</li>
+      <li>O erro ocorre imediatamente ao acessar o link.</li>
+      <li>Pode acontecer com links antigos ou compartilhados incorretamente.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      Geralmente este erro está relacionado ao link de acesso, não ao dispositivo ou navegador do usuário.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Solicite ao usuário que gere um novo acesso ao fluxo de validação.</li>
+            <li>Oriente a abrir o link diretamente pelo navegador, não por aplicativos de mensagem.</li>
+            <li>Verifique se o link foi copiado ou compartilhado corretamente (sem quebras).</li>
+            <li>Peça para evitar links antigos salvos em favoritos ou histórico.</li>
+            <li>Realize uma nova tentativa utilizando o link atualizado.</li>
+            <li>Se o problema persistir, reporte para geração de novo link.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Solicite ao usuário que gere um novo acesso ao fluxo de validação.</li>
+            <li>Oriente a abrir o link diretamente pelo Safari, não por apps de mensagem.</li>
+            <li>Verifique se o link foi copiado corretamente (sem quebras ou caracteres extras).</li>
+            <li>Peça para não usar links salvos em favoritos.</li>
+            <li>Realize uma nova tentativa com o link atualizado.</li>
+            <li>Se persistir, reporte para geração de novo link.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      O erro 404 ocorre quando o endereço acessado não existe mais, expirou, foi gerado incorretamente
+      ou quando há quebra no link durante o compartilhamento.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso um novo link apresente o mesmo comportamento, encaminhar para análise técnica com evidências do erro.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-wifi-off"></i> Erro 116 - Problema de conexão</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      O usuário encontra o erro 116 durante o carregamento ou execução da validação de identidade, indicando problemas de conectividade específicos.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem contendo "Erro 116" ou código similar.</li>
+      <li>Carregamento interrompido durante a validação.</li>
+      <li>Falha de comunicação com os serviços de validação.</li>
+      <li>O problema ocorre principalmente em determinadas redes.</li>
+      <li>Pode aparecer após início bem-sucedido do processo.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      Este erro está diretamente relacionado à qualidade e estabilidade da conexão com a internet.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-header">
+        <button class="tab-btn active" data-tab="android">
+          <i class="bi bi-android2"></i> Android
+        </button>
+        <button class="tab-btn" data-tab="ios">
+          <i class="bi bi-apple"></i> iOS
+        </button>
+      </div>
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Desative e reative a conexão com a internet (aguarde 20 segundos).</li>
+            <li>Troque entre Wi-Fi e dados móveis para testar.</li>
+            <li>Se estiver no Wi-Fi, aproxime-se do roteador.</li>
+            <li>Desative VPN, proxy ou aplicativos de rede segura.</li>
+            <li>Feche outros aplicativos que possam estar usando a internet.</li>
+            <li>Reinicie o roteador se possível.</li>
+            <li>Tente novamente em um local com melhor sinal.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Desative e reative a conexão (Modo Avião por 10 segundos).</li>
+            <li>Alterne entre Wi-Fi e dados móveis.</li>
+            <li>Se estiver no Wi-Fi, verifique a qualidade do sinal.</li>
+            <li>Desative VPN ou apps que alterem a conexão.</li>
+            <li>Feche outros apps em segundo plano.</li>
+            <li>Reinicie o roteador se estiver em Wi-Fi.</li>
+            <li>Mude para um local com melhor conectividade.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      O erro 116 indica instabilidade na comunicação entre o dispositivo e os servidores de validação,
+      geralmente causado por rede lenta, intermitente ou com muitas perdas de pacotes.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso persista após as validações de conectividade, encaminhar para análise com gravação de tela e informação da rede utilizada (operadora, tipo de conexão, velocidade).
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-credit-card"></i> Documento expirado ou inválido</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      O sistema rejeita o documento enviado por estar expirado, ser inválido ou não ser aceito no processo de validação KYC.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem indicando "Documento expirado" ou "Documento inválido".</li>
+      <li>Rejeição automática após envio da foto do documento.</li>
+      <li>Validação não avança após etapa de documento.</li>
+      <li>Mensagem específica sobre data de validade.</li>
+      <li>Indicação de que o tipo de documento não é aceito.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      É necessário utilizar um documento válido e dentro do prazo de validade para concluir a validação.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Verifique a data de validade do documento enviado.</li>
+            <li>Certifique-se de que está usando um documento aceito (RG, CNH, RNE, Passaporte).</li>
+            <li>Se o documento estiver expirado, solicite a renovação junto ao órgão emissor.</li>
+            <li>Utilize a versão mais recente do documento após renovação.</li>
+            <li>Certifique-se de que o documento está em bom estado de conservação.</li>
+            <li>Evite documentos rasgados, manchados ou com informações ilegíveis.</li>
+            <li>Refazer a validação com o documento válido.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Verifique a data de validade do documento.</li>
+            <li>Confirme que está usando documento aceito (RG, CNH, RNE, Passaporte).</li>
+            <li>Se expirado, providencie a renovação do documento.</li>
+            <li>Use a versão atualizada após renovação.</li>
+            <li>Garanta que o documento esteja em bom estado.</li>
+            <li>Evite documentos danificados ou com informações ilegíveis.</li>
+            <li>Refazer a validação com documento válido.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      Documentos expirados ou inválidos não podem ser usados para validação de identidade
+      por questões de segurança e conformidade com regulamentações do Banco Central e COAF.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Caso o usuário acredite que houve erro na validação do documento (ex: documento válido rejeitado),
+      coletar evidências e encaminhar para análise manual da equipe de compliance.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-people"></i> Problemas com selfie de comparação</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      Dificuldades específicas na etapa de comparação entre a selfie tirada durante o processo e a foto do documento.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem de "baixa similaridade" ou "comparação falhou".</li>
+      <li>Score de similaridade abaixo do threshold mínimo (geralmente 0.75).</li>
+      <li>Rejeição após múltiplas tentativas de selfie.</li>
+      <li>Indicação de que as fotos não correspondem.</li>
+      <li>Validação facial reprovada mesmo com rosto detectado.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      A comparação facial exige que a selfie seja tirada em condições ideais para maximizar a similaridade com a foto do documento.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Use um local com iluminação natural e uniforme, de preferência durante o dia.</li>
+            <li>Posicione o rosto de frente para a câmera, sem inclinar a cabeça.</li>
+            <li>Remova quaisquer acessórios: óculos, boné, máscara, brincos grandes.</li>
+            <li>Mantenha o cabelo afastado do rosto.</li>
+            <li>Certifique-se de que a câmera está limpa e sem manchas.</li>
+            <li>Tire a selfie na mesma posição e ângulo da foto do documento.</li>
+            <li>Evite expressões faciais exageradas; mantenha expressão neutra.</li>
+            <li>Não use filtros, maquiagem pesada ou alterações na aparência.</li>
+            <li>Se a foto do documento for antiga, considere atualizá-la.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Escolha um ambiente bem iluminado, preferencialmente com luz natural.</li>
+            <li>Fique de frente para a câmera, cabeça reta.</li>
+            <li>Retire óculos, boné, máscara e acessórios do rosto.</li>
+            <li>Prenda o cabelo se estiver solto.</li>
+            <li>Limpe a câmera frontal do iPhone.</li>
+            <li>Reproduza a mesma posição da foto do documento.</li>
+            <li>Mantenha expressão facial neutra e natural.</li>
+            <li>Evite filtros ou maquiagem que alterem os traços.</li>
+            <li>Se a foto do documento for muito antiga, atualize o documento.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      A comparação facial pode falhar devido a diferenças significativas entre a selfie e a foto do documento,
+      causadas por iluminação inadequada, ângulos diferentes, acessórios, mudanças na aparência ou foto do documento muito antiga.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Após seguir todas as orientações, se o problema persistir, o caso deve ser encaminhado para análise manual de similaridade facial pela equipe de validação.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-clock"></i> Timeout na validação</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      O processo de validação é interrompido automaticamente por exceder o tempo limite permitido para conclusão.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem de "tempo esgotado" ou "session expired".</li>
+      <li>Validação é interrompida no meio do processo.</li>
+      <li>Tela congela e depois exibe erro de timeout.</li>
+      <li>Ocorre geralmente após longas pausas entre etapas.</li>
+      <li>Pode acontecer em qualquer fase da validação.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      O processo de validação deve ser concluído de forma contínua, sem longas pausas entre as etapas.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Inicie uma nova validação a partir do início.</li>
+            <li>Certifique-se de ter todos os documentos necessários antes de começar.</li>
+            <li>Escolha um momento sem interrupções para realizar o processo.</li>
+            <li>Mantenha o aplicativo/navegador aberto durante todo o fluxo.</li>
+            <li>Não minimize o navegador ou troque de aplicativo durante a validação.</li>
+            <li>Complete todas as etapas de forma sequencial e sem pausas longas.</li>
+            <li>Se necessário, prepare o ambiente (iluminação, documentos) antes de iniciar.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Comece uma nova validação desde o início.</li>
+            <li>Tenha todos os documentos em mãos antes de iniciar.</li>
+            <li>Escolha um horário tranquilo, sem interrupções.</li>
+            <li>Mantenha o Safari/navegador em primeiro plano.</li>
+            <li>Não saia do app durante o processo.</li>
+            <li>Complete as etapas de forma contínua.</li>
+            <li>Prepare o ambiente (luz, documentos) antes de começar.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      Por motivos de segurança, as sessões de validação têm tempo limite para prevenção de fraudes
+      e garantia de que o processo seja realizado de forma contínua e pelo mesmo usuário.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Se o timeout ocorrer repetidamente sem pausas do usuário, pode indicar problemas técnicos.
+      Nesses casos, coletar evidências e encaminhar para análise da equipe técnica.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-globe-americas"></i> Problemas com documentos estrangeiros</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      Dificuldades específicas na validação de documentos emitidos por outros países ou para usuários estrangeiros residentes no Brasil.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem de "documento não reconhecido" para documentos estrangeiros.</li>
+      <li>Falha no OCR com documentos em outros idiomas.</li>
+      <li>Rejeição de passaportes ou RNE (Registro Nacional de Estrangeiro).</li>
+      <li>Erros na validação de documentos com caracteres especiais.</li>
+      <li>Dificuldades com documentos que não seguem padrão brasileiro.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      Documentos estrangeiros têm requisitos específicos para validação no sistema brasileiro.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Para estrangeiros residentes, utilize RNE (Registro Nacional de Estrangeiro) ou CRNM.</li>
+            <li>Passaportes são aceitos, mas devem estar válidos e em bom estado.</li>
+            <li>Certifique-se de que o documento está dentro do prazo de validade.</li>
+            <li>Fotografe o documento em superfície plana e bem iluminada.</li>
+            <li>Garanta que todas as informações estejam legíveis na foto.</li>
+            <li>Se o documento não tiver foto, pode ser necessária documentação adicional.</li>
+            <li>Em caso de dúvidas, entre em contato com o suporte para orientação específica.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Estrangeiros residentes devem usar RNE ou CRNM.</li>
+            <li>Passaportes válidos são aceitos para validação.</li>
+            <li>Verifique a data de validade do documento.</li>
+            <li>Tire a foto em local bem iluminado, documento plano.</li>
+            <li>Certifique-se de que os dados estão legíveis.</li>
+            <li>Documentos sem foto podem exigir verificação adicional.</li>
+            <li>Para dúvidas, contate o suporte para orientação.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      Documentos estrangeiros possuem formatos, idiomas e características diferentes dos documentos brasileiros,
+      o que pode exigir processos específicos de validação e, em alguns casos, verificação manual adicional.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Casos com documentos estrangeiros que apresentem erros persistentes devem ser encaminhados
+      para análise manual da equipe de compliance, que possui procedimentos específicos para estas situações.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-eye-slash"></i> Erros de biometria facial</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      Problemas específicos relacionados ao sistema de biometria facial e detecção de características do rosto.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Mensagem de "biometria falhou" ou "recurso facial não detectado".</li>
+      <li>Erros na detecção de pontos faciais específicos.</li>
+      <li>Falha na etapa de liveness com mensagem técnica.</li>
+      <li>Rejeição mesmo com rosto visível e bem iluminado.</li>
+      <li>Problemas com reconhecimento de profundidade facial.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      A biometria facial requer condições específicas de captura para funcionar corretamente.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Posicione o rosto centralizado na câmera, ocupando a maior parte do quadro.</li>
+            <li>Mantenha os olhos abertos e visíveis durante todo o processo.</li>
+            <li>Não use óculos escuros, mesmo que sejam de grau com lentes escuras.</li>
+            <li>Evite reflexos de luz nos óculos (se usar óculos de grau transparentes).</li>
+            <li>Mantenha uma distância adequada da câmera (nem muito perto, nem muito longe).</li>
+            <li>Siga as instruções de movimento (aproximar/afastar) de forma suave.</li>
+            <li>Certifique-se de que não há obstruções (mãos, cabelo, objetos) na frente do rosto.</li>
+            <li>Se usar máscara, remova-a completamente durante a validação.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Centralize o rosto na tela, preenchendo bem o quadro.</li>
+            <li>Mantenha os olhos abertos e claramente visíveis.</li>
+            <li>Remova óculos escuros completamente.</li>
+            <li>Cuidado com reflexos nos óculos de grau.</li>
+            <li>Mantenha distância adequada do iPhone.</li>
+            <li>Siga os movimentos solicitados de forma natural.</li>
+            <li>Garanta que nada obstrua o rosto.</li>
+            <li>Tire a máscara antes de iniciar.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      O sistema de biometria facial utiliza algoritmos avançados que requerem visibilidade completa
+      de pontos específicos do rosto para validação de segurança e prevenção de fraudes.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Se os erros persistirem após seguir todas as orientações, pode indicar necessidade de verificação manual
+      ou problemas técnicos específicos. Encaminhar para análise com detalhes do erro e tentativas realizadas.
+    </p>
+  </div>
+</section>
+
+<section class="topic-card" data-section>
+  <h2 class="topic-toggle"><span><i class="bi bi-universal-access"></i> Problemas de acessibilidade</span></h2>
+  <div class="topic-body">
+    <p class="intro">
+      Dificuldades enfrentadas por usuários com deficiências ou necessidades específicas durante o processo de validação KYC.
+    </p>
+
+    <h3>🔎 Como identificar</h3>
+    <ul>
+      <li>Usuário relata dificuldade com etapas visuais ou de movimento.</li>
+      <li>Problemas com leitores de tela ou tecnologias assistivas.</li>
+      <li>Dificuldade em seguir instruções de movimento ou posicionamento.</li>
+      <li>Barreiras relacionadas a deficiências motoras, visuais ou auditivas.</li>
+      <li>Necessidade de adaptações no processo padrão.</li>
+    </ul>
+
+    <h3>🧭 Orientação geral ao usuário</h3>
+    <p>
+      O sistema busca ser acessível, mas algumas etapas podem requerer adaptações ou suporte adicional.
+    </p>
+
+    <div class="platform-tabs">
+
+      <div class="tabs-content">
+
+        <div class="tab-panel active" data-content="android" data-copy>
+          <ol>
+            <li>Para deficiência visual: utilize recursos de acessibilidade do Android (TalkBack, ampliação).</li>
+            <li>Para dificuldade motora: peça ajuda de outra pessoa para posicionar o dispositivo.</li>
+            <li>Para deficiência auditiva: as instruções são principalmente visuais/texto.</li>
+            <li>Considere usar um dispositivo com tela maior se tiver dificuldade de visualização.</li>
+            <li>Ajuste as configurações de acessibilidade do dispositivo antes de iniciar.</li>
+            <li>Se necessário, realize o processo em um ambiente tranquilo, sem pressa.</li>
+            <li>Em caso de dificuldades significativas, entre em contato com o suporte para alternativas.</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" data-content="ios" data-copy>
+          <ol>
+            <li>Para deficiência visual: use VoiceOver e recursos de zoom do iOS.</li>
+            <li>Para limitação motora: solicite assistência para manusear o dispositivo.</li>
+            <li>Para deficiência auditiva: o processo é baseado em instruções visuais.</li>
+            <li>Use iPad ou iPhone com tela maior se necessário.</li>
+            <li>Configure acessibilidade (Ajustes > Acessibilidade) antes de começar.</li>
+            <li>Realize o processo em ambiente calmo, no seu próprio ritmo.</li>
+            <li>Para dificuldades acentuadas, contate o suporte para opções alternativas.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Por que isso acontece</h3>
+    <p>
+      Embora o sistema seja desenvolvido com diretrizes de acessibilidade, algumas etapas de validação KYC
+      (como reconhecimento facial e leitura de documentos) podem apresentar desafios para usuários com certas deficiências.
+    </p>
+
+    <h3>Próximos passos</h3>
+    <p>
+      Casos de usuários com deficiências que enfrentam barreiras significativas devem ser encaminhados
+      para a equipe de suporte, que pode oferecer alternativas ou procedimentos adaptados conforme necessário.
+    </p>
+  </div>
+</section>
+
 
 </div>
 
 
+  <div class="no-results">
+    <div class="no-results-icon">🔍</div>
+    <p>Nenhum tópico encontrado para sua busca.</p>
+    <p style="margin-top: 8px; font-size: 13px; color: #9ca3af;">Tente usar outros termos ou palavras-chave.</p>
+  </div>
 </main>
 
 </body>
