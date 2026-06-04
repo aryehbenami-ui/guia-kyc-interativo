@@ -55,7 +55,7 @@ function initCopyPanels() {
       // Don't copy if clicking a link
       if (e.target.closest('a')) return;
 
-      const text = panel.innerText;
+      const text = buildCopyText(panel);
       try {
         await navigator.clipboard.writeText(text);
         panel.classList.add('copied');
@@ -65,6 +65,29 @@ function initCopyPanels() {
       }
     });
   });
+}
+
+function buildCopyText(panel) {
+  const lines = [];
+  
+  // Get all child nodes and process them
+  panel.childNodes.forEach(node => {
+    if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() === 'ol') {
+      // Process ordered list with proper numbering
+      Array.from(node.querySelectorAll('li')).forEach((li, index) => {
+        const text = li.innerText.trim().replace(/\s+/g, ' ');
+        lines.push(`${index + 1}. ${text}`);
+      });
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      const text = node.innerText.trim();
+      if (text) lines.push(text);
+    } else if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent.trim();
+      if (text) lines.push(text);
+    }
+  });
+  
+  return lines.join('\n');
 }
 
 // ===============================
