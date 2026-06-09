@@ -41,8 +41,18 @@ function initAccordion() {
     toggle.addEventListener('click', () => {
       const card = toggle.closest('.topic-card');
       card.classList.toggle('open');
+      updateHomeButtonVisibility();
     });
   });
+}
+
+// Show/hide home button based on whether any topic is open
+function updateHomeButtonVisibility() {
+  const homeButton = document.getElementById('homeButton');
+  if (!homeButton) return;
+  
+  const anyOpen = document.querySelector('.topic-card.open');
+  homeButton.style.display = anyOpen ? 'flex' : 'none';
 }
 
 // ===============================

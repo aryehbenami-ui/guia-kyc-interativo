@@ -1,0 +1,1019 @@
+/* ============================================================================
+   INTERACTIVE KNOWLEDGE CENTER - Flowchart & Decision Tree Styles
+   Inspired by Linear, Notion, and Miro - Dark Mode First
+   ============================================================================ */
+
+/* ============================================================================
+   CSS VARIABLES - Dark Mode (Primary)
+   ============================================================================ */
+:root {
+  /* Background layers */
+  --fc-bg-primary: #0f0f0f;
+  --fc-bg-secondary: #1a1a1a;
+  --fc-bg-card: #1e1e1e;
+  --fc-bg-node: #252525;
+  --fc-bg-node-hover: #2a2a2a;
+  --fc-bg-panel: #181818;
+  
+  /* Text colors */
+  --fc-text-primary: #e5e5e5;
+  --fc-text-secondary: #a3a3a3;
+  --fc-text-muted: #737373;
+  --fc-text-accent: #60a5fa;
+  
+  /* Border colors */
+  --fc-border: #333333;
+  --fc-border-light: rgba(255, 255, 255, 0.06);
+  --fc-border-accent: rgba(96, 165, 250, 0.3);
+  
+  /* Accent colors */
+  --fc-accent: #60a5fa;
+  --fc-accent-hover: #93c5fd;
+  --fc-accent-glow: rgba(96, 165, 250, 0.15);
+  --fc-accent-light: rgba(96, 165, 250, 0.08);
+  
+  /* Status colors */
+  --fc-success: #4ade80;
+  --fc-success-bg: rgba(74, 222, 128, 0.1);
+  --fc-warning: #fbbf24;
+  --fc-warning-bg: rgba(251, 191, 36, 0.1);
+  --fc-error: #f87171;
+  --fc-error-bg: rgba(248, 113, 113, 0.1);
+  --fc-info: #60a5fa;
+  --fc-info-bg: rgba(96, 165, 250, 0.1);
+  
+  /* Node type colors */
+  --fc-node-start: #60a5fa;
+  --fc-node-question: #a78bfa;
+  --fc-node-action: #34d399;
+  --fc-node-decision: #fbbf24;
+  --fc-node-end: #f87171;
+  --fc-node-info: #60a5fa;
+  
+  /* Shadows */
+  --fc-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --fc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --fc-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --fc-shadow-glow: 0 0 20px rgba(96, 165, 250, 0.15);
+  
+  /* Transitions */
+  --fc-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Spacing */
+  --fc-node-width: 220px;
+  --fc-node-height: 100px;
+  --fc-h-gap: 80px;
+  --fc-v-gap: 60px;
+}
+
+/* Light mode overrides */
+[data-theme="light"] {
+  --fc-bg-primary: #fafafa;
+  --fc-bg-secondary: #ffffff;
+  --fc-bg-card: #ffffff;
+  --fc-bg-node: #f3f4f6;
+  --fc-bg-node-hover: #e5e7eb;
+  --fc-bg-panel: #f9fafb;
+  
+  --fc-text-primary: #1a1a1a;
+  --fc-text-secondary: #4b5563;
+  --fc-text-muted: #9ca3af;
+  --fc-text-accent: #2563eb;
+  
+  --fc-border: #e5e7eb;
+  --fc-border-light: rgba(0, 0, 0, 0.04);
+  --fc-border-accent: rgba(37, 99, 235, 0.3);
+  
+  --fc-accent: #2563eb;
+  --fc-accent-hover: #1d4ed8;
+  --fc-accent-glow: rgba(37, 99, 235, 0.15);
+  --fc-accent-light: rgba(37, 99, 235, 0.08);
+  
+  --fc-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --fc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --fc-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --fc-shadow-glow: 0 0 20px rgba(37, 99, 235, 0.1);
+}
+
+/* ============================================================================
+   MAIN CONTAINER
+   ============================================================================ */
+
+.flowchart-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--fc-bg-primary);
+  z-index: 999;
+  overflow: hidden;
+}
+
+.flowchart-container.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure flowchart view takes full available space */
+.flowchart-view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Canvas takes all remaining space after header and breadcrumbs */
+.flowchart-canvas {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+  min-height: 0; /* Important for flex children */
+}
+
+/* ============================================================================
+   FLOWCHART HEADER
+   ============================================================================ */
+
+.flowchart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--fc-bg-secondary);
+  border-bottom: 1px solid var(--fc-border);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.flowchart-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.flowchart-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  border: 1px solid var(--fc-border);
+  border-radius: 10px;
+  color: var(--fc-text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--fc-transition);
+}
+
+.flowchart-back-btn:hover {
+  background: var(--fc-bg-node);
+  color: var(--fc-text-primary);
+  border-color: var(--fc-border-accent);
+}
+
+.flowchart-back-btn i {
+  font-size: 16px;
+}
+
+.flowchart-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--fc-text-primary);
+  margin: 0;
+}
+
+.flowchart-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.flowchart-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.flowchart-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--fc-border);
+  border-radius: 10px;
+  color: var(--fc-text-secondary);
+  cursor: pointer;
+  transition: var(--fc-transition);
+}
+
+.flowchart-action-btn:hover {
+  background: var(--fc-bg-node);
+  color: var(--fc-text-primary);
+  border-color: var(--fc-border-accent);
+}
+
+.flowchart-action-btn.active {
+  background: var(--fc-accent-light);
+  color: var(--fc-accent);
+  border-color: var(--fc-border-accent);
+}
+
+/* ============================================================================
+   BREADCRUMBS
+   ============================================================================ */
+
+.flowchart-breadcrumbs {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--fc-bg-panel);
+  border-bottom: 1px solid var(--fc-border-light);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+  content: '›';
+  color: var(--fc-text-muted);
+  font-size: 14px;
+}
+
+.breadcrumb-link {
+  padding: 4px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--fc-text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--fc-transition);
+}
+
+.breadcrumb-link:hover {
+  background: var(--fc-bg-node);
+  color: var(--fc-text-primary);
+}
+
+.breadcrumb-link.active {
+  background: var(--fc-accent-light);
+  color: var(--fc-accent);
+  font-weight: 500;
+}
+
+.breadcrumb-link.current {
+  color: var(--fc-text-primary);
+  font-weight: 500;
+}
+
+.flowchart-canvas:active {
+  cursor: grabbing;
+}
+
+.flowchart-canvas-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Width and height are set dynamically via JavaScript */
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* Grid background */
+.flowchart-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(var(--fc-border-light) 1px, transparent 1px),
+    linear-gradient(90deg, var(--fc-border-light) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* SVG connections layer */
+.flowchart-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flowchart-connections path {
+  fill: none;
+  stroke: var(--fc-border);
+  stroke-width: 2;
+  transition: var(--fc-transition);
+}
+
+.flowchart-connections path.active {
+  stroke: var(--fc-accent);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 4px var(--fc-accent-glow));
+}
+
+.flowchart-connections path.traversed {
+  stroke: var(--fc-accent);
+  stroke-opacity: 0.4;
+}
+
+/* ============================================================================
+   FLOWCHART NODES
+   ============================================================================ */
+
+.flowchart-nodes {
+  position: relative;
+  z-index: 2;
+}
+
+.fc-node {
+  position: absolute;
+  width: var(--fc-node-width);
+  min-height: var(--fc-node-height);
+  background: var(--fc-bg-node);
+  border: 1px solid var(--fc-border);
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: var(--fc-transition);
+  user-select: none;
+}
+
+.fc-node:hover {
+  background: var(--fc-bg-node-hover);
+  border-color: var(--fc-border-accent);
+  box-shadow: var(--fc-shadow-md), var(--fc-shadow-glow);
+  transform: translateY(-2px);
+}
+
+.fc-node.active {
+  border-color: var(--fc-accent);
+  box-shadow: var(--fc-shadow-lg), var(--fc-shadow-glow);
+}
+
+.fc-node.visited {
+  border-color: var(--fc-accent);
+  border-opacity: 0.3;
+}
+
+/* Node types */
+.fc-node--start {
+  border-left: 4px solid var(--fc-node-start);
+}
+
+.fc-node--question {
+  border-left: 4px solid var(--fc-node-question);
+}
+
+.fc-node--action {
+  border-left: 4px solid var(--fc-node-action);
+}
+
+.fc-node--decision {
+  border-left: 4px solid var(--fc-node-decision);
+}
+
+.fc-node--end {
+  border-left: 4px solid var(--fc-node-end);
+}
+
+.fc-node--info {
+  border-left: 4px solid var(--fc-node-info);
+}
+
+/* Node header */
+.fc-node-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.fc-node-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.fc-node--start .fc-node-icon {
+  background: rgba(96, 165, 250, 0.15);
+  color: var(--fc-node-start);
+}
+
+.fc-node--question .fc-node-icon {
+  background: rgba(167, 139, 250, 0.15);
+  color: var(--fc-node-question);
+}
+
+.fc-node--action .fc-node-icon {
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--fc-node-action);
+}
+
+.fc-node--decision .fc-node-icon {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--fc-node-decision);
+}
+
+.fc-node--end .fc-node-icon {
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--fc-node-end);
+}
+
+.fc-node--info .fc-node-icon {
+  background: rgba(96, 165, 250, 0.15);
+  color: var(--fc-node-info);
+}
+
+.fc-node-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fc-text-primary);
+  line-height: 1.3;
+}
+
+/* Node body */
+.fc-node-body {
+  font-size: 13px;
+  color: var(--fc-text-secondary);
+  line-height: 1.5;
+}
+
+/* Node footer with actions */
+.fc-node-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--fc-border-light);
+}
+
+.fc-node-action-btn {
+  padding: 6px 12px;
+  background: var(--fc-bg-card);
+  border: 1px solid var(--fc-border);
+  border-radius: 8px;
+  color: var(--fc-text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: var(--fc-transition);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fc-node-action-btn:hover {
+  background: var(--fc-accent-light);
+  border-color: var(--fc-border-accent);
+  color: var(--fc-accent);
+}
+
+.fc-node-action-btn--primary {
+  background: var(--fc-accent);
+  border-color: var(--fc-accent);
+  color: white;
+}
+
+.fc-node-action-btn--primary:hover {
+  background: var(--fc-accent-hover);
+}
+
+/* ============================================================================
+   THEME SELECTION SCREEN
+   ============================================================================ */
+
+.theme-selection {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Home button - returns to main page */
+.fc-home-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  background: var(--fc-bg-card);
+  border: 1px solid var(--fc-border);
+  border-radius: 12px;
+  color: var(--fc-text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+  transition: var(--fc-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.fc-home-btn:hover {
+  background: var(--fc-accent-light);
+  border-color: var(--fc-border-accent);
+  color: var(--fc-accent);
+  transform: translateY(-2px);
+  box-shadow: var(--fc-shadow-md);
+}
+
+.fc-home-btn:active {
+  transform: translateY(0);
+}
+
+.theme-selection-header {
+  padding: 32px 24px 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.theme-selection-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--fc-text-primary);
+  margin: 0 0 8px;
+}
+
+.theme-selection-subtitle {
+  font-size: 15px;
+  color: var(--fc-text-muted);
+  margin: 0;
+}
+
+/* Theme search */
+.theme-search-container {
+  padding: 0 24px 24px;
+  flex-shrink: 0;
+}
+
+.theme-search {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.theme-search input {
+  width: 100%;
+  padding: 14px 20px 14px 48px;
+  background: var(--fc-bg-node);
+  border: 1px solid var(--fc-border);
+  border-radius: 14px;
+  color: var(--fc-text-primary);
+  font-size: 15px;
+  transition: var(--fc-transition);
+}
+
+.theme-search input:focus {
+  outline: none;
+  border-color: var(--fc-accent);
+  box-shadow: 0 0 0 4px var(--fc-accent-light);
+}
+
+.theme-search input::placeholder {
+  color: var(--fc-text-muted);
+}
+
+.theme-search i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--fc-text-muted);
+}
+
+/* Category filters */
+.theme-filters {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.theme-filter-btn {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--fc-border);
+  border-radius: 20px;
+  color: var(--fc-text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--fc-transition);
+}
+
+.theme-filter-btn:hover {
+  background: var(--fc-bg-node);
+  border-color: var(--fc-border-accent);
+}
+
+.theme-filter-btn.active {
+  background: var(--fc-accent-light);
+  border-color: var(--fc-accent);
+  color: var(--fc-accent);
+}
+
+/* Theme cards grid */
+.theme-cards-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px 32px;
+}
+
+.theme-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.theme-card {
+  background: var(--fc-bg-card);
+  border: 1px solid var(--fc-border);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: var(--fc-transition);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.theme-card:hover {
+  border-color: var(--fc-accent);
+  box-shadow: var(--fc-shadow-md), var(--fc-shadow-glow);
+  transform: translateY(-4px);
+}
+
+.theme-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.theme-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: var(--fc-accent-light);
+  color: var(--fc-accent);
+  flex-shrink: 0;
+}
+
+.theme-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.theme-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fc-text-primary);
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theme-card-count {
+  font-size: 12px;
+  color: var(--fc-text-muted);
+}
+
+.theme-card-description {
+  font-size: 13px;
+  color: var(--fc-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.theme-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.theme-card-tag {
+  padding: 3px 8px;
+  background: var(--fc-bg-node);
+  border-radius: 6px;
+  font-size: 11px;
+  color: var(--fc-text-muted);
+}
+
+/* ============================================================================
+   SIDE PANEL (Node Details)
+   ============================================================================ */
+
+.flowchart-side-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100%;
+  background: var(--fc-bg-secondary);
+  border-left: 1px solid var(--fc-border);
+  z-index: 100;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--fc-shadow-lg);
+}
+
+.flowchart-side-panel.open {
+  right: 0;
+}
+
+.side-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--fc-border);
+  flex-shrink: 0;
+}
+
+.side-panel-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fc-text-primary);
+  margin: 0;
+}
+
+.side-panel-close {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid var(--fc-border);
+  border-radius: 8px;
+  color: var(--fc-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--fc-transition);
+}
+
+.side-panel-close:hover {
+  background: var(--fc-bg-node);
+  color: var(--fc-text-primary);
+}
+
+.side-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.side-panel-section {
+  margin-bottom: 24px;
+}
+
+.side-panel-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fc-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 12px;
+}
+
+.side-panel-section-content {
+  font-size: 14px;
+  color: var(--fc-text-secondary);
+  line-height: 1.6;
+}
+
+.side-panel-section-content ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.side-panel-section-content li {
+  margin-bottom: 6px;
+}
+
+/* ============================================================================
+   ZOOM CONTROLS
+   ============================================================================ */
+
+.zoom-controls {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--fc-bg-card);
+  border: 1px solid var(--fc-border);
+  border-radius: 12px;
+  padding: 6px;
+  z-index: 50;
+  box-shadow: var(--fc-shadow-md);
+}
+
+.zoom-btn {
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--fc-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--fc-transition);
+  font-size: 16px;
+}
+
+.zoom-btn:hover {
+  background: var(--fc-bg-node);
+  color: var(--fc-text-primary);
+}
+
+.zoom-separator {
+  height: 1px;
+  background: var(--fc-border);
+  margin: 4px 0;
+}
+
+.zoom-level {
+  font-size: 12px;
+  color: var(--fc-text-muted);
+  text-align: center;
+  padding: 4px;
+}
+
+/* ============================================================================
+   MINI MAP
+   ============================================================================ */
+
+.mini-map {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 180px;
+  height: 120px;
+  background: var(--fc-bg-card);
+  border: 1px solid var(--fc-border);
+  border-radius: 12px;
+  z-index: 50;
+  box-shadow: var(--fc-shadow-md);
+  overflow: hidden;
+}
+
+.mini-map-viewport {
+  position: absolute;
+  border: 2px solid var(--fc-accent);
+  background: var(--fc-accent-light);
+  cursor: move;
+}
+
+/* ============================================================================
+   NO RESULTS
+   ============================================================================ */
+
+.no-themes-found {
+  text-align: center;
+  padding: 64px 24px;
+  color: var(--fc-text-muted);
+}
+
+.no-themes-found-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.no-themes-found p {
+  font-size: 15px;
+  margin: 0;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .flowchart-header {
+    padding: 12px 16px;
+  }
+  
+  .flowchart-title {
+    font-size: 16px;
+  }
+  
+  .theme-selection-title {
+    font-size: 24px;
+  }
+  
+  .theme-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .flowchart-side-panel {
+    width: 100%;
+    right: -100%;
+  }
+  
+  .mini-map {
+    display: none;
+  }
+  
+  :root {
+    --fc-node-width: 180px;
+    --fc-h-gap: 40px;
+    --fc-v-gap: 40px;
+  }
+}
+
+/* ============================================================================
+   ANIMATIONS
+   ============================================================================ */
+
+@keyframes nodeAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.fc-node.animate-in {
+  animation: nodeAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: var(--fc-shadow-md), var(--fc-shadow-glow);
+  }
+  50% {
+    box-shadow: var(--fc-shadow-md), 0 0 30px var(--fc-accent-glow);
+  }
+}
+
+.fc-node.active {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Connection line animation */
+@keyframes flowAnimation {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.flowchart-connections path.animating {
+  stroke-dasharray: 10 5;
+  animation: flowAnimation 1s linear infinite;
+}

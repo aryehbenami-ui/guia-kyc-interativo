@@ -129,40 +129,9 @@
 }
 
 /* ===============================
-   HOME BUTTON
+   ANDROID BUTTON (variant)
 ================================ */
 
-.home-button {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6b7280;
-  text-decoration: none;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e5e7eb;
-  transition: all 0.2s ease;
-}
-
-.home-button:hover {
-  background: #f9fafb;
-  color: #374151;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.home-button i {
-  font-size: 18px;
-}
-
-/* Android Button variant */
 .android-button {
   position: fixed;
   top: 20px;
@@ -170,27 +139,41 @@
   width: 44px;
   height: 44px;
   border-radius: 14px;
-  background: #ffffff;
+  background: var(--bg-card);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6b7280;
+  color: var(--text-body);
   text-decoration: none;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  border: 1px solid var(--border-color);
   transition: all 0.2s ease;
 }
 
 .android-button:hover {
-  background: #f9fafb;
-  color: #374151;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px var(--shadow-hover);
 }
 
 .android-button i {
   font-size: 18px;
+}
+
+/* Android Button - Dark Mode */
+[data-theme="dark"] .android-button {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-body);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+[data-theme="dark"] .android-button:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  box-shadow: 0 4px 12px var(--shadow-hover);
 }
 
 /* ===============================
