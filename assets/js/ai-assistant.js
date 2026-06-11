@@ -494,6 +494,8 @@ class KYCAIAssistant {
     this.createModal();
     this.bindEvents();
     this.addWelcomeMessage();
+    // Esconder o botão inicialmente - chat só aparece com atalho
+    this.button.style.display = 'none';
   }
 
   createButton() {
@@ -590,8 +592,14 @@ class KYCAIAssistant {
       });
     });
 
-    // Esc para fechar
+    // Atalhos de teclado
     document.addEventListener('keydown', (e) => {
+      // Ctrl + Alt + C para abrir/fechar o chat
+      if (e.ctrlKey && e.altKey && e.key === 'c') {
+        e.preventDefault();
+        this.toggle();
+      }
+      // Esc para fechar
       if (e.key === 'Escape' && this.isOpen) {
         this.close();
       }
@@ -616,7 +624,7 @@ class KYCAIAssistant {
 
   close() {
     this.isOpen = false;
-    this.button.style.display = 'flex';
+    this.button.style.display = 'none';
     this.modal.classList.remove('open');
     this.overlay.classList.remove('visible');
   }
@@ -1072,13 +1080,14 @@ Recomendo:
   }
 }
 
+// Chat de IA desativado temporariamente para redução de custos
 // Inicializar quando DOM estiver pronto
-document.addEventListener('DOMContentLoaded', () => {
-  // Verificar se já não foi inicializado
-  if (!window.kycAIAssistant) {
-    window.kycAIAssistant = new KYCAIAssistant();
-  }
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//   // Verificar se já não foi inicializado
+//   if (!window.kycAIAssistant) {
+//     window.kycAIAssistant = new KYCAIAssistant();
+//   }
+// });
 
 // Exportar para uso global (caso necessário)
 window.KYCAIAssistant = KYCAIAssistant;

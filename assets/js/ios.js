@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearch();
   initCopyPanels();
   initDarkMode();
+  // Ensure home button is hidden on page load (especially on main page)
+  updateHomeButtonVisibility();
 });
 
 // ===============================
@@ -47,9 +49,20 @@ function initAccordion() {
 }
 
 // Show/hide home button based on whether any topic is open
+// Note: Home button should only appear on Knowledge Center page, not on main Guia KYC page
 function updateHomeButtonVisibility() {
   const homeButton = document.getElementById('homeButton');
   if (!homeButton) return;
+  
+  // Check if we're on the main page (index.html) - home button should not appear there
+  const isMainPage = window.location.pathname.endsWith('/index.html') || 
+                     window.location.pathname === '/' || 
+                     window.location.pathname === '';
+  
+  if (isMainPage) {
+    homeButton.style.display = 'none';
+    return;
+  }
   
   const anyOpen = document.querySelector('.topic-card.open');
   homeButton.style.display = anyOpen ? 'flex' : 'none';
