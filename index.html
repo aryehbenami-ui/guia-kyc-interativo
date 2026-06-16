@@ -39,7 +39,7 @@
         <i class="bi bi-x-lg"></i>
       </button>
     </div>
-    <div class="search-info">19 tópicos</div>
+    <div class="search-info">20 tópicos</div>
   </div>
 </div>
 <main class="content">
@@ -1003,51 +1003,61 @@
 </section>
 
 <section class="topic-card" data-section>
-  <h2 class="topic-toggle"><span><i class="bi bi-credit-card"></i> Documento expirado ou inválido</span></h2>
+  <h2 class="topic-toggle"><span><i class="bi bi-x-circle"></i> Erro 16 durante a validação</span></h2>
   <div class="topic-body">
     <p class="intro">
-      O sistema rejeita o documento enviado por estar expirado, ser inválido ou não ser aceito no processo de validação KYC.
+      O usuário recebe o erro 16 ao tentar iniciar ou prosseguir com a validação de identidade.
     </p>
 
     <h3>🔎 Como identificar</h3>
     <ul>
-      <li>Mensagem indicando "Documento expirado" ou "Documento inválido".</li>
-      <li>Rejeição automática após envio da foto do documento.</li>
-      <li>Validação não avança após etapa de documento.</li>
-      <li>Mensagem específica sobre data de validade.</li>
-      <li>Indicação de que o tipo de documento não é aceito.</li>
+      <li>Mensagem contendo "Erro 16" ou "Access Denied".</li>
+      <li>A validação não inicia corretamente.</li>
+      <li>O erro ocorre logo após abrir o fluxo.</li>
+      <li>Bloqueio antes da captura de documentos ou selfie.</li>
     </ul>
 
     <h3>🧭 Orientação geral ao usuário</h3>
     <p>
-      É necessário utilizar um documento válido e dentro do prazo de validade para concluir a validação.
+      O erro 16 está normalmente relacionado ao ambiente do usuário, podendo estar associado à rede utilizada, configurações do dispositivo, permissões do navegador ou interferências de aplicativos de terceiros.
     </p>
 
     <div class="platform-tabs">
+
+      <div class="tabs-header">
+        <button class="tab-btn active" data-tab="android">
+          <i class="bi bi-android2"></i> Android
+        </button>
+        <button class="tab-btn" data-tab="ios">
+          <i class="bi bi-apple"></i> iOS
+        </button>
+      </div>
 
       <div class="tabs-content">
 
         <div class="tab-panel active" data-content="android" data-copy>
           <ol>
-            <li>Verifique a data de validade do documento enviado.</li>
-            <li>Certifique-se de que está usando um documento aceito (RG, CNH, RNE, Passaporte).</li>
-            <li>Se o documento estiver expirado, solicite a renovação junto ao órgão emissor.</li>
-            <li>Utilize a versão mais recente do documento após renovação.</li>
-            <li>Certifique-se de que o documento está em bom estado de conservação.</li>
-            <li>Evite documentos rasgados, manchados ou com informações ilegíveis.</li>
-            <li>Refazer a validação com o documento válido.</li>
+            <li>Desative VPN, Proxy ou DNS Privado.</li>
+            <li>Verifique se as permissões de Localização e Câmera estão habilitadas.</li>
+            <li>Feche completamente o navegador e abra novamente.</li>
+            <li>Limpe o cache e cookies do navegador.</li>
+            <li>Alterne entre Wi-Fi e dados móveis.</li>
+            <li>Teste em outro navegador compatível.</li>
+            <li>Reinicie o dispositivo.</li>
+            <li>Realize uma nova tentativa.</li>
           </ol>
         </div>
 
         <div class="tab-panel" data-content="ios" data-copy>
           <ol>
-            <li>Verifique a data de validade do documento.</li>
-            <li>Confirme que está usando documento aceito (RG, CNH, RNE, Passaporte).</li>
-            <li>Se expirado, providencie a renovação do documento.</li>
-            <li>Use a versão atualizada após renovação.</li>
-            <li>Garanta que o documento esteja em bom estado.</li>
-            <li>Evite documentos danificados ou com informações ilegíveis.</li>
-            <li>Refazer a validação com documento válido.</li>
+            <li>Desative VPN, Proxy ou DNS Privado.</li>
+            <li>Verifique se as permissões de Localização e Câmera estão habilitadas.</li>
+            <li>Feche completamente o navegador e abra novamente.</li>
+            <li>Limpe o cache e cookies do navegador.</li>
+            <li>Alterne entre Wi-Fi e dados móveis.</li>
+            <li>Teste em outro navegador compatível.</li>
+            <li>Reinicie o dispositivo.</li>
+            <li>Realize uma nova tentativa.</li>
           </ol>
         </div>
 
@@ -1056,14 +1066,12 @@
 
     <h3>Por que isso acontece</h3>
     <p>
-      Documentos expirados ou inválidos não podem ser usados para validação de identidade
-      por questões de segurança e conformidade com regulamentações do Banco Central e COAF.
+      Segundo o fornecedor, o erro 16 está normalmente relacionado ao ambiente do usuário, podendo estar associado à rede utilizada, configurações do dispositivo, permissões do navegador ou interferências de aplicativos de terceiros.
     </p>
 
     <h3>Próximos passos</h3>
     <p>
-      Caso o usuário acredite que houve erro na validação do documento (ex: documento válido rejeitado),
-      coletar evidências e encaminhar para análise manual do provedor.
+      Caso persista após as validações básicas, encaminhar para análise com gravação de tela, modelo do dispositivo, navegador utilizado e rede utilizada na tentativa.
     </p>
   </div>
 </section>
